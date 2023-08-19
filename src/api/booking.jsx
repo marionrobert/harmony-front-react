@@ -72,21 +72,21 @@ export const deleteOneBooking = (id) => {
 export const validateAchievementByBeneficiary = (id) => {
   return axios.put(`${config.api_url}/api/v1/bookings/validate-achievement/beneficiary/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios deleteOneBooking -->", res)
+    console.log("res de requête axios validateAchievementByBeneficiary -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios deleteOneBooking -->", err)
+    console.log("err de requête axios validateAchievementByBeneficiary -->", err)
   })
 }
 
 export const validateAchievementByProvider = (id) => {
   return axios.put(`${config.api_url}/api/v1/bookings/validate-achievement/provider/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios deleteOneBooking -->", res)
+    console.log("res de requête axios validateAchievementByProvider -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios deleteOneBooking -->", err)
+    console.log("err de requête axios validateAchievementByProvider -->", err)
   })
 }
