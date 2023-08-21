@@ -8,7 +8,6 @@ function App() {
     <>
       <Header />
       <main>
-        <p>Welcome to Harmony!</p>
       </main>
       <Footer />
     </>
