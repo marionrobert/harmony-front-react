@@ -11,7 +11,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loginUser: (state, action) => {
+    setUser: (state, action) => {
       state.data = action.payload,
       state.isLogged = true
     },
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
 })
 
 // fonctions écoutées par le reducer = actions --> accès de react-redux aux states depuis n'importe quel composant
-export const {log, logoutUser} = userSlice.actions
+export const {setUser, logoutUser} = userSlice.actions
 
 // déclaration de la state manipulable dans les composants
 export const selectUser = state => state.user

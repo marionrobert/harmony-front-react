@@ -10,14 +10,14 @@ export const activitySlice = createSlice({
   name: "activities",
   initialState,
   reducers: {
-    getAllOnlineActivities: (state, action) => {
+    setOnlineActivities: (state, action) => {
       state.activities = action.payload
     } // réception dans l'argument action de la valeur retournée par la requète axios dans nos composants
   }
 })
 
 // fonctions écoutées par le reducer = actions --> accès de react-redux aux states depuis n'importe quel composant
-export const {getAllOnlineActivities} = activitySlice.actions
+export const {setOnlineActivities} = activitySlice.actions
 
 // déclaration de la state manipulable dans les composants
 export const selectActivities = state => state.activities
