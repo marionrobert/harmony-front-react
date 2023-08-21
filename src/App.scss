@@ -1,0 +1,153 @@
+// #root {
+//   max-width: 1280px;
+//   margin: 0 auto;
+//   padding: 2rem;
+//   text-align: center;
+// }
+
+// .logo {
+//   height: 6em;
+//   padding: 1.5em;
+//   will-change: filter;
+//   transition: filter 300ms;
+// }
+// .logo:hover {
+//   filter: drop-shadow(0 0 2em #646cffaa);
+// }
+// .logo.react:hover {
+//   filter: drop-shadow(0 0 2em #61dafbaa);
+// }
+
+// @keyframes logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// @media (prefers-reduced-motion: no-preference) {
+//   a:nth-of-type(2) .logo {
+//     animation: logo-spin infinite 20s linear;
+//   }
+// }
+
+
+// normalize css
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: whitesmoke;
+}
+
+body {
+	line-height: 1;
+  text-align: center;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+main {
+  margin: 60px 0 0 0;
+  height: 100vh;
+}
+
+// ******** HEADER ********* //
+header {
+  background-color: rgb(246, 237, 222);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  z-index: 3;
+  padding: 0.2rem;
+
+  nav#navbar-menu {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div#brand {
+      display: flex;
+      align-items: center;
+      span {
+        font-family: 'Pacifico', cursive;
+        font-size: 1.5rem;
+      };
+      img.brand-icon {
+        width: 50px;
+        height: auto;
+        background-color: white;
+        border-radius: 50px;
+      }
+    }
+  }
+}
+
+main {
+  margin: 70px 0 0 0;
+  height: 100vh;
+}
+
+footer {
+  background-color: rgb(246, 237, 222);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+footer > * {
+  padding: 0 0.5rem;
+}
