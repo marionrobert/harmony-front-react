@@ -74,6 +74,7 @@ const Login = () => {
         <input type="password" name="password" onChange={handleChange} required/>
         <button type="submit" disabled={disabled}>Se connecter</button>
       </form>
+      <Link to="/forgot">Mot de passe oublié ?</Link>
     </>
   )
 }
