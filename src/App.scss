@@ -92,15 +92,22 @@ table {
 }
 
 
+
+// ******** MY NORMALIZE CSS ********* //
 a {
   text-decoration: none;
   color: black;
 }
 
 main {
-  margin: 60px 0 0 0;
+  margin: 70px 0 0 0;
   height: 100vh;
 }
+
+.error {
+  color: rgb(109, 7, 26);
+}
+
 
 // ******** HEADER ********* //
 header {
@@ -136,26 +143,60 @@ header {
   }
 }
 
-main {
-  margin: 70px 0 0 0;
-  height: 100vh;
-  h1 {
-    padding-top: 0.5rem;
+// ******** HOME ********* //
+section.home-banner {
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.2)), url("https://plus.unsplash.com/premium_photo-1681965550198-c1c039421905?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+  background-size: cover;
+  background-position: center;
+  padding: 120px 20px;
+  color: white;
+  text-align: end;
+
+  > h1, p {
+    padding-top: 1rem;
+    color: rgba(246, 237, 222, 1);
+    text-shadow: 1px 1px 2px black;
   }
+
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    font-weight: lighter;
+  }
+
+  p {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  button.banner-btn {
+    /* width: 180px; */
+    padding: 0.7rem;
+    border-radius: 10px;
+    border: 0.5px solid rgb(0, 0, 0, 0);
+    margin-top: 2rem;
+    background-color: rgba(246, 237, 222, 0.8);;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+
+    :hover{
+      background-color: rgba(246, 237, 222, 1);
+    }
+
+    a {
+      font-size: 1.1rem;
+    }
+  }
+
 }
 
-.error {
-  color: rgb(109, 7, 26);
-}
-
+// ******** FOOTER ********* //
 footer {
   background-color: rgb(246, 237, 222);
   display:flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
-}
-
-footer > * {
-  padding: 0 0.5rem;
+  > * {
+    padding: 0 0.5rem;
+  }
 }

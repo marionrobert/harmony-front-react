@@ -20,7 +20,7 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/" element={<RequireDataAuth child={Home} auth={false} admin={false} />} />
 
           {/* LOGIN, LOGOUT, REGISTER, FORGOT, PROFILE */}
           <Route path="/register" element={<Register/>}/>
