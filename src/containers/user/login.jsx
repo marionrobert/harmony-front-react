@@ -66,7 +66,7 @@ const Login = () => {
     <>
       {redirect && <Navigate to="/" />}
       <h1>Se connecter</h1>
-      {error && <p className="error">{error}</p>}
+      {error !== null && <p className="error">{error}</p>}
       <form onSubmit={(e)=>{handleSubmit(e)}}>
         <label htmlFor="email">Votre adresse email</label>
         <input type="text" name="email" onChange={handleChange} required/>
