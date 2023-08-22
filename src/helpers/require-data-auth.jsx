@@ -1,11 +1,10 @@
 import {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 
-import {selectUser, setUser} from '../slices/userSlice'
+import {setUser} from '../slices/userSlice'
 import {selectActivities, setOnlineActivities} from '../slices/activitySlice'
-import {selectBasket, updateBasket, cleanBasket } from '../slices/basketSlice'
 
-import {Navigate, useParams, useLocation} from 'react-router-dom'
+import {Navigate, useParams} from 'react-router-dom'
 import {getAllOnlineActivities} from '../api/activity'
 
 import { config } from "../config";
@@ -79,7 +78,7 @@ const RequireDataAuth = (props) => {
         .catch((err) => { console.log("err checkmytoken -->", err)})
       }
     }
-  }, [props])
+  }, [props, dispatch, activities])
 
   if (redirectToHome){
     return <Navigate to="/"/>
@@ -89,8 +88,8 @@ const RequireDataAuth = (props) => {
     return <Navigate to="/login"/>
   }
 
-  //{...props} = transmet au composant enfant les props du parent (comme un relais)
-  //params = j'ai crée une une props qui envoi le params de l'url (récupéré en haut par useParams) vers le composant enfant
+  //{...props} = transmet les props du parent au composant enfant
+  //params = props qui envoie les params de l'url (récupéré avec useParams) vers le composant enfant
   return <Child {...props} params={params} />;
 }
 
