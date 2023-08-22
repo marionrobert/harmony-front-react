@@ -16,11 +16,11 @@ export const getAllActivities = () => {
 export const getAllOnlineActivities = () =>{
   return axios.get(`${config.api_url}/api/v1/activity/all/online`)
   .then((res)=>{
-    console.log("res de requête axios getAllOnlineActivities -->", res)
+    // console.log("res de requête axios getAllOnlineActivities -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios getAllOnlineActivities -->", err)
+    // console.log("err de requête axios getAllOnlineActivities -->", err)
   })
 }
 

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
-// import ActivityCard from "../components/activity-card"
+import ActivityCard from "../components/activity-card"
+import CommentCard from "../components/comment-card"
 import { useEffect, useState } from "react";
 
 //on importer des fonctions pour lire ou modifier les states globales présentes dans le store de redux
@@ -9,6 +10,8 @@ import {selectBasket, updateBasket} from "../slices/basketSlice"
 import { selectActivities, setOnlineActivities } from "../slices/activitySlice";
 
 import { getAllHighScoreComments } from "./../api/comment"
+
+
 
 
 const Home = () => {
@@ -39,10 +42,9 @@ const Home = () => {
       { allActivities.activities.length > 0 &&
         <section className="home-activities">
           <h2>Quelques activités à découvrir</h2>
-          <p>Ici il y aura un joli carrousel!</p>
           <ul>
           {allActivities.activities.slice(-10).map(activity => {
-            return (<li key={activity.id}>{activity.title}</li>)
+            return <ActivityCard key={activity.id} activity={activity} />
           })}
           </ul>
         </section>
@@ -50,19 +52,12 @@ const Home = () => {
 
       { comments.length > 0 &&
       <section className="home-comments">
-        <h2>Ils témoignent</h2>
-        <p>Ici il y aura un joli carrousel!</p>
-        <ul>
-          {comments.slice(-10).map(comment => {
-            return (<li key={comment.id}>{comment.title}</li>)
-          })}
-          </ul>
+        <h2>Ils ont essayé, ils ont adoré !</h2>
+        {comments.slice(-10).map(comment => {
+          return <CommentCard key={comment.id} comment={comment} />
+        })}
+
       </section>}
-
-
-
-
-
     </>
   );
 };

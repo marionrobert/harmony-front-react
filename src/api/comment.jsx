@@ -61,11 +61,11 @@ export const getAllCommentsByActivityId = (activity_id) => {
 export const getAllHighScoreComments = () => {
   return axios.get(`${config.api_url}/api/v1/comment/all/highscore`)
   .then((res)=>{
-    console.log("res de requête axiosgetAllHighScoreComments -->", res)
+    // console.log("res de requête axiosgetAllHighScoreComments -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axiosgetAllHighScoreComments -->", err)
+    // console.log("err de requête axiosgetAllHighScoreComments -->", err)
   })
 }
 
