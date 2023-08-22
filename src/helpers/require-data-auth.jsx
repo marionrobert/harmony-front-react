@@ -6,7 +6,6 @@ import {selectActivities, setOnlineActivities} from '../slices/activitySlice'
 import {selectBasket, updateBasket, cleanBasket } from '../slices/basketSlice'
 
 import {Navigate, useParams, useLocation} from 'react-router-dom'
-import {checkMyToken} from '../api/user'
 import {getAllOnlineActivities} from '../api/activity'
 
 import { config } from "../config";
@@ -14,7 +13,7 @@ import axios from "axios";
 
 
 // HOC de contrôle des datas et de la sécurité
-const RequireAuth = (props) => {
+const RequireDataAuth = (props) => {
   // récupération des params de la route
   const params = useParams()
 
@@ -46,7 +45,7 @@ const RequireAuth = (props) => {
       })
     }
 
-    if (props.auth) { // si la route est protégée
+    if (props.auth === true) { // si la route est protégée
       // récupération du token dans le localStorage
       let token = window.localStorage.getItem("harmony-token")
       console.log("recup token from require auth-->", token)
@@ -95,4 +94,4 @@ const RequireAuth = (props) => {
   return <Child {...props} params={params} />;
 }
 
-export default RequireAuth
+export default RequireDataAuth

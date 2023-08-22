@@ -8,10 +8,11 @@ import Home from './containers/home'
 import Login from "./containers/user/login"
 import Forgot from "./containers/user/forgot"
 import Register from "./containers/user/register"
+import Logout from "./containers/user/logout"
 
 import {Routes, Route} from 'react-router-dom'
-// import RequireAuth from './helpers/require-auth'
-// import {Navigate} from 'react-router-dom'
+import RequireDataAuth from './helpers/require-data-auth'
+import {Navigate} from 'react-router-dom'
 
 function App() {
   return (
@@ -19,10 +20,15 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/forgot" element={<Forgot/>}/>
+          <Route exact path="/" element={<Home />} />
+
+          {/* LOGIN, LOGOUT, REGISTER, FORGOT, PROFILE */}
           <Route path="/register" element={<Register/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route exact path="/logout" element={<RequireDataAuth child={Logout} auth={true} admin={false} />} />
+          <Route path="/forgot" element={<Forgot/>}/>
+
+          <Route exact path="*" element={<Navigate to="/"/>} />
         </Routes>
       </main>
       <Footer />
