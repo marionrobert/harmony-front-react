@@ -53,7 +53,7 @@ const RequireDataAuth = (props) => {
         setRedirectToLogin(true)
       } else { // l'utilisateur est connecté
         // vérification du format du token
-        axios.get(`${config.api_url}/api/v1/checkToken`, {headers: {"x-access-token": token}})
+        axios.get(`${config.api_url}/api/v1/user/checkToken`, {headers: {"x-access-token": token}})
         .then((res) => {
           if (res.data.status !== 200){ // format invalide
             // redirection + suppression token
