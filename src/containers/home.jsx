@@ -42,11 +42,9 @@ const Home = () => {
       { allActivities.activities.length > 0 &&
         <section className="home-activities">
           <h2>Quelques activités à découvrir</h2>
-          <ul>
           {allActivities.activities.slice(-10).map(activity => {
             return <ActivityCard key={activity.id} activity={activity} />
           })}
-          </ul>
         </section>
       }
 
