@@ -48,7 +48,7 @@ export const getOneCommentByBookingId = (booking_id) => {
 }
 
 export const getAllCommentsByActivityId = (activity_id) => {
-  return axios.get(`/api/v1/comment/all/activity/${activity_id}`, {headers: {"x-access-token": token}})
+  return axios.get(`${config.api_url}/api/v1/comment/all/activity/${activity_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllCommentsByActivityId -->", res)
     return res.data
@@ -59,18 +59,18 @@ export const getAllCommentsByActivityId = (activity_id) => {
 }
 
 export const getAllHighScoreComments = () => {
-  return axios.get(`/api/v1/comment/all/highscore`)
+  return axios.get(`${config.api_url}/api/v1/comment/all/highscore`)
   .then((res)=>{
-    console.log("res de requête axiosgetAllHighScoreComments -->", res)
+    // console.log("res de requête axiosgetAllHighScoreComments -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axiosgetAllHighScoreComments -->", err)
+    // console.log("err de requête axiosgetAllHighScoreComments -->", err)
   })
 }
 
 export const saveOneComment = (data) => {
-  return axios.post(`/api/v1/comment/save`, data, {headers: {"x-access-token": token}})
+  return axios.post(`${config.api_url}/api/v1/comment/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios saveOneComment -->", res)
     return res.data
@@ -81,7 +81,7 @@ export const saveOneComment = (data) => {
 }
 
 export const updateOneComment = (data, id) => {
-  return axios.put(`/api/v1/comment/update/${id}`, data, {headers: {"x-access-token": token}})
+  return axios.put(`${config.api_url}/api/v1/comment/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updateOneComment -->", res)
     return res.data
@@ -92,7 +92,7 @@ export const updateOneComment = (data, id) => {
 }
 
 export const deleteOneComment = (id) => {
-  return axios.delete(`/api/v1/comment/delete/${id}`, {headers: {"x-access-token": token}})
+  return axios.delete(`${config.api_url}/api/v1/comment/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios deleteOneComment -->", res)
     return res.data
@@ -104,7 +104,7 @@ export const deleteOneComment = (id) => {
 
 
 export const moderateComment = (id, data) =>{
-  return axios.put(`/api/v1/comment/moderate/${id}`, data, {headers: {"x-access-token": token}})
+  return axios.put(`${config.api_url}/api/v1/comment/moderate/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updateOneComment -->", res)
     return res.data

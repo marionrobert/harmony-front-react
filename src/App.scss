@@ -92,15 +92,27 @@ table {
 }
 
 
+
+// ******** MY NORMALIZE CSS ********* //
 a {
   text-decoration: none;
   color: black;
 }
 
 main {
-  margin: 60px 0 0 0;
+  margin: 50px 0 0 0;
   height: 100vh;
+  padding-bottom: 25px;
 }
+
+.error {
+  color: rgb(109, 7, 26);
+}
+
+h1, h2 {
+  color: rgb(94, 82, 56);
+}
+
 
 // ******** HEADER ********* //
 header {
@@ -109,7 +121,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  height: 60px;
+  height: 50px;
   z-index: 3;
   padding: 0.2rem;
 
@@ -125,6 +137,7 @@ header {
         font-family: 'Pacifico', cursive;
         font-size: 1.5rem;
         padding-left: 0.2rem;
+        color: rgb(94, 82, 56);
       };
       img.brand-icon {
         width: 50px;
@@ -136,26 +149,245 @@ header {
   }
 }
 
-main {
-  margin: 70px 0 0 0;
-  height: 100vh;
+// ******** HOME ********* //
+section.home-banner {
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.2)), url("https://plus.unsplash.com/premium_photo-1681965550198-c1c039421905?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+  background-size: cover;
+  background-position: center;
+  padding: 120px 20px;
+  color: white;
+  text-align: end;
+
+  > h1, p {
+    padding-top: 1rem;
+    color: rgba(246, 237, 222, 1);
+    text-shadow: 1px 1px 2px black;
+  }
+
   h1 {
-    padding-top: 0.5rem;
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    font-weight: lighter;
+  }
+
+  p {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  button.banner-btn {
+    /* width: 180px; */
+    padding: 0.7rem;
+    border-radius: 10px;
+    border: 0.5px solid rgb(0, 0, 0, 0);
+    margin-top: 2rem;
+    background-color: rgba(246, 237, 222, 0.85);;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+
+    a {
+      font-size: 1.1rem;
+      color: rgb(94, 82, 56);
+    }
+  }
+
+  button.banner-btn:hover{
+    background-color: rgba(246, 237, 222, 1);
+  }
+
+}
+
+section.home-activities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  h2 {
+    padding-top: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 100%;
   }
 }
 
-.error {
-  color: rgb(109, 7, 26);
+section.home-comments {
+  padding-bottom: 75px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: hidden;
+
+  h2 {
+    padding-top: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 100%;
+  }
 }
 
+// ******** COMMENT CARD ********* //
+article.comment-card {
+  margin: 1.5rem 0 ;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  width: 300px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  background: white;
+
+  h3 {
+    font-weight: bold;
+  }
+
+  div.comment-card-data {
+    text-align: left;
+    padding-left: 1rem;
+    width: 50%;
+  }
+
+  h3.comment-card-username{
+    text-transform: capitalize;
+    padding: 0.5rem 0 0.8rem;
+    font-size: 1.2rem;
+  }
+
+  img.comment-card-avatar{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border: white 1px solid;
+  }
+
+  p.comment-card-score{
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  h3.comment-card-title{
+    padding: 0.8rem 0 0.5rem;
+  }
+
+}
+
+
+// ******** ACTIVITY CARD ********* //
+article.activity-card {
+  margin: 1.5rem 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 300px;
+  height: auto;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  padding: 0 0rem 0.5rem;
+  border-radius: 1.5px;
+  position: relative;
+  transition: transform .2s;
+
+  img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  };
+
+  div.activity-card-data {
+    padding: 0.5rem 0.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  h3, p.activity-card-points {
+    padding-top: 1rem;
+    font-size: 16px;
+    font-weight: bold;
+  };
+
+  p.activity-card-description {
+    font-size: 14px;
+    opacity: 0.7;
+    margin: 0.5rem 0 0 0;
+    width: 85%;
+  };
+
+  p.activity-card-points {
+    width: 15%;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding-top: 1rem;
+    position: relative;
+    text-align: center;
+
+    span {
+      position: absolute;
+      top: 35%;
+      font-size: 12px;
+      color: rgba(0,0,0,0.8);
+    }
+  }
+
+  img.activity-card-avatar{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border: white 1px solid;
+    position: absolute;
+    right: 16px;
+    top: 120px;
+  };
+
+  button.activity-card-btn{
+    width: 100%;
+    background-color: rgb(194, 169, 102);
+    color: white;
+    padding: 0.5rem 0;
+    border: none;
+    border-radius: 2px;
+    box-shadow: none;
+    margin: 1rem 0 0 0;
+
+    a {
+      color: white;
+      border: none;
+    }
+  }
+}
+
+article.activity-card:hover{
+  -ms-transform: scale(1.02); /* IE 9 */
+  -webkit-transform: scale(1.02); /* Safari 3-8 */
+  transform: scale(1.02);
+  };
+
+// ******** FOOTER ********* //
 footer {
   background-color: rgb(246, 237, 222);
   display:flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  > * {
+    padding: 0 0.5rem;
+    color: rgb(94, 82, 56);
+  }
+  z-index: 3;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
 }
 
-footer > * {
-  padding: 0 0.5rem;
+
+
+/* ADAPTATION TABLETTES */
+@media screen and (min-width: 721px){
+
+
 }

@@ -16,11 +16,11 @@ export const getAllActivities = () => {
 export const getAllOnlineActivities = () =>{
   return axios.get(`${config.api_url}/api/v1/activity/all/online`)
   .then((res)=>{
-    console.log("res de requête axios getAllOnlineActivities -->", res)
+    // console.log("res de requête axios getAllOnlineActivities -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios getAllOnlineActivities -->", err)
+    // console.log("err de requête axios getAllOnlineActivities -->", err)
   })
 }
 
@@ -36,7 +36,7 @@ export const getAllWaitingActivities = () => {
 }
 
 export const getAllActivitiesByAuthor = (author_id) => {
-  return axios.get(`/api/v1/activity/all/author/${author_id}`, {headers: {"x-access-token": token}})
+  return axios.get(`${config.api_url}/api/v1/activity/all/author/${author_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllActivitiesByAuthor -->", res)
     return res.data
@@ -47,7 +47,7 @@ export const getAllActivitiesByAuthor = (author_id) => {
 }
 
 export const getAllActivitiesByAuthorIsProvider = () => {
-  return axios.post(`/api/v1/activity/all/author-is-provider`)
+  return axios.post(`${config.api_url}/api/v1/activity/all/author-is-provider`)
   .then((res)=>{
     console.log("res de requête axios getAllActivitiesByAuthorIsProvider -->", res)
     return res.data
@@ -58,7 +58,7 @@ export const getAllActivitiesByAuthorIsProvider = () => {
 }
 
 export const getOneActivity = (id) => {
-  return axios.get(`/api/v1/activity/${id}`, {headers: {"x-access-token": token}})
+  return axios.get(`${config.api_url}/api/v1/activity/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getOneActivity -->", res)
     return res.data
@@ -69,7 +69,7 @@ export const getOneActivity = (id) => {
 }
 
 export const saveOneActivity = (data) => {
-  return axios.post(`/api/v1/activity/save`, data, {headers: {"x-access-token": token}})
+  return axios.post(`${config.api_url}/api/v1/activity/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios saveOneActivity -->", res)
     return res.data
@@ -80,7 +80,7 @@ export const saveOneActivity = (data) => {
 }
 
 export const updateOneActivity = (data, id) => {
-  return axios.put(`/api/v1/activity/update/${id}`, data, {headers: {"x-access-token": token}})
+  return axios.put(`${config.api_url}/api/v1/activity/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updateOneActivity -->", res)
     return res.data
@@ -91,7 +91,7 @@ export const updateOneActivity = (data, id) => {
 }
 
 export const updateOnlineOfflineStatus = (data, id) => {
-  return axios.put(`/api/v1/activity/update/status/${id}`, data, {headers: {"x-access-token": token}})
+  return axios.put(`${config.api_url}/api/v1/activity/update/status/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updateOnlineOfflineStatus -->", res)
     return res.data
@@ -102,7 +102,7 @@ export const updateOnlineOfflineStatus = (data, id) => {
 }
 
 export const moderateOneActivity = (data, id) => {
-  return axios.put(`/api/v1/activity/moderate/${id}`, data, {headers: {"x-access-token": token}})
+  return axios.put(`${config.api_url}/api/v1/activity/moderate/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios moderateOneActivity -->", res)
     return res.data
@@ -113,7 +113,7 @@ export const moderateOneActivity = (data, id) => {
 }
 
 export const deleteOneActivity = (id) => {
-  return axios.delete(`/api/v1/activity/delete/${id}`, {headers: {"x-access-token": token}})
+  return axios.delete(`${config.api_url}/api/v1/activity/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios deleteOneActivity -->", res)
     return res.data
@@ -124,7 +124,7 @@ export const deleteOneActivity = (id) => {
 }
 
 export const getAllActivitiesWithFilters = (data) => {
-  return axios.post(`/api/v1/activtity/all/filter`, data, {headers: {"x-access-token": token}})
+  return axios.post(`${config.api_url}/api/v1/activtity/all/filter`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllActivitiesWithFilters -->", res)
     return res.data
@@ -135,7 +135,7 @@ export const getAllActivitiesWithFilters = (data) => {
 }
 
 export const updatePicture = (data, id) => {
-  return axios.put(`/api/v1/activity/update-picture/${id}`, data, {headers: {"x-access-token": token}})
+  return axios.put(`${config.api_url}/api/v1/activity/update-picture/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updatePicture -->", res)
     return res.data

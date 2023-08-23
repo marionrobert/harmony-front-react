@@ -68,3 +68,15 @@ export const getOneUser = (key_id) => {
     return err.response.data
   })
 }
+
+export const getOneUserById = (id) => {
+  return axios.get(`${config.api_url}/api/v1/user/one/id/${id}`)
+  .then((res)=>{
+    // console.log("res de requête axios  -->", res)
+    return res.data
+  })
+  .catch((err)=>{
+    // console.log("err de requête axios export const  -->", err)
+    return err.response.data
+  })
+}
