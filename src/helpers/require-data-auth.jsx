@@ -75,7 +75,11 @@ const RequireDataAuth = (props) => {
             }
           }
         })
-        .catch((err) => { console.log("err checkmytoken -->", err)})
+        .catch((err) => {
+          console.log("err checkmytoken -->", err)
+          setRedirectToLogin(true)
+          window.localStorage.removeItem("harmony-token")
+        })
       }
     }
   }, [props, dispatch, activities])

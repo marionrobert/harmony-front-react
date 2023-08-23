@@ -100,9 +100,8 @@ a {
 }
 
 main {
-  margin: 54px 0 0 0;
+  margin: 54px 0;
   height: 100vh;
-  padding-bottom: 25px;
 }
 
 .error {
@@ -364,6 +363,16 @@ article.activity-card:hover{
   -webkit-transform: scale(1.02); /* Safari 3-8 */
   transform: scale(1.02);
   };
+
+
+// ******** FOOTER ********* //
+.profile-avatar {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border: white 1px solid;
+}
 
 // ******** FOOTER ********* //
 footer {
