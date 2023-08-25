@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {selectUser, setUser} from "../../slices/userSlice"
+import {selectUser} from "../../slices/userSlice"
 import {Link} from "react-router-dom"
 import {config} from "../../config"
 import { getAllActivitiesByAuthor } from "../../api/activity"
@@ -25,6 +25,20 @@ const Profile = () => {
 
     tabsCommentsContents[indexToRemove].classList.remove("active-tab-comments-content");
     tabsCommentsContents[indexToShow].classList.add("active-tab-comments-content");
+  }
+
+  function tabsActivitiesAnimation(e){
+    const tabsActivities = [...document.querySelectorAll(".tab-activities")]
+    const tabsActivitiesContents = [...document.querySelectorAll(".tab-activities-content")]
+
+    const indexToRemove = tabsActivities.findIndex(tab => tab.classList.contains("active-tab-activities"));
+    tabsActivities[indexToRemove].classList.remove("active-tab-activities");
+
+    const indexToShow = tabsActivities.indexOf(e.target)
+    tabsActivities[indexToShow].classList.add("active-tab-activities");
+
+    tabsActivitiesContents[indexToRemove].classList.remove("active-tab-activities-content");
+    tabsActivitiesContents[indexToShow].classList.add("active-tab-activities-content");
   }
 
   useEffect(()=> {
@@ -61,12 +75,54 @@ const Profile = () => {
         <Link>Modifier mes informations</Link>
       </section>
       <section className='profile-user-activities'>
-        <h2>Mes activités (en ligne / hors ligne / en attente de validation)</h2>
-        { activities.length > 0 ? <ul>
-          { activities.map(activity => {
-            return (<li key={activity.id}>{activity.title}</li>)
-          })}
-        </ul> : <p>Vous n'avez pas encore créé d'activités.</p>}
+        <h2>Mes activités</h2>
+        { activities.length > 0 ?
+          <div className="tabs">
+              <div className="tabs-activities">
+                  <button className="tab-activities active-tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En ligne</button>
+                  <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>Hors ligne</button>
+                  <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En attente de validation</button>
+              </div>
+              <div className="tab-activities-content active-tab-activities-content">
+              { activities.some(activity => activity.status === "en ligne") ? (
+                <ul>
+                  { activities.map(activity => {
+                    if (activity.status === "en ligne"){
+                      return (<li key={activity.id}>{activity.title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas d'activités en ligne.</p>}
+              </div>
+              <div className="tab-activities-content">
+              { activities.some(activity => activity.status === "hors ligne") ? (
+              <ul>
+                  { activities.map(activity => {
+                    if (activity.status === "hors ligne"){
+                      return (<li key={activity.id}>{activity.title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas d'activités hors ligne.</p>}
+              </div>
+              <div className="tab-activities-content">
+              { activities.some(activity => activity.status === "en attente de validation") ? (
+              <ul>
+                  { activities.map(activity => {
+                    if (activity.status === "en attente de validation"){
+                      return (<li key={activity.id}>{activity.title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas d'activités en attente de validation.</p>}
+              </div>
+          </div>
+
+
+         : <p>Vous n'avez pas encore créé d'activités.</p>}
       </section>
 
       <section className='profile-user-comments'>
@@ -111,10 +167,3 @@ const Profile = () => {
 }
 
 export default Profile;
-
-
-{/* <ul>
-          { comments.map(comment => {
-            return (<li key={comment.id}>{comment.title}</li>)
-          })}
-        </ul> */}

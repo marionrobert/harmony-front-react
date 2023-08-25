@@ -402,12 +402,12 @@ section.profile-user-activities, section.profile-user-comments{
   grid-template-rows: min-content 1fr;
 }
 
-.tabs-comments{
+.tabs-comments, .tabs-activities{
   display: flex;
   justify-content: space-evenly;
 }
 
-button.tab-comments{
+button.tab-comments, button.tab-activities{
   border: none;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 1rem;;
@@ -417,14 +417,14 @@ button.tab-comments{
   cursor: pointer;
 }
 
-button.active-tab-comments{
+button.active-tab-comments, button.active-tab-activities{
   border-bottom: 2px solid;
   border-color: rgb(194, 169, 102);
   color: rgb(194, 169, 102);
   font-weight: bold;
 }
 
-.tab-comments-content{
+.tab-comments-content, .tab-activities-content{
   border-top: 1px solid;
   border-color: rgb(194, 169, 102);
   padding: 0.5rem;
@@ -436,7 +436,7 @@ button.active-tab-comments{
   transition: opacity 0.4s ease-out;
 }
 
-.active-tab-comments-content{
+.active-tab-comments-content, .active-tab-activities-content{
   visibility: visible;
   opacity: 1;
 }
