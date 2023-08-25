@@ -17,22 +17,22 @@ export const getAllBookings = () => {
 export const getAllBookingsByBookerId = (booker_id) => {
   return axios.get(`${config.api_url}/api/v1/booking/all/${booker_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllBookingsByBookerId -->", res)
+    // console.log("res de requête axios getAllBookingsByBookerId -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios getAllBookingsByBookerId -->", err)
+    // console.log("err de requête axios getAllBookingsByBookerId -->", err)
   })
 }
 
 export const getAllBookingsByAuthorId = (author_id) => {
   return axios.get(`${config.api_url}/api/v1/booking/all/activities/${author_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllBookingsByAuthorId -->", res)
+    // console.log("res de requête axios getAllBookingsByAuthorId -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios getAllBookingsByAuthorId -->", err)
+    // console.log("err de requête axios getAllBookingsByAuthorId -->", err)
   })
 }
 

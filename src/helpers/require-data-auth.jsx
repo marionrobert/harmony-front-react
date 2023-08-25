@@ -47,13 +47,13 @@ const RequireDataAuth = (props) => {
     if (props.auth === true) { // si la route est protégée
       // récupération du token dans le localStorage
       let token = window.localStorage.getItem("harmony-token")
-      console.log("recup token from require auth-->", token)
+      // console.log("recup token from require auth-->", token)
 
       if (token === null) { // l'utilisateur n'est pas connecté
         setRedirectToLogin(true)
       } else { // l'utilisateur est connecté
         // vérification du format du token
-        axios.get(`${config.api_url}/api/v1/checkToken`, {headers: {"x-access-token": token}})
+        axios.get(`${config.api_url}/api/v1/user/checkToken`, {headers: {"x-access-token": token}})
         .then((res) => {
           if (res.data.status !== 200){ // format invalide
             // redirection + suppression token
@@ -65,7 +65,7 @@ const RequireDataAuth = (props) => {
             } else {
               // récupération des infos de l'utilisateur
               let currentUser = res.data.user
-              console.log("currentUser -->", currentUser)
+              // console.log("currentUser -->", currentUser)
 
               // ajout du token à l'objet currentUser
               currentUser.token = token
@@ -75,7 +75,11 @@ const RequireDataAuth = (props) => {
             }
           }
         })
-        .catch((err) => { console.log("err checkmytoken -->", err)})
+        .catch((err) => {
+          console.log("err checkmytoken -->", err)
+          setRedirectToLogin(true)
+          window.localStorage.removeItem("harmony-token")
+        })
       }
     }
   }, [props, dispatch, activities])

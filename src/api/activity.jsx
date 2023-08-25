@@ -38,11 +38,11 @@ export const getAllWaitingActivities = () => {
 export const getAllActivitiesByAuthor = (author_id) => {
   return axios.get(`${config.api_url}/api/v1/activity/all/author/${author_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllActivitiesByAuthor -->", res)
+    // console.log("res de requête axios getAllActivitiesByAuthor -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios getAllActivitiesByAuthor -->", err)
+    // console.log("err de requête axios getAllActivitiesByAuthor -->", err)
   })
 }
 
