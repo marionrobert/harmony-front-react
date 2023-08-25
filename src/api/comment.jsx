@@ -102,7 +102,6 @@ export const deleteOneComment = (id) => {
   })
 }
 
-
 export const moderateComment = (id, data) =>{
   return axios.put(`${config.api_url}/api/v1/comment/moderate/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
@@ -111,5 +110,16 @@ export const moderateComment = (id, data) =>{
   })
   .catch((err)=>{
     console.log("err de requête axios updateOneComment -->", err)
+  })
+}
+
+export const getAllCommentsByAuthorId = (author_id) => {
+  return axios.get(`${config.api_url}/api/v1/comment/all/author/${author_id}`, {headers: {"x-access-token": token}})
+  .then((res)=>{
+    // console.log("res de requête axios getAllCommentsByAuthorId -->", res)
+    return res.data
+  })
+  .catch((err)=>{
+    // console.log("err de requête axios getAllCommentsByAuthorId -->", err)
   })
 }

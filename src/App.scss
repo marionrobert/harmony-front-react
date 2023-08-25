@@ -54,6 +54,11 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -230,7 +235,7 @@ article.comment-card {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 1rem;
+  padding: 0.5rem;
   width: 300px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   background: white;
@@ -260,7 +265,7 @@ article.comment-card {
   }
 
   p.comment-card-score{
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
   }
 
@@ -345,7 +350,7 @@ article.activity-card {
     width: 100%;
     background-color: rgb(194, 169, 102);
     color: white;
-    padding: 0.5rem 0;
+    // padding: 0.5rem 0;
     border: none;
     border-radius: 2px;
     box-shadow: none;
@@ -354,6 +359,10 @@ article.activity-card {
     a {
       color: white;
       border: none;
+      width: 100%;
+      display: block;
+      height: 70%;
+      padding: 0.3rem 0;
     }
   }
 }
@@ -362,10 +371,10 @@ article.activity-card:hover{
   -ms-transform: scale(1.02); /* IE 9 */
   -webkit-transform: scale(1.02); /* Safari 3-8 */
   transform: scale(1.02);
-  };
+};
 
 
-// ******** FOOTER ********* //
+// ******** PROFILE ********* //
 .profile-avatar {
   height: 70px;
   width: 70px;
@@ -373,6 +382,67 @@ article.activity-card:hover{
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   border: white 1px solid;
 }
+
+section.profile-user-activities, section.profile-user-comments{
+  margin-top: 1rem;
+
+  h2{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.tabs {
+  border: 1px solid;
+  max-width: 500px;
+  border-color: rgb(194, 169, 102);
+  border-radius: 2px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+.tabs-comments{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button.tab-comments{
+  border: none;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1rem;;
+  background-color: whitesmoke;
+  padding: 0 0.5rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+button.active-tab-comments{
+  border-bottom: 2px solid;
+  border-color: rgb(194, 169, 102);
+  color: rgb(194, 169, 102);
+  font-weight: bold;
+}
+
+.tab-comments-content{
+  border-top: 1px solid;
+  border-color: rgb(194, 169, 102);
+  padding: 0.5rem;
+  grid-area: 2 / 1 / 3 / 2;
+  max-height: 400px;
+  overflow: scroll;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-out;
+}
+
+.active-tab-comments-content{
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
 
 // ******** FOOTER ********* //
 footer {

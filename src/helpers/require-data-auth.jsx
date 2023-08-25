@@ -47,7 +47,7 @@ const RequireDataAuth = (props) => {
     if (props.auth === true) { // si la route est protégée
       // récupération du token dans le localStorage
       let token = window.localStorage.getItem("harmony-token")
-      console.log("recup token from require auth-->", token)
+      // console.log("recup token from require auth-->", token)
 
       if (token === null) { // l'utilisateur n'est pas connecté
         setRedirectToLogin(true)
@@ -65,7 +65,7 @@ const RequireDataAuth = (props) => {
             } else {
               // récupération des infos de l'utilisateur
               let currentUser = res.data.user
-              console.log("currentUser -->", currentUser)
+              // console.log("currentUser -->", currentUser)
 
               // ajout du token à l'objet currentUser
               currentUser.token = token

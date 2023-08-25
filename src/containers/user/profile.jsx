@@ -3,12 +3,29 @@ import {selectUser, setUser} from "../../slices/userSlice"
 import {Link} from "react-router-dom"
 import {config} from "../../config"
 import { getAllActivitiesByAuthor } from "../../api/activity"
+import { getAllCommentsByAuthorId } from '../../api/comment'
 import { useEffect, useState} from 'react'
 
 const Profile = () => {
   const dispatch = useDispatch()
   const user = useSelector(selectUser)
   const [activities, setActivities] = useState([])
+  const [ comments, setComments] = useState([])
+
+
+  function tabsCommentsAnimation(e){
+    const tabsComments = [...document.querySelectorAll(".tab-comments")]
+    const tabsCommentsContents = [...document.querySelectorAll(".tab-comments-content")]
+
+    const indexToRemove = tabsComments.findIndex(tab => tab.classList.contains("active-tab-comments"));
+    tabsComments[indexToRemove].classList.remove("active-tab-comments");
+
+    const indexToShow = tabsComments.indexOf(e.target)
+    tabsComments[indexToShow].classList.add("active-tab-comments");
+
+    tabsCommentsContents[indexToRemove].classList.remove("active-tab-comments-content");
+    tabsCommentsContents[indexToShow].classList.add("active-tab-comments-content");
+  }
 
   useEffect(()=> {
     getAllActivitiesByAuthor(user.data.id)
@@ -20,6 +37,17 @@ const Profile = () => {
     .catch((err)=>{
       console.log("err from getAllActivitiesByAuthor -->", err)
     })
+
+    getAllCommentsByAuthorId(user.data.id)
+    .then((res)=>{
+      if (res.status === 200){
+        setComments(res.comments)
+      }
+    })
+    .catch((err)=>{
+      console.log("err from getAllActivitiesByAuthor -->", err)
+    })
+
   }, [user])
 
   return (
@@ -39,13 +67,54 @@ const Profile = () => {
             return (<li key={activity.id}>{activity.title}</li>)
           })}
         </ul> : <p>Vous n'avez pas encore créé d'activités.</p>}
-
       </section>
+
       <section className='profile-user-comments'>
-        <h2>Mes commentaires (en ligne / en attente de validation)</h2>
+        <h2>Mes commentaires</h2>
+        { comments.length > 0 ?
+          <div className="tabs">
+              <div className="tabs-comments">
+                  <button className="tab-comments active-tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>Validés</button>
+                  <button className="tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>En attente de validation</button>
+              </div>
+              <div className="tab-comments-content active-tab-comments-content">
+              { comments.some(comment => comment.status === "validé") ? (
+                <ul>
+                  { comments.map(comment => {
+                    if (comment.status === "validé"){
+                      return (<li key={comment.id}>{comment.title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de commentaires validés.</p>}
+              </div>
+              <div className="tab-comments-content">
+              { comments.some(comment => comment.status === "en attente de validation") ? (
+              <ul>
+                  { comments.map(comment => {
+                    if (comment.status === "en attente de validation"){
+                      return (<li key={comment.id}>{comment.title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de commentaires en attente de validation.</p>}
+              </div>
+          </div>
+        : <div className="no-comments">
+          <p>Vous n'avez pas encore écrit de commentaires.</p>
+        </div>}
       </section>
     </>
   )
 }
 
 export default Profile;
+
+
+{/* <ul>
+          { comments.map(comment => {
+            return (<li key={comment.id}>{comment.title}</li>)
+          })}
+        </ul> */}
