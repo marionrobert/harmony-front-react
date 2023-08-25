@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import {config} from "../../config"
 import { getAllActivitiesByAuthor } from "../../api/activity"
 import { getAllCommentsByAuthorId } from '../../api/comment'
+import { getAllBookingsByAuthorId, getAllBookingsByBookerId } from '../../api/booking'
 import { useEffect, useState} from 'react'
 
 const Profile = () => {
@@ -11,6 +12,8 @@ const Profile = () => {
   const user = useSelector(selectUser)
   const [activities, setActivities] = useState([])
   const [ comments, setComments] = useState([])
+  const [myBookings, setMyBookings] = useState([])
+  const [bookingsForMyActivities, setBookingsForMyActivities] = useState([])
 
 
   function tabsCommentsAnimation(e){
@@ -41,6 +44,35 @@ const Profile = () => {
     tabsActivitiesContents[indexToShow].classList.add("active-tab-activities-content");
   }
 
+  function tabsMyBookingsAnimation(e){
+    const tabsMyBookings = [...document.querySelectorAll(".tab-my-bookings")]
+    const tabsMyBookingsContents = [...document.querySelectorAll(".tab-my-bookings-content")]
+
+    const indexToRemove = tabsMyBookings.findIndex(tab => tab.classList.contains("active-tab-my-bookings"));
+    tabsMyBookings[indexToRemove].classList.remove("active-tab-my-bookings");
+
+    const indexToShow = tabsMyBookings.indexOf(e.target)
+    tabsMyBookings[indexToShow].classList.add("active-tab-my-bookings");
+
+    tabsMyBookingsContents[indexToRemove].classList.remove("active-tab-my-bookings-content");
+    tabsMyBookingsContents[indexToShow].classList.add("active-tab-my-bookings-content");
+  }
+  function tabsBookingsAboutMyActivitiesAnimation(e){
+    const tabsMyBookings = [...document.querySelectorAll(".tab-bookings-for-my-activities")]
+    const tabsMyBookingsContents = [...document.querySelectorAll(".tab-bookings-for-my-activities-content")]
+
+    const indexToRemove = tabsMyBookings.findIndex(tab => tab.classList.contains("active-tab-bookings-for-my-activities"));
+    tabsMyBookings[indexToRemove].classList.remove("active-tab-bookings-for-my-activities");
+
+    const indexToShow = tabsMyBookings.indexOf(e.target)
+    tabsMyBookings[indexToShow].classList.add("active-tab-bookings-for-my-activities");
+
+    tabsMyBookingsContents[indexToRemove].classList.remove("active-tab-bookings-for-my-activities-content");
+    tabsMyBookingsContents[indexToShow].classList.add("active-tab-bookings-for-my-activities-content");
+  }
+
+
+
   useEffect(()=> {
     getAllActivitiesByAuthor(user.data.id)
     .then((res)=>{
@@ -60,6 +92,28 @@ const Profile = () => {
     })
     .catch((err)=>{
       console.log("err from getAllActivitiesByAuthor -->", err)
+    })
+
+    getAllBookingsByBookerId(user.data.id)
+    .then((res)=>{
+      if (res.status === 200){
+        setMyBookings(res.bookings)
+      }
+    })
+    .catch((err)=>{
+      console.log("err from getAllBookingsByBookerId -->", err)
+    })
+
+
+    getAllBookingsByAuthorId(user.data.id)
+    .then((res)=>{
+      if (res.status === 200){
+        console.log(res.bookings)
+        setBookingsForMyActivities(res.bookings)
+      }
+    })
+    .catch((err)=>{
+      console.log("err from getAllBookingsByAuthorId -->", err)
     })
 
   }, [user])
@@ -160,6 +214,109 @@ const Profile = () => {
           </div>
         : <div className="no-comments">
           <p>Vous n'avez pas encore écrit de commentaires.</p>
+        </div>}
+      </section>
+
+      <section className='profile-user-bookings'>
+        <h2>Mes réservations</h2>
+        { myBookings.length > 0 ?
+          <div className="tabs">
+              <div className="tabs-my-bookings">
+                  <button className="tab-my-bookings active-tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>En attente de réalisation</button>
+                  <button className="tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>En attente d'acceptation</button>
+                  <button className="tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>Terminées</button>
+              </div>
+              <div className="tab-my-bookings-content active-tab-my-bookings-content">
+              { myBookings.some(booking => booking.status === "en attente de réalisation") ? (
+                <ul>
+                  { myBookings.map(booking => {
+                    if (booking.status === "en attente de réalisation"){
+                      return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation.</p>}
+              </div>
+              <div className="tab-my-bookings-content">
+              { myBookings.some(booking => booking.status === "en attente d'acceptation") ? (
+                <ul>
+                  { myBookings.map(booking => {
+                    if (booking.status === "en attente d'acceptation"){
+                      return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation.</p>}
+              </div>
+              <div className="tab-my-bookings-content">
+              { myBookings.some(booking => booking.status === "terminée") ? (
+              <ul>
+                  { myBookings.map(booking => {
+                    if (booking.status === "terminée"){
+                      return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de réservations archivées.</p>}
+              </div>
+          </div>
+        : <div className="no-my-bookings">
+          <p>Vous n'avez pas encore fait de réservations.</p>
+        </div>}
+      </section>
+
+      <section className='profile-user-bookings-for-my-activities'>
+        <h2>Les réservations sur mes activités</h2>
+        { bookingsForMyActivities.length > 0 ?
+          <div className="tabs">
+              <div className="tabs-bookings-for-my-activities">
+                  <button className="tab-bookings-for-my-activities active-tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>En attente de réalisation</button>
+                  <button className="tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>En attente d'acceptation</button>
+                  <button className="tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>Terminées</button>
+              </div>
+              <div className="tab-bookings-for-my-activities-content active-tab-bookings-for-my-activities-content">
+              { bookingsForMyActivities.some(booking => booking.status === "en attente de réalisation") ? (
+                <ul>
+                  { bookingsForMyActivities.map(booking => {
+                    if (booking.status === "en attente de réalisation"){
+                      console.log("coucou")
+                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation concernant vos activités.</p>}
+              </div>
+              <div className="tab-bookings-for-my-activities-content">
+              { bookingsForMyActivities.some(booking => booking.status === "en attente d'acceptation") ? (
+              <ul>
+                  { bookingsForMyActivities.map(booking => {
+                    if (booking.status === "en attente d'acceptation"){
+                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation concernant vos activités.</p>}
+              </div>
+              <div className="tab-bookings-for-my-activities-content">
+              { bookingsForMyActivities.some(booking => booking.status === "terminée") ? (
+              <ul>
+                  { bookingsForMyActivities.map(booking => {
+                    if (booking.status === "terminée"){
+                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    }
+                    return null
+                    })
+                  }
+                </ul>) : <p>Vous n'avez pas de réservations archivées concernant vos activités.</p>}
+              </div>
+          </div>
+        : <div className="no-bookings-for-my-activities">
+          <p>Vos activités n'ont pas encore été réservées.</p>
         </div>}
       </section>
     </>
