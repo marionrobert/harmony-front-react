@@ -36,7 +36,7 @@ const Home = () => {
       <section className="home-banner">
         <h1>Bienvenue sur <span className="brand-name">Harmony</span></h1>
         <p>Apprenez à connaître vos voisins en échangeant des coups de main !</p>
-        <button className="banner-btn"><Link to="/"> Découvrir les activités</Link></button>
+        <button className="banner-btn"><Link to="/activities"> Découvrir les activités</Link></button>
       </section>
 
       { allActivities.activities.length > 0 &&

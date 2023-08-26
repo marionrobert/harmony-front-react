@@ -4,6 +4,9 @@ import Header from "./components/header"
 import Footer from "./components/footer"
 import Home from './containers/home'
 
+// activities
+import Activities from './containers/activities'
+
 // user
 import Login from "./containers/user/login"
 import Forgot from "./containers/user/forgot"
@@ -22,6 +25,7 @@ function App() {
       <main>
         <Routes>
           <Route exact path="/" element={<RequireDataAuth child={Home} auth={false} admin={false} />} />
+          <Route exact path="/activities" element={<RequireDataAuth child={Activities} auth={true} admin={false} />} />
 
           {/* LOGIN, LOGOUT, REGISTER, FORGOT, PROFILE */}
           <Route exact path="/register" element={<Register/>}/>

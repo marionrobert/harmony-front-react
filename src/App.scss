@@ -105,9 +105,8 @@ a {
 }
 
 main {
-  margin: 54px 0;
+  margin: 60px 0 0 0;
   min-height: 100vh;
-  // overflow-y: auto;
 }
 
 .error {
@@ -126,7 +125,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  height: 54px;
+  height: 60px;
   z-index: 3;
   padding: 0.2rem;
 
@@ -206,7 +205,7 @@ section.home-activities {
   flex-wrap: wrap;
   justify-content: space-around;
 
-  h2 {
+  h1, h2 {
     padding-top: 1.5rem;
     font-size: 1.5rem;
     font-weight: bold;
@@ -215,11 +214,9 @@ section.home-activities {
 }
 
 section.home-comments {
-  padding-bottom: 75px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  overflow: hidden;
 
   h2 {
     padding-top: 1.5rem;
@@ -231,7 +228,7 @@ section.home-comments {
 
 // ******** COMMENT CARD ********* //
 article.comment-card {
-  margin: 1.5rem 0 ;
+  margin: 1rem 0 2.5rem ;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
@@ -290,7 +287,7 @@ article.activity-card {
   padding: 0 0rem 0.5rem;
   border-radius: 1.5px;
   position: relative;
-  transition: transform .2s;
+  transition: transform .1s;
 
   img {
     width: 100%;
@@ -369,9 +366,9 @@ article.activity-card {
 }
 
 article.activity-card:hover{
-  -ms-transform: scale(1.02); /* IE 9 */
-  -webkit-transform: scale(1.02); /* Safari 3-8 */
-  transform: scale(1.02);
+  -ms-transform: scale(1.01); /* IE 9 */
+  -webkit-transform: scale(1.01); /* Safari 3-8 */
+  transform: scale(1.01);
 };
 
 
@@ -459,9 +456,10 @@ button.active-tab-comments, button.active-tab-activities, button.active-tab-my-b
 footer {
   background-color: rgb(246, 237, 222);
   display:flex;
+  z-index: 3;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 60px;
   a, p {
     padding: 0 0.5rem;
     color: rgb(94, 82, 56);
