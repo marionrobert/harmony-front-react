@@ -38,7 +38,7 @@ const CommentCard = (props) => {
         </div>
 
         <h3 className="comment-card-title">{comment.title}</h3>
-        <p>« {comment.content} »</p>
+        <p className="comment-card-content">« {comment.content} »</p>
       </article>
       }
     </>

@@ -9,7 +9,7 @@ const Activities = () => {
   return (
     <>
       { activities.activities.length > 0 &&
-        <section className="home-activities">
+        <section className="section-activities">
           <h1>Toutes les activités disponibles</h1>
           {activities.activities.slice(-10).map(activity => {
             return <ActivityCard key={activity.id} activity={activity} />

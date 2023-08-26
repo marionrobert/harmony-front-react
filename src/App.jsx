@@ -6,6 +6,7 @@ import Home from './containers/home'
 
 // activities
 import Activities from './containers/activities'
+import Details from "./containers/details"
 
 // user
 import Login from "./containers/user/login"
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<RequireDataAuth child={Home} auth={false} admin={false} />} />
           <Route exact path="/activities" element={<RequireDataAuth child={Activities} auth={true} admin={false} />} />
+          <Route exact path="/activity/details/:id" element={<RequireDataAuth child={Details} auth={true} admin={false} />} />
 
           {/* LOGIN, LOGOUT, REGISTER, FORGOT, PROFILE */}
           <Route exact path="/register" element={<Register/>}/>

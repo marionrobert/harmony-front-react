@@ -40,7 +40,7 @@ const Home = () => {
       </section>
 
       { allActivities.activities.length > 0 &&
-        <section className="home-activities">
+        <section className="section-activities">
           <h2>Quelques activités à découvrir</h2>
           {allActivities.activities.slice(-10).map(activity => {
             return <ActivityCard key={activity.id} activity={activity} />
@@ -49,7 +49,7 @@ const Home = () => {
       }
 
       { comments.length > 0 &&
-      <section className="home-comments">
+      <section className="section-comments">
         <h2>Ils ont essayé, ils ont adoré !</h2>
         {comments.slice(-10).map(comment => {
           return <CommentCard key={comment.id} comment={comment} />
