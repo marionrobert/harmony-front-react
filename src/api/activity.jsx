@@ -60,11 +60,11 @@ export const getAllActivitiesByAuthorIsProvider = () => {
 export const getOneActivity = (id) => {
   return axios.get(`${config.api_url}/api/v1/activity/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getOneActivity -->", res)
+    // console.log("res de requête axios getOneActivity -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios getOneActivity -->", err)
+    // console.log("err de requête axios getOneActivity -->", err)
   })
 }
 

@@ -35,26 +35,25 @@ const Home = () => {
     <>
       <section className="home-banner">
         <h1>Bienvenue sur <span className="brand-name">Harmony</span></h1>
-        <p>Apprenez à connaître vos voisins en échangeant des coups de main !</p>
+        <p>Apprenez à connaître tous vos voisins en échangeant des coups de main !</p>
         <button className="banner-btn"><Link to="/activities"> Découvrir les activités</Link></button>
       </section>
 
       { allActivities.activities.length > 0 &&
-        <section className="home-activities">
-          <h2>Quelques activités à découvrir</h2>
-          {allActivities.activities.slice(-10).map(activity => {
-            return <ActivityCard key={activity.id} activity={activity} />
-          })}
-        </section>
+      <section className="section-activities">
+        <h2>Les dernières activités postées</h2>
+        {allActivities.activities.slice(-10).map(activity => {
+          return <ActivityCard key={activity.id} activity={activity} />
+        })}
+      </section>
       }
 
       { comments.length > 0 &&
-      <section className="home-comments">
+      <section className="section-comments">
         <h2>Ils ont essayé, ils ont adoré !</h2>
         {comments.slice(-10).map(comment => {
           return <CommentCard key={comment.id} comment={comment} />
         })}
-
       </section>}
     </>
   );

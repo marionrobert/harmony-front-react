@@ -106,7 +106,7 @@ a {
 
 main {
   margin: 60px 0 0 0;
-  min-height: 100vh;
+  min-height: calc(100vh - 120px);
 }
 
 .error {
@@ -155,17 +155,16 @@ header {
 
 // ******** HOME ********* //
 section.home-banner {
-  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.2)), url("https://plus.unsplash.com/premium_photo-1681965550198-c1c039421905?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)), url("https://plus.unsplash.com/premium_photo-1681965550198-c1c039421905?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
   background-size: cover;
   background-position: center;
   padding: 120px 20px;
-  color: white;
   text-align: end;
 
   > h1, p {
     padding-top: 1rem;
     color: rgba(246, 237, 222, 1);
-    text-shadow: 1px 1px 2px black;
+    text-shadow: 2px 1px 2px black;
   }
 
   h1 {
@@ -200,27 +199,27 @@ section.home-banner {
 
 }
 
-section.home-activities {
+section.section-activities {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 
   h1, h2 {
     padding-top: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     width: 100%;
   }
 }
 
-section.home-comments {
+section.section-comments {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 
   h2 {
     padding-top: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     width: 100%;
   }
@@ -250,25 +249,30 @@ article.comment-card {
 
   h3.comment-card-username{
     text-transform: capitalize;
-    padding: 0.5rem 0 0.8rem;
-    font-size: 1.2rem;
+    padding: 0.5rem 0 0.7rem;
+    font-size: 1rem;
   }
 
   img.comment-card-avatar{
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     border: white 1px solid;
   }
 
   p.comment-card-score{
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
   }
 
   h3.comment-card-title{
     padding: 0.8rem 0 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  p.comment-card-content{
+    font-size: 0.9rem;
   }
 
 }
@@ -305,12 +309,12 @@ article.activity-card {
 
   h3, p.activity-card-points {
     padding-top: 1rem;
-    font-size: 16px;
+    font-size: 0.9rem;
     font-weight: bold;
   };
 
   p.activity-card-description {
-    font-size: 14px;
+    font-size: 0.8rem;
     opacity: 0.7;
     margin: 0.5rem 0 0 0;
     width: 85%;
@@ -318,7 +322,6 @@ article.activity-card {
 
   p.activity-card-points {
     width: 15%;
-    font-size: 20px;
     font-weight: bold;
     margin: 0;
     padding-top: 1rem;
@@ -328,7 +331,7 @@ article.activity-card {
     span {
       position: absolute;
       top: 35%;
-      font-size: 12px;
+      font-size: 0.6rem;
       color: rgba(0,0,0,0.8);
     }
   }
@@ -344,24 +347,16 @@ article.activity-card {
     top: 120px;
   };
 
-  button.activity-card-btn{
+  a.activity-card-btn{
     width: 100%;
     background-color: rgb(194, 169, 102);
     color: white;
-    // padding: 0.5rem 0;
     border: none;
     border-radius: 2px;
-    box-shadow: none;
-    margin: 1rem 0 0 0;
-
-    a {
-      color: white;
-      border: none;
-      width: 100%;
-      display: block;
-      height: 70%;
-      padding: 0.3rem 0;
-    }
+    margin: 1rem 0 0.2rem;
+    padding: 0.4rem 0;
+    text-align: center;
+    font-size: 0.9rem;
   }
 }
 
@@ -371,6 +366,20 @@ article.activity-card:hover{
   transform: scale(1.01);
 };
 
+
+// ******** DETAILS ********* //
+
+img.details-image{
+  width: 100%;
+}
+
+img.details-activity-avatar{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border: white 1px solid;
+}
 
 // ******** PROFILE ********* //
 .profile-avatar {
@@ -460,6 +469,9 @@ footer {
   justify-content: center;
   align-items: center;
   height: 60px;
+  // position:fixed;
+  // bottom: 0;
+  width: 100%;
   a, p {
     padding: 0 0.5rem;
     color: rgb(94, 82, 56);
