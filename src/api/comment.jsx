@@ -50,11 +50,11 @@ export const getOneCommentByBookingId = (booking_id) => {
 export const getAllCommentsByActivityId = (activity_id) => {
   return axios.get(`${config.api_url}/api/v1/comment/all/activity/${activity_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllCommentsByActivityId -->", res)
+    // console.log("res de requête axios getAllCommentsByActivityId -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("err de requête axios getAllCommentsByActivityId -->", err)
+    // console.log("err de requête axios getAllCommentsByActivityId -->", err)
   })
 }
 
