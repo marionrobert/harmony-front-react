@@ -68,7 +68,9 @@ const Details = () => {
           <p>{activity.description}</p>
           { activity.urlPicture !== null ? <img className="details-image" src={activity.urlPicture}/> : <img className="details-image" src={`${config.pict_url}/no-image.png`} /> }
           <p>Lieu de rendez-vous: {activity.address}, {activity.zip} {activity.city}</p>
-          <p>Annonce créée par:{author.firstName} {author.lastName.slice(0, 1).toUpperCase()}.</p>
+
+          { author !== null && <p>Annonce créée par: {author.firstName} {author.lastName.slice(0, 1).toUpperCase()}.</p> }
+          { author !== null && author.avatar !== null ? <img src={author.avatar} className="details-activity-avatar"/> : <img src={`${config.pict_url}/user.png`} className="details-activity-avatar"/> }
           <p>Durée de l'activité: {activity.duration} minutes</p>
           <p>Coût de l'activité: {activity.points} points</p>
         </section>
@@ -79,7 +81,7 @@ const Details = () => {
 
         { comments.length > 0 &&
           <section className="section-comments">
-            <h2>Ils ont réservé déjà cette activité ... </h2>
+            <h2>Ils ont déjà réservé cette activité, ils témoignent!</h2>
             {comments.slice(-10).map(comment => {
               return <CommentCard key={comment.id} comment={comment} />
             })}

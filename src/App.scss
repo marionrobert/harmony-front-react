@@ -373,6 +373,14 @@ img.details-image{
   width: 100%;
 }
 
+img.details-activity-avatar{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border: white 1px solid;
+}
+
 // ******** PROFILE ********* //
 .profile-avatar {
   height: 70px;
@@ -461,8 +469,8 @@ footer {
   justify-content: center;
   align-items: center;
   height: 60px;
-  position:fixed;
-  bottom: 0;
+  // position:fixed;
+  // bottom: 0;
   width: 100%;
   a, p {
     padding: 0 0.5rem;
