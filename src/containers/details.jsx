@@ -66,9 +66,11 @@ const Details = () => {
         <section className="activity-details">
           <h1>{activity.title}</h1>
           <p>{activity.description}</p>
-          { activity.urlPicture !== null ? <img src={activity.urlPicture}/> : <img src={`${config.pict_url}/no-pict.jpg`} /> }
+          { activity.urlPicture !== null ? <img className="details-image" src={activity.urlPicture}/> : <img className="details-image" src={`${config.pict_url}/no-image.png`} /> }
           <p>Lieu de rendez-vous: {activity.address}, {activity.zip} {activity.city}</p>
           <p>Annonce créée par:{author.firstName} {author.lastName.slice(0, 1).toUpperCase()}.</p>
+          <p>Durée de l'activité: {activity.duration} minutes</p>
+          <p>Coût de l'activité: {activity.points} points</p>
         </section>
 
         <button onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
@@ -77,7 +79,7 @@ const Details = () => {
 
         { comments.length > 0 &&
           <section className="section-comments">
-            <h2>Ils ont réservé cette activité ... </h2>
+            <h2>Ils ont réservé déjà cette activité ... </h2>
             {comments.slice(-10).map(comment => {
               return <CommentCard key={comment.id} comment={comment} />
             })}
