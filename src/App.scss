@@ -65,16 +65,12 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  background-color: whitesmoke;
-}
 
 body {
 	line-height: 1;
   text-align: center;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: whitesmoke;
 }
 
 ol, ul {
@@ -459,6 +455,28 @@ button.active-tab-comments, button.active-tab-activities, button.active-tab-my-b
 }
 
 
+
+// ******** ADMIN ********** //
+
+section.admin {
+
+  h1 {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  table, td {
+    border: 1px solid black;
+    padding: 0.5rem;
+  }
+
+  section {
+    h2 {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  }
+}
 
 
 // ******** FOOTER ********* //

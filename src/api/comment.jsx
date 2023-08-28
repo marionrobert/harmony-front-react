@@ -4,7 +4,7 @@ const token = window.localStorage.getItem("harmony-token")
 
 
 export const getAllComments = () => {
-  return axios.put(`${config.api_url}/api/v1/comment/all`, {headers: {"x-access-token": token}})
+  return axios.get(`${config.api_url}/api/v1/comment/all`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllComments -->", res)
     return res.data
@@ -15,7 +15,7 @@ export const getAllComments = () => {
 }
 
 export const getAllWaitingComments = () => {
-  return axios.put(`${config.api_url}/api/v1/comment/all/waiting`, {headers: {"x-access-token": token}})
+  return axios.get(`${config.api_url}/api/v1/comment/all/waiting`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllWaitingComments -->", res)
     return res.data
@@ -26,7 +26,7 @@ export const getAllWaitingComments = () => {
 }
 
 export const getOneCommentById = (id) => {
-  return axios.put(`${config.api_url}/api/v1/comment/one/${id}`, {headers: {"x-access-token": token}})
+  return axios.get(`${config.api_url}/api/v1/comment/one/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getOneCommentById -->", res)
     return res.data
@@ -37,7 +37,7 @@ export const getOneCommentById = (id) => {
 }
 
 export const getOneCommentByBookingId = (booking_id) => {
-  return axios.put(`${config.api_url}/api/v1/comment/one/booking/${booking_id}`, {headers: {"x-access-token": token}})
+  return axios.get(`${config.api_url}/api/v1/comment/one/booking/${booking_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getOneCommentByBookingId -->", res)
     return res.data
