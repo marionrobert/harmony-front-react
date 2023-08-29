@@ -83,7 +83,7 @@ const Admin = () => {
             <thead>
               <tr>
                 <td>
-                  Commentaire
+                  Titre
                 </td>
                 <td>
                   Posté le
@@ -104,7 +104,6 @@ const Admin = () => {
                     <td>
                       <Link to={`/`}><FontAwesomeIcon icon={faEye}/></Link>
                     </td>
-
                   </tr>
                 )
               })}
