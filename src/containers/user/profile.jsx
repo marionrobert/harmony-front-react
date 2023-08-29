@@ -108,7 +108,6 @@ const Profile = () => {
     getAllBookingsByAuthorId(user.data.id)
     .then((res)=>{
       if (res.status === 200){
-        console.log(res.bookings)
         setBookingsForMyActivities(res.bookings)
       }
     })
@@ -125,7 +124,7 @@ const Profile = () => {
         <h2>Mes informations personnelles</h2>
         { user.data.avatar !== null ? <img src={user.data.avatar} className="profile-avatar"/> : <img src={`${config.pict_url}/user.png`} className="profile-avatar"/> }
         <p>Mes points: {user.data.points}</p>
-        <p>Mes numéro de téléphone: {user.data.phone}</p>
+        <p>Mon numéro de téléphone: {user.data.phone}</p>
         <Link>Modifier mes informations</Link>
       </section>
       <section className='profile-user-activities'>
@@ -282,7 +281,6 @@ const Profile = () => {
                 <ul>
                   { bookingsForMyActivities.map(booking => {
                     if (booking.status === "en attente de réalisation"){
-                      console.log("coucou")
                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
                     }
                     return null

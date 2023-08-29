@@ -31,6 +31,8 @@ const RequireDataAuth = (props) => {
 
 
   useEffect(()=>{
+    setRedirectToHome(false)
+    setRedirectToLogin(false)
     // récupération de toutes les activités en ligne
     if (activities.activities.length === 0){
       getAllOnlineActivities()
@@ -45,11 +47,13 @@ const RequireDataAuth = (props) => {
     }
 
     if (props.auth === true) { // si la route est protégée
+      // console.log("route protégée")
       // récupération du token dans le localStorage
       let token = window.localStorage.getItem("harmony-token")
       // console.log("recup token from require auth-->", token)
 
       if (token === null) { // l'utilisateur n'est pas connecté
+        // console.log("l'utilisateur n'est pas connecté, on redirige vers le login")
         setRedirectToLogin(true)
       } else { // l'utilisateur est connecté
         // vérification du format du token
@@ -57,21 +61,24 @@ const RequireDataAuth = (props) => {
         .then((res) => {
           if (res.data.status !== 200){ // format invalide
             // redirection + suppression token
+            // console.log("format invalide --> redirection + suppression token")
             setRedirectToLogin(true)
             window.localStorage.removeItem("harmony-token")
           } else { // l'utilisateur est connecté
+            // console.log("le token est au bon format --> j'enregistre le user dans la state user")
+            // récupération des infos de l'utilisateur
+            let currentUser = res.data.user
+            // console.log("currentUser -->", currentUser)
+
+            // ajout du token à l'objet currentUser
+            currentUser.token = token
+
+            // mise à jour de la state user dans le store
+            dispatch(setUser(currentUser))
+
             if (props.admin === true && res.data.user.role !== "admin"){ // l'utilisateur connecté n'est pas admin
+              // console.log("utilisateur connecté, mais pas admin alors que route admin --> redirection vers la home")
               setRedirectToHome(true)
-            } else {
-              // récupération des infos de l'utilisateur
-              let currentUser = res.data.user
-              // console.log("currentUser -->", currentUser)
-
-              // ajout du token à l'objet currentUser
-              currentUser.token = token
-
-              // mise à jour de la state user dans le store
-              dispatch(setUser(currentUser))
             }
           }
         })
@@ -85,7 +92,7 @@ const RequireDataAuth = (props) => {
   }, [props, dispatch, activities])
 
   if (redirectToHome){
-    return <Navigate to="/"/>
+    return <Navigate to="/home"/>
   }
 
   if (redirectToLogin){
