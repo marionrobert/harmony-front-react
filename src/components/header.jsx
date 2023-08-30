@@ -27,8 +27,6 @@ const Header = () => {
     e.preventDefault()
     const connexionMenu = document.querySelector("div.connexion-menu")
     connexionMenu.classList.remove("display-menu")
-    connexionMenu.classList.add("withdraw-menu")
-    connexionMenu.classList.remove("withdraw-menu")
   }
 
   useEffect(()=>{
