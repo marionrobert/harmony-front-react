@@ -17,13 +17,14 @@ const Header = () => {
 
   const displayConnexionMenu = (e) => {
     e.preventDefault()
-    console.log("have been clicked!")
+    // console.log("have been clicked!")
     const connexionMenu = document.querySelector("div.connexion-menu")
     connexionMenu.classList.add("display-menu")
   }
 
   const closeConnexionMenu = (e) => {
-    console.log("close connexion-menu")
+    // console.log("close connexion-menu")
+    e.preventDefault()
     const connexionMenu = document.querySelector("div.connexion-menu")
     connexionMenu.classList.remove("display-menu")
     connexionMenu.classList.add("withdraw-menu")
