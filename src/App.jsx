@@ -7,6 +7,7 @@ import Home from './containers/home'
 // activities
 import Activities from './containers/activities'
 import Details from "./containers/details"
+import AddActivity from './containers/activity/addActivity'
 
 // user
 import Login from "./containers/user/login"
@@ -27,7 +28,10 @@ function App() {
       <main>
         <Routes>
           <Route exact path="/" element={<RequireDataAuth child={Home} auth={false} admin={false} />} />
+
+          {/* ACTIVITIES, DETAILS, ADD ACTIVITY, UPDATE ACTIVITY, DELETE ACTIVITY */}
           <Route exact path="/activities" element={<RequireDataAuth child={Activities} auth={true} admin={false} />} />
+          <Route exact path="/activity/create" element={<RequireDataAuth child={AddActivity} auth={true} admin={false} />} />
           <Route exact path="/activity/details/:id" element={<RequireDataAuth child={Details} auth={true} admin={false} />} />
 
           {/* LOGIN, LOGOUT, REGISTER, FORGOT, PROFILE, ADMIN */}
@@ -36,6 +40,8 @@ function App() {
           <Route exact path="/logout" element={<RequireDataAuth child={Logout} auth={true} admin={false} />} />
           <Route exact path="/forgot" element={<Forgot/>}/>
           <Route path="/profile" element={<RequireDataAuth child={Profile} auth={true} admin={false}/>}/>
+
+          {/* ADMIN: DASHBOARD, MODERATE ACTIVITY, MODERATE COMMENT */}
           <Route path="/admin" element={<RequireDataAuth child={Admin} auth={true} admin={true}/>}/>
 
           <Route exact path="/home" element={<Navigate to="/"/>} />

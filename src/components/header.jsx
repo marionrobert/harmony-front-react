@@ -7,7 +7,7 @@ import { selectUser } from '../slices/userSlice';
 import { selectBasket } from '../slices/basketSlice';
 
 import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import { faBagShopping, faUser, faUserGear, faXmark, faUserCheck} from "@fortawesome/free-solid-svg-icons"
+import { faBagShopping, faUser, faUserGear, faXmark, faUserCheck, faSquarePlus} from "@fortawesome/free-solid-svg-icons"
 
 
 const Header = () => {
@@ -16,7 +16,6 @@ const Header = () => {
   const [nbItems, setNbItems] = useState(0)
 
   const displayConnexionMenu = (e) => {
-    e.preventDefault()
     // console.log("have been clicked!")
     const connexionMenu = document.querySelector("div.connexion-menu")
     connexionMenu.classList.add("display-menu")
@@ -24,11 +23,8 @@ const Header = () => {
 
   const closeConnexionMenu = (e) => {
     // console.log("close connexion-menu")
-    e.preventDefault()
     const connexionMenu = document.querySelector("div.connexion-menu")
     connexionMenu.classList.remove("display-menu")
-    connexionMenu.classList.add("withdraw-menu")
-    connexionMenu.classList.remove("withdraw-menu")
   }
 
   useEffect(()=>{

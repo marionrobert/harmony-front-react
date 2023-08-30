@@ -7,7 +7,7 @@ import { getAllCommentsByAuthorId } from '../../api/comment'
 import { getAllBookingsByAuthorId, getAllBookingsByBookerId } from '../../api/booking'
 import { useEffect, useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -123,6 +123,7 @@ const Profile = () => {
     <>
       <h1>Bienvenue {user.data.firstName}</h1>
       <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
+
       <section className='profile-user-data'>
         <h2>Mes informations personnelles</h2>
         { user.data.avatar !== null ? <img src={user.data.avatar} className="profile-avatar"/> : <img src={`${config.pict_url}/user.png`} className="profile-avatar"/> }
@@ -179,6 +180,7 @@ const Profile = () => {
 
 
          : <p>Vous n'avez pas encore créé d'activités.</p>}
+         <Link to ="/activity/create"><FontAwesomeIcon icon={faSquarePlus}/>Créer une nouvelle activité</Link>
       </section>
 
       <section className='profile-user-comments'>

@@ -79,6 +79,8 @@ export const saveOneActivity = (data) => {
   })
 }
 
+
+
 export const updateOneActivity = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/activity/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
