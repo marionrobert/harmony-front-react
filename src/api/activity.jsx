@@ -27,7 +27,7 @@ export const getAllOnlineActivities = () =>{
 export const getAllWaitingActivities = () => {
   return axios.get(`${config.api_url}/api/v1/activity/all/waiting`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllWaitingActivities -->", res)
+    // console.log("res de requête axios getAllWaitingActivities -->", res)
     return res.data
   })
   .catch((err)=>{

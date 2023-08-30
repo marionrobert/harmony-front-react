@@ -34,7 +34,7 @@ const Login = () => {
     }
     loginUser(data)
     .then((res)=>{
-      console.log("res -->", res)
+      // console.log("res -->", res)
       if (res.status === 200){
         window.localStorage.setItem("harmony-token", res.token)
         let myUser = res.user
