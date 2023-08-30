@@ -21,6 +21,7 @@ const AddActivity = () => {
   const [redirect, setRedirect] = useState(null)
 
   useEffect(() => {
+    setErrorForm(null)
     getAllCategories()
     .then((res)=>{
       if (res.status === 200){
@@ -32,6 +33,7 @@ const AddActivity = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrorForm(null)
     console.log("submit!")
     getCoords(address, city)
     .then((res) =>{
@@ -41,8 +43,11 @@ const AddActivity = () => {
         let lat = res.features[0].geometry.coordinates[1]
         let lng = res.features[0].geometry.coordinates[0]
 
+        let points = parseInt(duration) / 60
+
         let data = {
           "category_id": categoryId,
+          "author_id": user,
           "authorIsProvider": authorIsProvider,
           "title": title,
           "description": description,
@@ -53,8 +58,20 @@ const AddActivity = () => {
           "lat": lat,
           "lng": lng,
           "duration": duration,
+          "points": points
         }
         console.log(data)
+
+        saveOneActivity(data)
+        .then((response)=>{
+          if (response.status === 200){
+            setIdNewActivity(res.activity.insertId)
+            setRedirect(true)
+          } else {
+            setErrorForm(res.msg)
+          }
+        })
+        .catch((error => console.log(error)))
       }
     })
     .catch((err) => console.log(err))
@@ -105,7 +122,7 @@ const AddActivity = () => {
       { categories.length > 0 &&
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <label htmlFor="category_id">Catégorie :</label>
-          <select name="category_id">
+          <select name="category_id" onChange={handleChange} required>
             <option value="">Choisissez une catégorie</option>
             { categories.map(category=> {
               return (<option key={category.id} value={category.id}>{category.title} </option>)
