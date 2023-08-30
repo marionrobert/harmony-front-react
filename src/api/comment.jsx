@@ -17,7 +17,7 @@ export const getAllComments = () => {
 export const getAllWaitingComments = () => {
   return axios.get(`${config.api_url}/api/v1/comment/all/waiting`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllWaitingComments -->", res)
+    // console.log("res de requête axios getAllWaitingComments -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -54,7 +54,7 @@ export const getAllCommentsByActivityId = (activity_id) => {
     return res.data
   })
   .catch((err)=>{
-    // console.log("err de requête axios getAllCommentsByActivityId -->", err)
+    console.log("err de requête axios getAllCommentsByActivityId -->", err)
   })
 }
 
@@ -65,7 +65,7 @@ export const getAllHighScoreComments = () => {
     return res.data
   })
   .catch((err)=>{
-    // console.log("err de requête axiosgetAllHighScoreComments -->", err)
+    console.log("err de requête axiosgetAllHighScoreComments -->", err)
   })
 }
 
@@ -120,6 +120,6 @@ export const getAllCommentsByAuthorId = (author_id) => {
     return res.data
   })
   .catch((err)=>{
-    // console.log("err de requête axios getAllCommentsByAuthorId -->", err)
+    console.log("err de requête axios getAllCommentsByAuthorId -->", err)
   })
 }

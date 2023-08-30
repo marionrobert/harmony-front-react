@@ -16,11 +16,11 @@ export const saveUser = (data) => {
 export const loginUser = (data) => {
   return axios.post(`${config.api_url}/api/v1/user/login`, data)
   .then((res)=>{
-    console.log("res appel api loginUser -->", res)
+    // console.log("res appel api loginUser -->", res)
     return res.data
   })
   .catch((err)=>{
-    console.log("erreur appel api loginUser -->", err)
+    // console.log("erreur appel api loginUser -->", err)
   })
 }
 

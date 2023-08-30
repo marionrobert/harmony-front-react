@@ -4,6 +4,7 @@ import { getAllWaitingActivities } from "../../api/activity"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEye } from "@fortawesome/free-regular-svg-icons"
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment"
 
 const Admin = () => {
@@ -13,7 +14,7 @@ const Admin = () => {
   useEffect(() => {
     getAllWaitingActivities()
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       if (res.status === 200){
         setActivites(res.activities)
       }
@@ -22,7 +23,7 @@ const Admin = () => {
 
     getAllWaitingComments()
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       if (res.status === 200){
         setComments(res.comments)
       }
@@ -33,6 +34,7 @@ const Admin = () => {
   return (
     < section className="admin">
       <h1>Tableau de bord adminisrateur</h1>
+      <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
 
       { activities.length !== 0 ?
         <section className="admin-activities">

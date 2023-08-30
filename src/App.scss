@@ -123,30 +123,106 @@ header {
   left: 0;
   height: 60px;
   z-index: 3;
-  padding: 0.2rem;
 
   nav#navbar-menu {
     display:flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    height: 100%;
+    background-color: rgb(246, 237, 222);
+    padding-right: 1rem;
+
 
     div#brand {
       display: flex;
       align-items: center;
       span {
         font-family: 'Pacifico', cursive;
-        font-size: 1.5rem;
-        padding-left: 0.2rem;
+        font-size: 1.3rem;
         color: rgb(94, 82, 56);
       };
       img.brand-icon {
-        width: 50px;
+        width: 46px;
         height: auto;
         background-color: white;
         border-radius: 50px;
       }
     }
+
+
+    a#basket {
+      color: rgb(94, 82, 56);
+      font-size: 1.5rem;
+      position: relative;
+      margin-left: 0.7rem;
+
+      span.nbItems {
+        color: white;
+        background-color: rgba(94, 82, 56, 0.9);
+        padding: 0.2rem;
+        height: 1.2rem;
+        width: 1.2rem;
+        border-radius: 50%;
+        border: 1px solid white;
+        position: absolute;
+        left: 50%;
+        bottom: 35%;
+        font-size: 0.6rem;
+      }
+    }
+
+    a#user {
+      color: rgb(94, 82, 56);
+      font-size: 1.2rem;
+    }
   }
+
+  div.connexion-menu {
+    background-color: white;
+    position: absolute;
+    top: 60px;
+    right: -100%;
+    height: 150px;
+    width: 100%;
+    padding: 1.5rem;
+
+    button{
+      width: 60%;
+      margin: 1rem 0;
+      background-color: rgb(94, 82, 56);
+      border: none;
+      border-radius: 2px;
+      padding: 0.5rem;
+      a {
+        color: white;
+        font-weight: bold;
+      }
+    }
+
+    .fa-xmark {
+      color: "red";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+  }
+}
+
+div.connexion-menu.display-menu {
+  right: 0;
+  -webkit-transition: all 0.4s, -webkit-transform 0.4s;
+  transition: all 0.4s, transform 0.4s;
+}
+
+div.connexion-menu.withdraw-menu {
+  right: -100%;
+  -webkit-transition: all 0.4s, -webkit-transform 0.4s;
+  transition: all 0.4s, transform 0.4s;
 }
 
 // ******** HOME ********* //
