@@ -79,7 +79,16 @@ export const saveOneActivity = (data) => {
   })
 }
 
-
+export const getCoords = (address, city)=>{
+  //requète ajax vers nominatim `https://nominatim.openstreetmap.org/search?q=${address} ${zip} ${city}'&format=geocodejson`
+  return axios.get(`https://nominatim.openstreetmap.org/search?q=${address} ${city}'&format=geocodejson`)
+    .then((res) => {
+        return res.data
+    })
+    .catch((err) => {
+        return err
+    })
+}
 
 export const updateOneActivity = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/activity/update/${id}`, data, {headers: {"x-access-token": token}})

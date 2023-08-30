@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Navigate} from "react-router-dom"
 import { getAllCategories } from "../../api/category"
-import { saveOneActivity } from "../../api/activity"
+import { saveOneActivity, getCoords } from "../../api/activity"
 
 
 const AddActivity = () => {
@@ -33,18 +33,32 @@ const AddActivity = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit!")
-    let data = {
-      "category_id": categoryId,
-      "authorIsProvider": authorIsProvider,
-      "title": title,
-      "description": description,
-      "address": address,
-      "urlPicture": null,
-      "city": city,
-      "zip": zip,
-      "duration": duration,
-    }
-    console.log(data)
+    getCoords(address, city)
+    .then((res) =>{
+      if (res.features.length <= 0){
+        setErrorForm("Nous n'avons pas trouvé l'adresse renseignée.")
+      } else {
+        let lat = res.features[0].geometry.coordinates[1]
+        let lng = res.features[0].geometry.coordinates[0]
+
+        let data = {
+          "category_id": categoryId,
+          "authorIsProvider": authorIsProvider,
+          "title": title,
+          "description": description,
+          "address": address,
+          "urlPicture": null,
+          "city": city,
+          "zip": zip,
+          "lat": lat,
+          "lng": lng,
+          "duration": duration,
+        }
+        console.log(data)
+      }
+    })
+    .catch((err) => console.log(err))
+
   }
 
   const handleChange = (e) => {
@@ -83,11 +97,11 @@ const AddActivity = () => {
     return <Navigate to={`/activity/details/${idNewActivity}`} />
   }
 
-  {errorForm !== null && <p style={{color:"red"}}>{errorForm}</p>}
 
   return (
     <>
       <h1>Créer une nouvelle activité</h1>
+      {errorForm !== null && <p style={{color:"red"}}>{errorForm}</p>}
       { categories.length > 0 &&
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <label htmlFor="category_id">Catégorie :</label>
