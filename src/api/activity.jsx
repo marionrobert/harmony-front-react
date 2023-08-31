@@ -71,7 +71,7 @@ export const getOneActivity = (id) => {
 export const saveOneActivity = (data) => {
   return axios.post(`${config.api_url}/api/v1/activity/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios saveOneActivity -->", res)
+    // console.log("res de requête axios saveOneActivity -->", res)
     return res.data
   })
   .catch((err)=>{

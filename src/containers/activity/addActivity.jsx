@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { Navigate} from "react-router-dom"
 import { getAllCategories } from "../../api/category"
 import { saveOneActivity, getCoords } from "../../api/activity"
-
+import { useSelector } from 'react-redux';
+import { selectUser} from "../../slices/userSlice"
 
 const AddActivity = () => {
   const [categories, setCategories] = useState([])
@@ -19,6 +20,7 @@ const AddActivity = () => {
   // const token = window.localStorage.getItem('harmony-token')
   const [idNewActivity, setIdNewActivity] = useState(null)
   const [redirect, setRedirect] = useState(null)
+  const user = useSelector(selectUser)
 
   useEffect(() => {
     setErrorForm(null)
@@ -43,12 +45,12 @@ const AddActivity = () => {
         let lat = res.features[0].geometry.coordinates[1]
         let lng = res.features[0].geometry.coordinates[0]
 
-        let points = parseInt(duration) / 60
+        let points = parseInt(duration) / 30
 
         let data = {
-          "category_id": categoryId,
-          "author_id": user,
-          "authorIsProvider": authorIsProvider,
+          "category_id": parseInt(categoryId),
+          "author_id": user.data.id,
+          "authorIsProvider": (authorIsProvider === "true"),
           "title": title,
           "description": description,
           "address": address,
@@ -60,15 +62,14 @@ const AddActivity = () => {
           "duration": duration,
           "points": points
         }
-        console.log(data)
 
         saveOneActivity(data)
         .then((response)=>{
           if (response.status === 200){
-            setIdNewActivity(res.activity.insertId)
+            setIdNewActivity(response.activity.insertId)
             setRedirect(true)
           } else {
-            setErrorForm(res.msg)
+            setErrorForm(response.msg)
           }
         })
         .catch((error => console.log(error)))
@@ -131,9 +132,9 @@ const AddActivity = () => {
 
           <fieldset>
             <legend>Etes-vous fournisseur de l'activité ?</legend>
-            <input type="radio" name="authorIsProvider" value={true} checked/>
+            <input type="radio" name="authorIsProvider" value={true} checked onChange={handleChange} required/>
             <label htmlFor="authorIsPorvider">Oui</label>
-            <input type="radio" name="authorIsProvider" value={false}/>
+            <input type="radio" name="authorIsProvider" value={false} onChange={handleChange} required/>
             <label htmlFor="authorIsPorvider">Non</label>
           </fieldset>
 
@@ -154,7 +155,7 @@ const AddActivity = () => {
           </fieldset>
 
           <label htmlFor="duration">Durée de l'activité : </label>
-          <select name="duration">
+          <select name="duration" onChange={handleChange} required>
             <option value="">Choisissez une durée</option>
             <option value={30}>30 minutes</option>
             <option value={60}>1 heure</option>
