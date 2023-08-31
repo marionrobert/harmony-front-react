@@ -145,7 +145,7 @@ const Profile = () => {
                 <ul>
                   { activities.map(activity => {
                     if (activity.status === "en ligne"){
-                      return (<li key={activity.id}>{activity.title}</li>)
+                      return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                     }
                     return null
                     })
@@ -157,7 +157,7 @@ const Profile = () => {
               <ul>
                   { activities.map(activity => {
                     if (activity.status === "hors ligne"){
-                      return (<li key={activity.id}>{activity.title}</li>)
+                      return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                     }
                     return null
                     })
@@ -169,7 +169,7 @@ const Profile = () => {
               <ul>
                   { activities.map(activity => {
                     if (activity.status === "en attente de validation"){
-                      return (<li key={activity.id}>{activity.title}</li>)
+                      return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                     }
                     return null
                     })

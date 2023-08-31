@@ -2,6 +2,7 @@ import { config } from "../config"
 import { Link } from "react-router-dom"
 import { getOneUserById } from "../api/user"
 import { useState, useEffect } from "react"
+import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 
 const ActivityCard = (props) => {
   const activity = props.activity
@@ -22,7 +23,15 @@ const ActivityCard = (props) => {
   return (
     <>
       { activity !== null && <article className="activity-card">
-        { activity.urlPicture !== null ? <img src={activity.urlPicture}/> : <img src={`${config.pict_url}/no-image.png`} /> }
+        { activity.urlPicture !== null ?
+          <CloudinaryContext cloudName="dptcisxbs">
+            <div>
+              <Image publicId={activity.urlPicture} id='profilImg' >
+                <Transformation quality="auto" fetchFormat="auto" />
+              </Image>
+            </div>
+          </CloudinaryContext> :
+          <img src={`${config.pict_url}/no-image.png`} /> }
         { author !== null && author.avatar !== null ? <img src={author.avatar} className="activity-card-avatar"/> : <img src={`${config.pict_url}/user.png`} className="activity-card-avatar"/> }
         <div className="activity-card-data">
           { activity.title.length > 50 ? <h3>{activity.title.substring(0, 50)}...</h3> : <h3>{activity.title}</h3> }
