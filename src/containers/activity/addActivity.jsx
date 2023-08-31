@@ -4,6 +4,7 @@ import { getAllCategories } from "../../api/category"
 import { saveOneActivity, getCoords } from "../../api/activity"
 import { useSelector } from 'react-redux';
 import { selectUser} from "../../slices/userSlice"
+import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 
 const AddActivity = () => {
   const [categories, setCategories] = useState([])
@@ -16,14 +17,17 @@ const AddActivity = () => {
   const [city, setCity] = useState("")
   const [duration, setDuration] = useState("")
   const [urlPicture, setUrlPicture] = useState(null)
+  const [msgError, setMsgError] = useState(null)
+  const [ msgSuccess, setMsgSuccess] = useState(null)
   const [errorForm, setErrorForm] = useState(null)
-  // const token = window.localStorage.getItem('harmony-token')
   const [idNewActivity, setIdNewActivity] = useState(null)
   const [redirect, setRedirect] = useState(null)
   const user = useSelector(selectUser)
 
   useEffect(() => {
     setErrorForm(null)
+    setMsgError(null)
+    setMsgSuccess(null)
     getAllCategories()
     .then((res)=>{
       if (res.status === 200){
@@ -54,7 +58,7 @@ const AddActivity = () => {
           "title": title,
           "description": description,
           "address": address,
-          "urlPicture": null,
+          "urlPicture": urlPicture,
           "city": city,
           "zip": zip,
           "lat": lat,
@@ -62,6 +66,8 @@ const AddActivity = () => {
           "duration": duration,
           "points": points
         }
+
+        console.log(data)
 
         saveOneActivity(data)
         .then((response)=>{
@@ -111,6 +117,42 @@ const AddActivity = () => {
     }
   }
 
+  //fonction d'affichage de notre interface de chargement d'images/videos de cloudinary
+  const showWidget = () => {
+    //paramètrage de l'interface
+    let widget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: "dptcisxbs", //nom du repository cloud
+            uploadPreset: "harmonyActivitiesCloudinary", //on branche au preset qui va envoyer vers le dossier saas
+            maxImageWidth: 800, //on peut paramètrer la taille max de l'image
+            cropping: false //recadrage
+        },
+        (error, result) => {
+            if(error){
+                console.log(error)
+            } else {
+              console.log("result -->", result)
+                checkUploadResult(result) //appel de notre callback
+            }
+        }
+    )
+    //ouverture de notre interface
+    widget.open()
+  }
+
+  //fonction callback de cloudinary déclenché lors de l'envoi d'un fichier
+  const checkUploadResult = (resultEvent) => {
+      console.log("checkUploadResult", resultEvent)
+      setMsgError(null)
+      setMsgSuccess(null)
+      if (resultEvent.event === "success"){
+        setUrlPicture(resultEvent.info.public_id)
+        setMsgSuccess("La photo a bien été chargée.")
+      } else {
+        setMsgError("Erreur de chargement de la photo.")
+      }
+  }
+
   if (redirect && idNewActivity !== null){
     return <Navigate to={`/activity/details/${idNewActivity}`} />
   }
@@ -120,6 +162,7 @@ const AddActivity = () => {
     <>
       <h1>Créer une nouvelle activité</h1>
       {errorForm !== null && <p style={{color:"red"}}>{errorForm}</p>}
+
       { categories.length > 0 &&
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <label htmlFor="category_id">Catégorie :</label>
@@ -165,9 +208,14 @@ const AddActivity = () => {
             <option value={180}>3 heures</option>
           </select>
 
-          {/* <label htmlFor="urlPicture">Photo</label>
-          <input type="text" name="urlPicture" onChange={handleChange} required/> */}
-
+          <button onClick={showWidget} >
+            Ajouter une photo d'illustration
+          </button>
+          <hr></hr>
+          <hr></hr>
+          <hr></hr>
+          {msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
+          {msgSuccess !== null && <p style={{color:"red"}}>{msgSuccess}</p>}
           <button type="submit">Valider</button>
         </form>
       }
