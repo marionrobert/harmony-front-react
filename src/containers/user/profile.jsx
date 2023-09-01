@@ -59,6 +59,7 @@ const Profile = () => {
     tabsMyBookingsContents[indexToRemove].classList.remove("active-tab-my-bookings-content");
     tabsMyBookingsContents[indexToShow].classList.add("active-tab-my-bookings-content");
   }
+  
   function tabsBookingsAboutMyActivitiesAnimation(e){
     const tabsMyBookings = [...document.querySelectorAll(".tab-bookings-for-my-activities")]
     const tabsMyBookingsContents = [...document.querySelectorAll(".tab-bookings-for-my-activities-content")]
