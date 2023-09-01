@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectBasket, updateBasket } from "../slices/basketSlice";
 import { selectUser, setUser} from "../slices/userSlice"
 
-import { getOneActivity } from "../api/activity";
+import { getOneActivity, updateOnlineOfflineStatus } from "../api/activity";
 import { getOneUserById } from "../api/user";
 import { getAllCommentsByActivityId } from "../api/comment";
 
@@ -13,7 +13,8 @@ import { config } from "../config";
 import {Link, Navigate} from "react-router-dom"
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faGears } from "@fortawesome/free-solid-svg-icons";
 
 
 const Details = () => {
@@ -24,8 +25,10 @@ const Details = () => {
   const [comments, setComments] = useState([])
   const currentBasket = useSelector(selectBasket)
   const user = useSelector(selectUser)
+  const [ msg, setMsg] = useState(null)
 
   useEffect(() => {
+    setMsg(null)
     getOneActivity(params.id)
     .then((res)=>{
       if (res.status === 200){
@@ -68,6 +71,27 @@ const Details = () => {
     dispatch(updateBasket(newBasket))
   }
 
+  const changeActivityStatus = (e) => {
+    e.preventDefault()
+    setMsg(null)
+    const newStatus = (activity.status === "en ligne" ? "hors ligne" : "en ligne")
+    updateOnlineOfflineStatus({status: newStatus}, params.id)
+    .then((res) => {
+      if (res.status === 200){
+        getOneActivity(params.id)
+        .then((response) => {
+          if (response.status === 200){
+            setActivity(response.activity)
+          }
+        })
+        .catch(error => console.log(error))
+      } else {
+        setMsg("Le statut n'a pas pu être mis à jour.")
+      }
+    })
+    .catch(err => console.log(err))
+  }
+
   if ( activity !== null && author !== null && user !== null) {
 
     if (author.id !== user.data.id && activity.status !== "en ligne"){
@@ -76,9 +100,26 @@ const Details = () => {
       return (
         <>
           <section className="activity-details">
-            <p style={{color: "red"}}>Statut: {activity.status}</p>
+
+            { author.id === user.data.id &&
+              <section className="author-zone" style={{border: "1px solid red"}}>
+                <p>Zone de l'auteur pour gérer son annonce : </p>
+                <Link to={`/activity/update/${activity.id}`}> <FontAwesomeIcon icon={faGears}/> Modifier mon annonce</Link>
+                { (activity.status === "en ligne" || activity.status === "hors ligne") &&
+                <div className="container">
+                  <p>Votre annonce est {activity.status} : mettre {activity.status === "en ligne" ? "hors ligne" : "en ligne"}</p>
+                  <label className="switch" htmlFor="checkbox">
+                    <input type="checkbox" id="checkbox" checked = {activity.status === "en ligne" ? true : false} onChange={(e) => {changeActivityStatus(e)}}/>
+                    <div className="slider round"></div>
+                  </label>
+                  { msg !== null && <p style={{color: "red"}}>{msg}</p>}
+                </div>
+                }
+              </section>
+            }
+
             <Link to="/activities">Retour vers toutes les activités</Link>
-            <hr></hr>
+
             <h1>{activity.title}</h1>
             <p>{activity.description}</p>
             { activity.urlPicture !== null ?
@@ -115,12 +156,7 @@ const Details = () => {
             </section>
           }
 
-          { author.id === user.data.id &&
-            <section>
-              <p>Je suis l'auteur je peux modifier mon annonce</p>
-              <Link to={`/activity/update/${activity.id}`}>Modifier mon annonce</Link>
-            </section>
-          }
+
 
         </>
       )

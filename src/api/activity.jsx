@@ -104,7 +104,7 @@ export const updateOneActivity = (data, id) => {
 export const updateOnlineOfflineStatus = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/activity/update/status/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios updateOnlineOfflineStatus -->", res)
+    // console.log("res de requête axios updateOnlineOfflineStatus -->", res)
     return res.data
   })
   .catch((err)=>{
