@@ -4,9 +4,9 @@ const token = window.localStorage.getItem("harmony-token")
 
 
 export const getAllCategories = () => {
-  return axios.get(`${config.api_url}/api/v1/category/all`)
+  return axios.get(`${config.api_url}/api/v1/category/all`,  {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllCategories -->", res)
+    // console.log("res de requête axios getAllCategories -->", res)
     return res.data
   })
   .catch((err)=>{

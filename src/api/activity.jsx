@@ -71,12 +71,23 @@ export const getOneActivity = (id) => {
 export const saveOneActivity = (data) => {
   return axios.post(`${config.api_url}/api/v1/activity/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios saveOneActivity -->", res)
+    // console.log("res de requête axios saveOneActivity -->", res)
     return res.data
   })
   .catch((err)=>{
     console.log("err de requête axios saveOneActivity -->", err)
   })
+}
+
+export const getCoords = (address, city)=>{
+  //requète ajax vers nominatim `https://nominatim.openstreetmap.org/search?q=${address} ${zip} ${city}'&format=geocodejson`
+  return axios.get(`https://nominatim.openstreetmap.org/search?q=${address} ${city}'&format=geocodejson`)
+    .then((res) => {
+        return res.data
+    })
+    .catch((err) => {
+        return err
+    })
 }
 
 export const updateOneActivity = (data, id) => {

@@ -12,6 +12,8 @@ import CommentCard from "../components/comment-card";
 import { config } from "../config";
 import {Link, Navigate} from "react-router-dom"
 
+import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
+
 
 
 const Details = () => {
@@ -79,7 +81,17 @@ const Details = () => {
             <hr></hr>
             <h1>{activity.title}</h1>
             <p>{activity.description}</p>
-            { activity.urlPicture !== null ? <img className="details-image" src={activity.urlPicture}/> : <img className="details-image" src={`${config.pict_url}/no-image.png`} /> }
+            { activity.urlPicture !== null ?
+              <CloudinaryContext cloudName="dptcisxbs">
+                <div>
+                  <Image className="details-image" publicId={activity.urlPicture} id='profilImg' >
+                    <Transformation quality="auto" fetchFormat="auto" />
+                  </Image>
+                </div>
+              </CloudinaryContext>
+              :
+              <img className="details-image" src={`${config.pict_url}/no-image.png`} />
+            }
             <p>Lieu de rendez-vous: {activity.address}, {activity.zip} {activity.city}</p>
 
             { author !== null && <p>Annonce créée par: {author.firstName} {author.lastName.slice(0, 1).toUpperCase()}.</p> }
