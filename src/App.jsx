@@ -8,6 +8,7 @@ import Home from './containers/home'
 import Activities from './containers/activities'
 import Details from "./containers/details"
 import AddActivity from './containers/activity/addActivity'
+import EditActivity from './containers/activity/editActivity'
 
 // user
 import Login from "./containers/user/login"
@@ -32,6 +33,7 @@ function App() {
           {/* ACTIVITIES, DETAILS, ADD ACTIVITY, UPDATE ACTIVITY, DELETE ACTIVITY */}
           <Route exact path="/activities" element={<RequireDataAuth child={Activities} auth={true} admin={false} />} />
           <Route exact path="/activity/create" element={<RequireDataAuth child={AddActivity} auth={true} admin={false} />} />
+          <Route exact path="/activity/update/:id" element={<RequireDataAuth child={EditActivity} auth={true} admin={false} />} />
           <Route exact path="/activity/details/:id" element={<RequireDataAuth child={Details} auth={true} admin={false} />} />
 
           {/* LOGIN, LOGOUT, REGISTER, FORGOT, PROFILE, ADMIN */}
