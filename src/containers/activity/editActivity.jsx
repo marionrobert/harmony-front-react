@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getOneActivity, updateOneActivity } from "../../api/activity";
+import { getOneActivity, updateOneActivity, getCoords } from "../../api/activity";
 import { getAllCategories } from "../../api/category";
 import { selectUser } from "../../slices/userSlice";
 import axios from 'axios'
@@ -66,79 +66,45 @@ const EditActivity = () => {
     e.preventDefault()
     setErrorForm(null)
 
-    // if (photo === null){
-    //   console.log("pas de photo ")
-    //   let data = {
-    //     "name": name,
-    //     "description": description,
-    //     "price": price,
-    //     "photo": "no-pict.jpg",
-    //     "quantity": quantity,
-    //     "watering": watering,
-    //     "brightness": brightness,
-    //     "minTemperature": minTemperature,
-    //     "maxTemperature": maxTemperature
-    //   }
-    //   console.log("data", data)
+    getCoords(address, city)
+    .then((res) =>{
+      if (res.features.length <= 0){
+        setErrorForm("Nous n'avons pas trouvé l'adresse renseignée.")
+      } else {
+        let lat = res.features[0].geometry.coordinates[1]
+        let lng = res.features[0].geometry.coordinates[0]
 
-    //   updateOnePlant(data, params.id)
-    //   .then((res)=>{
-    //     console.log("retour update method après quand photo est nulle",res)
-    //     if (res.status === 200){
-    //       setRedirect(true)
-    //     } else {
-    //       setErrorForm(res.msg)
-    //     }
-    //   })
-    //   .catch((err)=>{
-    //     console.log(err)
-    //   })
+        let points = parseInt(duration) / 30
 
+        let data = {
+          "category_id": parseInt(categoryId),
+          "authorIsProvider": (authorIsProvider === "true"),
+          "title": title,
+          "description": description,
+          "address": address,
+          "urlPicture": urlPicture,
+          "city": city,
+          "zip": zip,
+          "lat": lat,
+          "lng": lng,
+          "duration": duration,
+          "points": points
+        }
 
-    // } else { //une photo a été chargée
-    //   console.log("photo")
-    //   const formData = new FormData()
-    //   formData.append("image", photo)
+        // console.log(data)
 
-    //   //requète axios d'envoi d'une image vers l'api
-    //   axios.post(`${config.api_url}/api/v1/plant/pict`, formData, {headers: {"Content-Type":"multipart/form-data", "x-access-token": token}})
-    //   .then((response) => {
-    //     if (response.status === 200){
-    //       // console.log("image enregistrée", response.data.url)
-    //       let newData = {
-    //         "name": name,
-    //         "description": description,
-    //         "price": price,
-    //         "photo": response.data.url,
-    //         "quantity": quantity,
-    //         "watering": watering,
-    //         "brightness": brightness,
-    //         "minTemperature": minTemperature,
-    //         "maxTemperature": maxTemperature
-    //       }
-
-    //       console.log("newdata", newData)
-
-    //       updateOnePlant(newData, params.id)
-    //       .then((res)=>{
-    //         // console.log("retour update method quand photo n'est pas nulle", res)
-    //         if (res.status === 200){
-    //           setRedirect(true)
-    //         } else {
-    //           setErrorForm(res.msg)
-    //         }
-    //       })
-    //       .catch((err)=>{
-    //         console.log(err)
-    //       })
-    //     } else {
-    //       setErrorForm(response.msg)
-    //     }
-    //   })
-    //   .catch((error)=>{
-    //     console.log(error)
-    //   })
-    // }
+        updateOneActivity(data, params.id)
+        .then((response)=>{
+          if (response.status === 200){
+            setRedirect(true)
+          } else {
+            setErrorForm(response.msg)
+          }
+        })
+        .catch((error => console.log(error)))
+      }
+    })
+    .catch((err) => console.log(err))
   }
 
   const handleChange = (e) => {
