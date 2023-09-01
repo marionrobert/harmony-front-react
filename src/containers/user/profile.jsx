@@ -180,7 +180,7 @@ const Profile = () => {
 
 
          : <p>Vous n'avez pas encore créé d'activités.</p>}
-         <Link to ="/activity/create"><FontAwesomeIcon icon={faSquarePlus}/>Créer une nouvelle activité</Link>
+         <Link to ="/activity/create"><FontAwesomeIcon icon={faSquarePlus}/> Créer une nouvelle activité</Link>
       </section>
 
       <section className='profile-user-comments'>

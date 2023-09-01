@@ -40,7 +40,7 @@ const AddActivity = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorForm(null)
-    console.log("submit!")
+    // console.log("submit form!")
     getCoords(address, city)
     .then((res) =>{
       if (res.features.length <= 0){
@@ -67,7 +67,7 @@ const AddActivity = () => {
           "points": points
         }
 
-        console.log(data)
+        // console.log(data)
 
         saveOneActivity(data)
         .then((response)=>{
@@ -118,7 +118,8 @@ const AddActivity = () => {
   }
 
   //fonction d'affichage de notre interface de chargement d'images/videos de cloudinary
-  const showWidget = () => {
+  const showWidget = (e) => {
+    e.preventDefault()
     //paramètrage de l'interface
     let widget = window.cloudinary.createUploadWidget(
         {
@@ -131,8 +132,8 @@ const AddActivity = () => {
             if(error){
                 console.log(error)
             } else {
-              console.log("result -->", result)
-                checkUploadResult(result) //appel de notre callback
+              // console.log("result -->", result)
+              checkUploadResult(result) //appel de notre callback
             }
         }
     )
@@ -142,14 +143,14 @@ const AddActivity = () => {
 
   //fonction callback de cloudinary déclenché lors de l'envoi d'un fichier
   const checkUploadResult = (resultEvent) => {
-      console.log("checkUploadResult", resultEvent)
-      setMsgError(null)
-      setMsgSuccess(null)
+      // console.log("checkUploadResult", resultEvent)
       if (resultEvent.event === "success"){
         setUrlPicture(resultEvent.info.public_id)
         setMsgSuccess("La photo a bien été chargée.")
       } else {
-        setMsgError("Erreur de chargement de la photo.")
+        if (msgSuccess === null){
+          setMsgError("Erreur de chargement de la photo.")
+        }
       }
   }
 
@@ -208,14 +209,14 @@ const AddActivity = () => {
             <option value={180}>3 heures</option>
           </select>
 
-          <button onClick={showWidget} >
+          <button onClick={(e) => {showWidget(e)}} >
             Ajouter une photo d'illustration
           </button>
+          {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
+          {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
           <hr></hr>
           <hr></hr>
           <hr></hr>
-          {msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
-          {msgSuccess !== null && <p style={{color:"red"}}>{msgSuccess}</p>}
           <button type="submit">Valider</button>
         </form>
       }
