@@ -118,7 +118,7 @@ const Details = () => {
           { author.id === user.data.id &&
             <section>
               <p>Je suis l'auteur je peux modifier mon annonce</p>
-              <button>Modifier mon annonce</button>
+              <Link to={`/activity/update/${activity.id}`}>Modifier mon annonce</Link>
             </section>
           }
 

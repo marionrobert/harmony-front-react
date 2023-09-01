@@ -102,9 +102,6 @@ const AddActivity = () => {
       case "duration":
         setDuration(e.currentTarget.value)
         break;
-      // case "photo":
-      //   setPhoto(fileInput.current.files[0])
-      //   break;
       case "address":
         setAddress(e.currentTarget.value)
         break;
@@ -186,7 +183,7 @@ const AddActivity = () => {
           <input type="text" name="title" onChange={handleChange} required/>
 
           <label htmlFor="description">Description</label>
-          <input type="text" name="description" onChange={handleChange} required/>
+          <textarea type="text" name="description" rows="5" cols="33" onChange={handleChange} required></textarea>
 
           <fieldset>
             <legend>Lieu de rendez-vous</legend>

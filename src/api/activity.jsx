@@ -93,7 +93,7 @@ export const getCoords = (address, city)=>{
 export const updateOneActivity = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/activity/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios updateOneActivity -->", res)
+    // console.log("res de requête axios updateOneActivity -->", res)
     return res.data
   })
   .catch((err)=>{
