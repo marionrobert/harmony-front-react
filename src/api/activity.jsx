@@ -115,7 +115,7 @@ export const updateOnlineOfflineStatus = (data, id) => {
 export const moderateOneActivity = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/activity/moderate/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios moderateOneActivity -->", res)
+    // console.log("res de requête axios moderateOneActivity -->", res)
     return res.data
   })
   .catch((err)=>{

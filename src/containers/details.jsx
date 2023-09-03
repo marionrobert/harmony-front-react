@@ -14,7 +14,7 @@ import {Link, Navigate} from "react-router-dom"
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGears } from "@fortawesome/free-solid-svg-icons";
+import { faGears, faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 
 const Details = () => {
@@ -103,11 +103,11 @@ const Details = () => {
 
             { author.id === user.data.id &&
               <section className="author-zone" style={{border: "1px solid red"}}>
-                <p>Zone de l'auteur pour gérer son annonce : </p>
+                <p>Statut de votre annonce : {activity.status}</p>
                 <Link to={`/activity/update/${activity.id}`}> <FontAwesomeIcon icon={faGears}/> Modifier mon annonce</Link>
                 { (activity.status === "en ligne" || activity.status === "hors ligne") &&
                 <div className="container">
-                  <p>Votre annonce est {activity.status} : mettre {activity.status === "en ligne" ? "hors ligne" : "en ligne"}</p>
+                  <p>Mettre mon annonce {activity.status === "en ligne" ? "hors ligne" : "en ligne"} : </p>
                   <label className="switch" htmlFor="checkbox">
                     <input type="checkbox" id="checkbox" checked = {activity.status === "en ligne" ? true : false} onChange={(e) => {changeActivityStatus(e)}}/>
                     <div className="slider round"></div>
@@ -118,7 +118,7 @@ const Details = () => {
               </section>
             }
 
-            <Link to="/activities">Retour vers toutes les activités</Link>
+            <Link to="/activities"><FontAwesomeIcon icon={faArrowRotateLeft}/> Retour vers toutes les activités</Link>
 
             <h1>{activity.title}</h1>
             <p>{activity.description}</p>
