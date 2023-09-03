@@ -86,7 +86,7 @@ const AddActivity = () => {
   }
 
   const handleChange = (e) => {
-    console.log("change from create new activity form")
+    // console.log("change from create new activity form")
     switch (e.currentTarget.name) {
       case "category_id":
         setCategoryId(e.currentTarget.value)
