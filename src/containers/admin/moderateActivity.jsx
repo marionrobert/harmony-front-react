@@ -20,7 +20,7 @@ const ModerateActivity = () => {
       }
     })
     .catch((err) => console.log(err))
-  }, [params])
+  }, [params, status])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -30,13 +30,13 @@ const ModerateActivity = () => {
       "explanation": explanation
     }
     console.log("data -->", data)
-    // moderateOneActivity(data, params.id)
-    // .then((res) => {
-    //   if (res.status === 200){
-    //     setRedirect(true)
-    //   }
-    // })
-    // .catch(err => console.log(err))
+    moderateOneActivity(data, params.id)
+    .then((res) => {
+      if (res.status === 200){
+        setRedirect(true)
+      }
+    })
+    .catch(err => console.log(err))
   }
 
   const handleChange = (e) => {
@@ -78,7 +78,7 @@ const ModerateActivity = () => {
             <label htmlFor="status">Non</label>
           </fieldset>
           <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que l'annonce soit publiée.</label>
-          <textarea type="text" name="explanation" rows="5" cols="33" onChange={(e) => {handleChange(e)}}></textarea>
+          <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "en ligne" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
           <button type="submit">Envoyer</button>
         </form>
       </>
