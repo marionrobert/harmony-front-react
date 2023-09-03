@@ -62,7 +62,7 @@ const Admin = () => {
                     </td>
                     <td>{moment(activity.creationTimestamp).locale("fr").format("DD/MM/YYYY")}</td>
                     <td>
-                      <Link to={`/`}><FontAwesomeIcon icon={faEye}/></Link>
+                      <Link to={`/activity/moderate/${activity.id}`}><FontAwesomeIcon icon={faEye}/></Link>
                     </td>
 
                   </tr>
