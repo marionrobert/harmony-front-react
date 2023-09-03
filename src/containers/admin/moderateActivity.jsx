@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getOneActivity } from "../../api/activity";
+import { getOneActivity, moderateOneActivity } from "../../api/activity";
 import { useParams } from "react-router-dom";
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
+import { Navigate} from "react-router-dom"
 
 
 const ModerateActivity = () => {
@@ -9,6 +10,7 @@ const ModerateActivity = () => {
   const params = useParams()
   const [status, setStatus] = useState("invalidé")
   const [explanation, setExplanation] = useState("")
+  const [redirect, setRedirect] = useState(null)
 
   useEffect( () => {
     getOneActivity(params.id)
@@ -23,23 +25,33 @@ const ModerateActivity = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("submit")
+    let data = {
+      "status": status,
+      "explanation": explanation
+    }
+    console.log("data -->", data)
+    // moderateOneActivity(data, params.id)
+    // .then((res) => {
+    //   if (res.status === 200){
+    //     setRedirect(true)
+    //   }
+    // })
+    // .catch(err => console.log(err))
   }
 
   const handleChange = (e) => {
-    console.log("change")
     e.preventDefault()
-    if (e.currenTarget.name === "status"){
-      if (e.currentTarget.value){
-        setStatus("en ligne")
-        console.log(status)
-      } else {
-        setStatus("invalidé")
-        console.log(status)
-      }
+    console.log("change", e.currentTarget.name)
+    if (e.currentTarget.name === "status"){
+      console.log("current target value", e.currentTarget.value)
+      setStatus(e.currentTarget.value)
     } else {
       setExplanation(e.currentTarget.value)
-      console.log(explanation)
     }
+  }
+
+  if (redirect){
+    return <Navigate to={`/admin`} />
   }
 
   if (activity !== null) {
@@ -60,13 +72,13 @@ const ModerateActivity = () => {
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <fieldset>
             <legend>Souhaitez-vous valider la publication de l'activité ?</legend>
-            <input name="status" type="radio" value={true} checked onChange={handleChange} required/>
+            <input name="status" type="radio" value="en ligne" checked={status === "en ligne"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Oui</label>
-            <input name="status" type="radio" value={false} checked onChange={handleChange} required/>
+            <input name="status" type="radio" value="invalidé" checked={status === "invalidé"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Non</label>
           </fieldset>
-          <label htmlFor="explanation">Indiquez à l'auteur pourquoi vous ne validez son annonce.</label>
-          <textarea type="text" name="explanation" rows="5" cols="33" required={status === "en ligne" ? false : true} onChange={handleChange}></textarea>
+          <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que l'annonce soit publiée.</label>
+          <textarea type="text" name="explanation" rows="5" cols="33" onChange={(e) => {handleChange(e)}}></textarea>
           <button type="submit">Envoyer</button>
         </form>
       </>
