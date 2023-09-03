@@ -86,6 +86,7 @@ const AddActivity = () => {
   }
 
   const handleChange = (e) => {
+    console.log("change from create new activity form")
     switch (e.currentTarget.name) {
       case "category_id":
         setCategoryId(e.currentTarget.value)
@@ -173,9 +174,9 @@ const AddActivity = () => {
 
           <fieldset>
             <legend>Etes-vous fournisseur de l'activité ?</legend>
-            <input type="radio" name="authorIsProvider" value={true} checked onChange={handleChange} required/>
+            <input type="radio" name="authorIsProvider" value={true} checked onClick={handleChange} required/>
             <label htmlFor="authorIsPorvider">Oui</label>
-            <input type="radio" name="authorIsProvider" value={false} onChange={handleChange} required/>
+            <input type="radio" name="authorIsProvider" value={false} onClick={handleChange} required/>
             <label htmlFor="authorIsPorvider">Non</label>
           </fieldset>
 

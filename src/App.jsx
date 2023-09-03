@@ -16,7 +16,10 @@ import Forgot from "./containers/user/forgot"
 import Register from "./containers/user/register"
 import Logout from "./containers/user/logout"
 import Profile from "./containers/user/profile"
-import Admin from './containers/user/admin'
+
+// admin
+import Admin from './containers/admin/dashboard'
+import ModerateActivity from './containers/admin/moderateActivity'
 
 import {Routes, Route} from 'react-router-dom'
 import RequireDataAuth from './helpers/require-data-auth'
@@ -45,9 +48,10 @@ function App() {
 
           {/* ADMIN: DASHBOARD, MODERATE ACTIVITY, MODERATE COMMENT */}
           <Route path="/admin" element={<RequireDataAuth child={Admin} auth={true} admin={true}/>}/>
+          <Route path="/activity/moderate/:id" element={<RequireDataAuth child={ModerateActivity} auth={true} admin={true}/>}/>
 
           <Route exact path="/home" element={<Navigate to="/"/>} />
-          <Route exact path="*" element={<Navigate to="/"/>} />
+          <Route path="*" element={<Navigate to="/"/>} />
         </Routes>
       </main>
       <Footer />
