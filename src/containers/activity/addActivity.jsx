@@ -9,7 +9,7 @@ import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 const AddActivity = () => {
   const [categories, setCategories] = useState([])
   const [categoryId, setCategoryId] = useState("")
-  const [authorIsProvider, setAuthorIsProvider] = useState(false)
+  const [authorIsProvider, setAuthorIsProvider] = useState("false")
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [address, setAddress] = useState("")
@@ -86,7 +86,7 @@ const AddActivity = () => {
   }
 
   const handleChange = (e) => {
-    console.log("change from create new activity form")
+    // console.log("change from create new activity form")
     switch (e.currentTarget.name) {
       case "category_id":
         setCategoryId(e.currentTarget.value)
@@ -165,7 +165,7 @@ const AddActivity = () => {
       { categories.length > 0 &&
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <label htmlFor="category_id">Catégorie :</label>
-          <select name="category_id" onChange={handleChange} required>
+          <select name="category_id" onChange={(e) =>{handleChange(e)}} required>
             <option value="">Choisissez une catégorie</option>
             { categories.map(category=> {
               return (<option key={category.id} value={category.id}>{category.title} </option>)
@@ -174,30 +174,31 @@ const AddActivity = () => {
 
           <fieldset>
             <legend>Etes-vous fournisseur de l'activité ?</legend>
-            <input type="radio" name="authorIsProvider" value={true} checked onClick={handleChange} required/>
+            <input type="radio" name="authorIsProvider" value={true} checked={authorIsProvider === "true"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="authorIsPorvider">Oui</label>
-            <input type="radio" name="authorIsProvider" value={false} onClick={handleChange} required/>
+            <input type="radio" name="authorIsProvider" value={false}
+            checked={authorIsProvider === "false"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="authorIsPorvider">Non</label>
           </fieldset>
 
           <label htmlFor="title">Titre</label>
-          <input type="text" name="title" onChange={handleChange} required/>
+          <input type="text" name="title" onChange={(e) =>{handleChange(e)}} required/>
 
           <label htmlFor="description">Description</label>
-          <textarea type="text" name="description" rows="5" cols="33" onChange={handleChange} required></textarea>
+          <textarea type="text" name="description" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} required></textarea>
 
           <fieldset>
             <legend>Lieu de rendez-vous</legend>
             <label htmlFor="address">Adresse</label>
-            <input type="text" name="address" onChange={handleChange} required/>
+            <input type="text" name="address" onChange={(e) =>{handleChange(e)}} required/>
             <label htmlFor="zip">Code postal</label>
-            <input type="text" name="zip" onChange={handleChange} required/>
+            <input type="text" name="zip" onChange={(e) =>{handleChange(e)}} required/>
             <label htmlFor="city">Ville</label>
-            <input type="text" name="city" onChange={handleChange} required/>
+            <input type="text" name="city" onChange={(e) =>{handleChange(e)}} required/>
           </fieldset>
 
           <label htmlFor="duration">Durée de l'activité : </label>
-          <select name="duration" onChange={handleChange} required>
+          <select name="duration" onChange={(e) =>{handleChange(e)}} required>
             <option value="">Choisissez une durée</option>
             <option value={30}>30 minutes</option>
             <option value={60}>1 heure</option>

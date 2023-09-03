@@ -24,12 +24,12 @@ const ModerateActivity = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("submit")
+
     let data = {
       "status": status,
       "explanation": explanation
     }
-    console.log("data -->", data)
+    // console.log("data -->", data)
     moderateOneActivity(data, params.id)
     .then((res) => {
       if (res.status === 200){
@@ -41,9 +41,7 @@ const ModerateActivity = () => {
 
   const handleChange = (e) => {
     e.preventDefault()
-    console.log("change", e.currentTarget.name)
     if (e.currentTarget.name === "status"){
-      console.log("current target value", e.currentTarget.value)
       setStatus(e.currentTarget.value)
     } else {
       setExplanation(e.currentTarget.value)

@@ -59,7 +59,7 @@ const Profile = () => {
     tabsMyBookingsContents[indexToRemove].classList.remove("active-tab-my-bookings-content");
     tabsMyBookingsContents[indexToShow].classList.add("active-tab-my-bookings-content");
   }
-  
+
   function tabsBookingsAboutMyActivitiesAnimation(e){
     const tabsMyBookings = [...document.querySelectorAll(".tab-bookings-for-my-activities")]
     const tabsMyBookingsContents = [...document.querySelectorAll(".tab-bookings-for-my-activities-content")]
@@ -139,7 +139,7 @@ const Profile = () => {
               <div className="tabs-activities">
                   <button className="tab-activities active-tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En ligne</button>
                   <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>Hors ligne</button>
-                  <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En attente de validation</button>
+                  <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En attente de validation / Invalidée</button>
               </div>
               <div className="tab-activities-content active-tab-activities-content">
               { activities.some(activity => activity.status === "en ligne") ? (
@@ -147,8 +147,9 @@ const Profile = () => {
                   { activities.map(activity => {
                     if (activity.status === "en ligne"){
                       return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas d'activités en ligne.</p>}
@@ -159,23 +160,27 @@ const Profile = () => {
                   { activities.map(activity => {
                     if (activity.status === "hors ligne"){
                       return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas d'activités hors ligne.</p>}
               </div>
               <div className="tab-activities-content">
-              { activities.some(activity => activity.status === "en attente de validation") ? (
+              { activities.some((activity) => (activity.status === "en attente de validation" || activity.status === "invalidé" )) ? (
               <ul>
                   { activities.map(activity => {
                     if (activity.status === "en attente de validation"){
                       return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                    } else if (activity.status === "invalidé") {
+                      return (<li key={activity.id}><Link style={{color: "red"}} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
-                </ul>) : <p>Vous n'avez pas d'activités en attente de validation.</p>}
+                </ul>) : <p>Vous n'avez pas d'activités en attente de validation ou invalidée.</p>}
               </div>
           </div>
 
@@ -198,23 +203,27 @@ const Profile = () => {
                   { comments.map(comment => {
                     if (comment.status === "validé"){
                       return (<li key={comment.id}>{comment.title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas de commentaires validés.</p>}
               </div>
               <div className="tab-comments-content">
-              { comments.some(comment => comment.status === "en attente de validation") ? (
+              { comments.some((comment) => (comment.status === "en attente de validation" || comment.status === "invalidé")) ? (
               <ul>
                   { comments.map(comment => {
                     if (comment.status === "en attente de validation"){
                       return (<li key={comment.id}>{comment.title}</li>)
+                    } else if (comment.status === "invalidé") {
+                      return (<li key={comment.id}>{comment.title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
-                </ul>) : <p>Vous n'avez pas de commentaires en attente de validation.</p>}
+                </ul>) : <p>Vous n'avez pas de commentaires en attente de validation ou invalidé.</p>}
               </div>
           </div>
         : <div className="no-comments">
@@ -237,8 +246,9 @@ const Profile = () => {
                   { myBookings.map(booking => {
                     if (booking.status === "en attente de réalisation"){
                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation.</p>}
@@ -249,8 +259,9 @@ const Profile = () => {
                   { myBookings.map(booking => {
                     if (booking.status === "en attente d'acceptation"){
                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation.</p>}
@@ -261,8 +272,9 @@ const Profile = () => {
                   { myBookings.map(booking => {
                     if (booking.status === "terminée"){
                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas de réservations archivées.</p>}
@@ -288,8 +300,9 @@ const Profile = () => {
                   { bookingsForMyActivities.map(booking => {
                     if (booking.status === "en attente de réalisation"){
                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation concernant vos activités.</p>}
@@ -300,8 +313,9 @@ const Profile = () => {
                   { bookingsForMyActivities.map(booking => {
                     if (booking.status === "en attente d'acceptation"){
                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation concernant vos activités.</p>}
@@ -312,8 +326,9 @@ const Profile = () => {
                   { bookingsForMyActivities.map(booking => {
                     if (booking.status === "terminée"){
                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                    } else {
+                      return null
                     }
-                    return null
                     })
                   }
                 </ul>) : <p>Vous n'avez pas de réservations archivées concernant vos activités.</p>}
