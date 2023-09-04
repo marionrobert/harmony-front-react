@@ -174,7 +174,7 @@ const EditActivity = () => {
   }
 
   if (redirect){
-    return <Navigate to={`/activity/details/${params.id}`} />
+    return <Navigate to={`/profile`} />
   }
 
   return (

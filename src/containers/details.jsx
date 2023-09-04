@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGears, faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 
+
 const Details = () => {
   const params = useParams()
   const dispatch = useDispatch()
@@ -25,10 +26,14 @@ const Details = () => {
   const [comments, setComments] = useState([])
   const currentBasket = useSelector(selectBasket)
   const user = useSelector(selectUser)
-  const [ msg, setMsg] = useState(null)
+  const [msg, setMsg] = useState(null)
+  const [msgBasket, setMsgBasket] = useState(null)
+
 
   useEffect(() => {
     setMsg(null)
+    setMsgBasket(null)
+
     getOneActivity(params.id)
     .then((res)=>{
       if (res.status === 200){
@@ -66,7 +71,7 @@ const Details = () => {
       newProduct.quantityInCart = 1
       newBasket.push(newProduct)
     } else {
-      newBasket[index].quantityInCart += 1
+      setMsgBasket("Oups ! Cette activité est déjà dans votre panier!")
     }
     dispatch(updateBasket(newBasket))
   }
@@ -136,15 +141,28 @@ const Details = () => {
             <p>Lieu de rendez-vous: {activity.address}, {activity.zip} {activity.city}</p>
 
             { author !== null && <p>Annonce créée par: {author.firstName} {author.lastName.slice(0, 1).toUpperCase()}.</p> }
-            { author !== null && author.avatar !== null ? <img src={author.avatar} className="details-activity-avatar"/> : <img src={`${config.pict_url}/user.png`} className="details-activity-avatar"/> }
+            { author !== null && author.avatar !== null ?
+              <CloudinaryContext cloudName="dptcisxbs" className="details-activity-avatar">
+                <div>
+                  <Image className="details-activity-avatar" publicId={author.avatar} >
+                    <Transformation quality="auto" fetchFormat="auto" />
+                  </Image>
+                </div>
+              </CloudinaryContext>
+              :
+              <img src={`${config.pict_url}/user.png`} className="details-activity-avatar"/>
+            }
             <p>Durée de l'activité: {activity.duration} minutes</p>
-            <p>Coût de l'activité: {activity.points} points</p>
+            <p>{ activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>
           </section>
 
           { activity.status === "en ligne" &&
-            <button onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
-              Je réserve !
-            </button>
+            <div>
+              <button onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
+                Je réserve !
+              </button>
+              { msgBasket !== null && <p style={{color: "red"}}>{msgBasket}</p>}
+            </div>
           }
 
           { activity.status === "en ligne" && comments.length > 0 &&
