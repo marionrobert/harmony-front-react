@@ -434,7 +434,7 @@ article.activity-card:hover{
 };
 
 
-// ******** DETAILS ********* //
+// ******** ACTIVITY DETAILS ********* //
 
 img.details-image{
   width: 50%;
@@ -588,6 +588,57 @@ input:checked + .slider:before {
 }
 
 
+// ******** BASKET ********* //
+section.basket {
+  padding: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  ul {
+    margin: 1rem auto;
+    max-width: 600px;
+  }
+
+  .basket-item {
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: left;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    position: relative;
+
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+
+    .basket-item-data{
+      text-align: left;
+      width: 80%;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h3{
+        font-weight: bold;
+      }
+
+      button {
+        width: 170px;
+      }
+    }
+
+    p.deleteItem{
+      font-size: 1.1rem;
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      z-index: 2;
+    }
+  }
+}
 
 
 // ******** ADMIN ********** //

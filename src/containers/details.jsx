@@ -14,8 +14,8 @@ import {Link, Navigate} from "react-router-dom"
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGears, faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
-
+import { faGears, faArrowRotateLeft} from "@fortawesome/free-solid-svg-icons";
+import { faFaceGrinWink } from "@fortawesome/free-regular-svg-icons";
 
 
 const Details = () => {
@@ -62,8 +62,7 @@ const Details = () => {
 
   const addToBasket = (e, oldBasket, newProduct) => {
     e.preventDefault()
-    console.log("addtobasket has been triggered", oldBasket, newProduct)
-
+    // console.log("addtobasket has been triggered", oldBasket, newProduct)
     let newBasket = JSON.parse(JSON.stringify(oldBasket));
 
     const index = newBasket.findIndex(product => product.id === newProduct.id)
@@ -161,7 +160,7 @@ const Details = () => {
               <button onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
                 Je réserve !
               </button>
-              { msgBasket !== null && <p style={{color: "red"}}>{msgBasket}</p>}
+              { msgBasket !== null && <p style={{color: "red"}}><FontAwesomeIcon icon={faFaceGrinWink}/> {msgBasket}</p>}
             </div>
           }
 
