@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar as fullStar} from "@fortawesome/free-solid-svg-icons"
 import { faStar } from "@fortawesome/free-regular-svg-icons"
+import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
+
 
 const CommentCard = (props) => {
   const comment = props.comment
@@ -24,7 +26,18 @@ const CommentCard = (props) => {
   return (
     <>
       { comment !== null && author !== null && <article className="comment-card">
-        { author.avatar !== null ? <img src={author.avatar} className="comment-card-avatar"/> : <img src={`${config.pict_url}/user.png`} className="comment-card-avatar"/> }
+
+        { author.avatar !== null ?
+          <CloudinaryContext cloudName="dptcisxbs" className="comment-card-avatar">
+            <div>
+              <Image className="comment-card-avatar" publicId={author.avatar} >
+                <Transformation quality="auto" fetchFormat="auto" />
+              </Image>
+            </div>
+          </CloudinaryContext>
+          :
+          <img src={`${config.pict_url}/user.png`} className="comment-card-avatar"/>
+        }
 
         <div className="comment-card-data">
           <h3 className="comment-card-username" >{author.firstName} {author.lastName.substring(0, 1).toUpperCase()}.</h3>

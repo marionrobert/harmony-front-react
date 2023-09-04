@@ -1,13 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux'
-import {selectUser} from "../../slices/userSlice"
+import { useSelector, useDispatch } from 'react-redux'
+import {selectUser, setUser } from "../../slices/userSlice"
 import {Link} from "react-router-dom"
 import {config} from "../../config"
 import { getAllActivitiesByAuthor } from "../../api/activity"
 import { getAllCommentsByAuthorId } from '../../api/comment'
 import { getAllBookingsByAuthorId, getAllBookingsByBookerId } from '../../api/booking'
+import { updateAvatar, getOneUser } from '../../api/user'
 import { useEffect, useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRightFromBracket, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
+
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -16,6 +19,9 @@ const Profile = () => {
   const [ comments, setComments] = useState([])
   const [myBookings, setMyBookings] = useState([])
   const [bookingsForMyActivities, setBookingsForMyActivities] = useState([])
+  const [avatar, setAvatar] = useState(null)
+  const [msgSuccess, setMsgSuccess] = useState(null)
+  const [msgError, setMsgError] = useState(null)
 
 
   function tabsCommentsAnimation(e){
@@ -74,9 +80,61 @@ const Profile = () => {
     tabsMyBookingsContents[indexToShow].classList.add("active-tab-bookings-for-my-activities-content");
   }
 
+  //fonction d'affichage de notre interface de chargement d'images/videos de cloudinary
+  const showWidget = (e) => {
+    e.preventDefault()
+    //paramètrage de l'interface
+    let widget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: "dptcisxbs", //nom du repository cloud
+            uploadPreset: "harmonyUsersCloudinary", //on branche au preset qui va envoyer vers le dossier saas
+            maxImageWidth: 800, //on peut paramètrer la taille max de l'image
+            cropping: false //recadrage
+        },
+        (error, result) => {
+            if(error){
+                console.log(error)
+            } else {
+              // console.log("result -->", result)
+              checkUploadResult(result) //appel de notre callback
+            }
+        }
+    )
+    //ouverture de notre interface
+    widget.open()
+  }
+
+  //fonction callback de cloudinary déclenché lors de l'envoi d'un fichier
+  const checkUploadResult = (resultEvent) => {
+      // console.log("checkUploadResult", resultEvent)
+      if (resultEvent.event === "success"){
+        setAvatar(resultEvent.info.public_id)
+        updateAvatar({"avatar": avatar}, user.data.key_id)
+        .then((res)=> {
+          console.log("res de updateAvatar -->", res)
+          if (res.status === 200){
+            console.log("la photo a été modifiée, je vais recharger le user")
+            // let newUser = JSON.parse(JSON.stringify(user));
+            // newUser.data.avatar = avatar
+            // dispatch(setUser(newUser))
+            // setMsgSuccess("La photo a bien été chargée.")
+          } else {
+            setMsgError("Veuillez raffraîchir le page.")
+          }
+        })
+        .catch(err => console.log(err))
+      } else {
+        if (msgSuccess === null){
+          setMsgError("Erreur de chargement de la photo.")
+        }
+      }
+  }
 
 
   useEffect(()=> {
+    setMsgError(null)
+    setMsgSuccess(null)
+
     getAllActivitiesByAuthor(user.data.id)
     .then((res)=>{
       if (res.status === 200){
@@ -118,16 +176,33 @@ const Profile = () => {
       console.log("err from getAllBookingsByAuthorId -->", err)
     })
 
-  }, [user])
+  }, [user.data])
 
   return (
     <>
-      <h1>Bienvenue {user.data.firstName}</h1>
       <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
-
+      <h1>Bienvenue {user.data.firstName}</h1>
       <section className='profile-user-data'>
         <h2>Mes informations personnelles</h2>
-        { user.data.avatar !== null ? <img src={user.data.avatar} className="profile-avatar"/> : <img src={`${config.pict_url}/user.png`} className="profile-avatar"/> }
+        { user.data.avatar !== null ?
+          <CloudinaryContext cloudName="dptcisxbs" className="profile-avatar">
+            <div>
+              <Image className="profile-avatar" publicId={user.data.avatar} >
+                <Transformation quality="auto" fetchFormat="auto" />
+              </Image>
+            </div>
+          </CloudinaryContext>
+          :
+          <img src={`${config.pict_url}/user.png`} className="profile-avatar"/>
+        }
+        <button onClick={(e) => {showWidget(e)}} >
+          { user.data.avatar === null ? "Ajouter une " : "Modifier ma " }photo de profil
+        </button>
+        {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
+        {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
+
+
+
         <p>Mes points: {user.data.points}</p>
         <p>Mon numéro de téléphone: {user.data.phone}</p>
         <Link>Modifier mes informations</Link>
@@ -195,7 +270,7 @@ const Profile = () => {
           <div className="tabs">
               <div className="tabs-comments">
                   <button className="tab-comments active-tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>Validés</button>
-                  <button className="tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>En attente de validation</button>
+                  <button className="tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>En attente de validation / invalidé</button>
               </div>
               <div className="tab-comments-content active-tab-comments-content">
               { comments.some(comment => comment.status === "validé") ? (

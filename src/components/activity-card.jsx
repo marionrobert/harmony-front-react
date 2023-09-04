@@ -24,15 +24,26 @@ const ActivityCard = (props) => {
     <>
       { activity !== null && <article className="activity-card">
         { activity.urlPicture !== null ?
-          <CloudinaryContext cloudName="dptcisxbs">
+          <CloudinaryContext cloudName="dptcisxbs" className="activity-card-picture">
+
+              <Image publicId={activity.urlPicture} className="activity-card-picture">
+                <Transformation quality="auto" fetchFormat="auto" />
+              </Image>
+            
+          </CloudinaryContext> :
+          <img src={`${config.pict_url}/no-image.png`} className="activity-card-picture"/> }
+
+        { author !== null && author.avatar !== null ?
+          <CloudinaryContext cloudName="dptcisxbs" className="activity-card-avatar">
             <div>
-              <Image publicId={activity.urlPicture} id='profilImg' >
+              <Image className="activity-card-avatar" publicId={author.avatar} >
                 <Transformation quality="auto" fetchFormat="auto" />
               </Image>
             </div>
-          </CloudinaryContext> :
-          <img src={`${config.pict_url}/no-image.png`} /> }
-        { author !== null && author.avatar !== null ? <img src={author.avatar} className="activity-card-avatar"/> : <img src={`${config.pict_url}/user.png`} className="activity-card-avatar"/> }
+          </CloudinaryContext>
+          :
+          <img src={`${config.pict_url}/user.png`} className="activity-card-avatar"/>
+        }
         <div className="activity-card-data">
           { activity.title.length > 50 ? <h3>{activity.title.substring(0, 50)}...</h3> : <h3>{activity.title}</h3> }
           <p className="activity-card-description">{activity.description.substring(0, 120)} ...</p>

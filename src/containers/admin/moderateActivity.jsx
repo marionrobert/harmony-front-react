@@ -62,7 +62,7 @@ const ModerateActivity = () => {
         { activity.urlPicture !== null ?
         <CloudinaryContext cloudName="dptcisxbs">
           <div>
-            <Image className="details-image" publicId={activity.urlPicture} id='profilImg' >
+            <Image className="details-image" publicId={activity.urlPicture} >
               <Transformation quality="auto" fetchFormat="auto" />
             </Image>
           </div>
