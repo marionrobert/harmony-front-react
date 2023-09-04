@@ -19,10 +19,8 @@ const Profile = () => {
   const [ comments, setComments] = useState([])
   const [myBookings, setMyBookings] = useState([])
   const [bookingsForMyActivities, setBookingsForMyActivities] = useState([])
-  const [avatar, setAvatar] = useState(null)
   const [msgSuccess, setMsgSuccess] = useState(null)
   const [msgError, setMsgError] = useState(null)
-
 
   function tabsCommentsAnimation(e){
     const tabsComments = [...document.querySelectorAll(".tab-comments")]
@@ -106,20 +104,16 @@ const Profile = () => {
 
   //fonction callback de cloudinary déclenché lors de l'envoi d'un fichier
   const checkUploadResult = (resultEvent) => {
-      // console.log("checkUploadResult", resultEvent)
       if (resultEvent.event === "success"){
-        setAvatar(resultEvent.info.public_id)
-        updateAvatar({"avatar": avatar}, user.data.key_id)
+        let picture = resultEvent.info.public_id
+        console.log("la photo a été chargée")
+        // console.log("resultEvent.info.public_id", resultEvent.info.public_id)
+        console.log("avatar -->", picture)
+        updateAvatar({"avatar": picture}, user.data.key_id)
         .then((res)=> {
           console.log("res de updateAvatar -->", res)
           if (res.status === 200){
-            console.log("la photo a été modifiée, je vais recharger le user")
-            // let newUser = JSON.parse(JSON.stringify(user));
-            // newUser.data.avatar = avatar
-            // dispatch(setUser(newUser))
-            // setMsgSuccess("La photo a bien été chargée.")
-          } else {
-            setMsgError("Veuillez raffraîchir le page.")
+            setMsgSuccess("La photo a bien été chargée. Veuillez rafraîchir la page.")
           }
         })
         .catch(err => console.log(err))
@@ -176,245 +170,247 @@ const Profile = () => {
       console.log("err from getAllBookingsByAuthorId -->", err)
     })
 
-  }, [user.data])
+  }, [user, user.data.id])
 
-  return (
-    <>
-      <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
-      <h1>Bienvenue {user.data.firstName}</h1>
-      <section className='profile-user-data'>
-        <h2>Mes informations personnelles</h2>
-        { user.data.avatar !== null ?
-          <CloudinaryContext cloudName="dptcisxbs" className="profile-avatar">
-            <div>
-              <Image className="profile-avatar" publicId={user.data.avatar} >
-                <Transformation quality="auto" fetchFormat="auto" />
-              </Image>
+  if (user !== null){
+    return (
+      <>
+        <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
+        <h1>Bienvenue {user.data.firstName}</h1>
+        <section className='profile-user-data'>
+          <h2>Mes informations personnelles</h2>
+          { user.data.avatar !== null ?
+            <CloudinaryContext cloudName="dptcisxbs" className="profile-avatar">
+              <div>
+                <Image className="profile-avatar" publicId={user.data.avatar} >
+                  <Transformation quality="auto" fetchFormat="auto" />
+                </Image>
+              </div>
+            </CloudinaryContext>
+            :
+            <img src={`${config.pict_url}/user.png`} className="profile-avatar"/>
+          }
+          <button onClick={(e) => {showWidget(e)}} >
+            { user.data.avatar === null ? "Ajouter une " : "Modifier ma " }photo de profil
+          </button>
+          {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
+          {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
+
+
+
+          <p>Mes points: {user.data.points}</p>
+          <p>Mon numéro de téléphone: {user.data.phone}</p>
+          <Link>Modifier mes informations</Link>
+        </section>
+        <section className='profile-user-activities'>
+          <h2>Mes activités</h2>
+          { activities.length > 0 ?
+            <div className="tabs">
+                <div className="tabs-activities">
+                    <button className="tab-activities active-tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En ligne</button>
+                    <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>Hors ligne</button>
+                    <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En attente de validation / Invalidée</button>
+                </div>
+                <div className="tab-activities-content active-tab-activities-content">
+                { activities.some(activity => activity.status === "en ligne") ? (
+                  <ul>
+                    { activities.map(activity => {
+                      if (activity.status === "en ligne"){
+                        return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                      } else {
+                        return null
+                      }
+                      })
+                    }
+                  </ul>) : <p>Vous n'avez pas d'activités en ligne.</p>}
+                </div>
+                <div className="tab-activities-content">
+                { activities.some(activity => activity.status === "hors ligne") ? (
+                <ul>
+                    { activities.map(activity => {
+                      if (activity.status === "hors ligne"){
+                        return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                      } else {
+                        return null
+                      }
+                      })
+                    }
+                  </ul>) : <p>Vous n'avez pas d'activités hors ligne.</p>}
+                </div>
+                <div className="tab-activities-content">
+                { activities.some((activity) => (activity.status === "en attente de validation" || activity.status === "invalidé" )) ? (
+                <ul>
+                    { activities.map(activity => {
+                      if (activity.status === "en attente de validation"){
+                        return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                      } else if (activity.status === "invalidé") {
+                        return (<li key={activity.id}><Link style={{color: "red"}} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                      } else {
+                        return null
+                      }
+                      })
+                    }
+                  </ul>) : <p>Vous n'avez pas d'activités en attente de validation ou invalidée.</p>}
+                </div>
             </div>
-          </CloudinaryContext>
-          :
-          <img src={`${config.pict_url}/user.png`} className="profile-avatar"/>
-        }
-        <button onClick={(e) => {showWidget(e)}} >
-          { user.data.avatar === null ? "Ajouter une " : "Modifier ma " }photo de profil
-        </button>
-        {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
-        {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
 
 
+           : <p>Vous n'avez pas encore créé d'activités.</p>}
+           <Link to ="/activity/create"><FontAwesomeIcon icon={faSquarePlus}/> Créer une nouvelle activité</Link>
+        </section>
 
-        <p>Mes points: {user.data.points}</p>
-        <p>Mon numéro de téléphone: {user.data.phone}</p>
-        <Link>Modifier mes informations</Link>
-      </section>
-      <section className='profile-user-activities'>
-        <h2>Mes activités</h2>
-        { activities.length > 0 ?
-          <div className="tabs">
-              <div className="tabs-activities">
-                  <button className="tab-activities active-tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En ligne</button>
-                  <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>Hors ligne</button>
-                  <button className="tab-activities" onClick={(e)=>{tabsActivitiesAnimation(e)}}>En attente de validation / Invalidée</button>
-              </div>
-              <div className="tab-activities-content active-tab-activities-content">
-              { activities.some(activity => activity.status === "en ligne") ? (
+        <section className='profile-user-comments'>
+          <h2>Mes commentaires</h2>
+          { comments.length > 0 ?
+            <div className="tabs">
+                <div className="tabs-comments">
+                    <button className="tab-comments active-tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>Validés</button>
+                    <button className="tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>En attente de validation / invalidé</button>
+                </div>
+                <div className="tab-comments-content active-tab-comments-content">
+                { comments.some(comment => comment.status === "validé") ? (
+                  <ul>
+                    { comments.map(comment => {
+                      if (comment.status === "validé"){
+                        return (<li key={comment.id}>{comment.title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
+                    }
+                  </ul>) : <p>Vous n'avez pas de commentaires validés.</p>}
+                </div>
+                <div className="tab-comments-content">
+                { comments.some((comment) => (comment.status === "en attente de validation" || comment.status === "invalidé")) ? (
                 <ul>
-                  { activities.map(activity => {
-                    if (activity.status === "en ligne"){
-                      return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
-                    } else {
-                      return null
+                    { comments.map(comment => {
+                      if (comment.status === "en attente de validation"){
+                        return (<li key={comment.id}>{comment.title}</li>)
+                      } else if (comment.status === "invalidé") {
+                        return (<li key={comment.id}>{comment.title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
                     }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas d'activités en ligne.</p>}
-              </div>
-              <div className="tab-activities-content">
-              { activities.some(activity => activity.status === "hors ligne") ? (
-              <ul>
-                  { activities.map(activity => {
-                    if (activity.status === "hors ligne"){
-                      return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
-                    } else {
-                      return null
+                  </ul>) : <p>Vous n'avez pas de commentaires en attente de validation ou invalidé.</p>}
+                </div>
+            </div>
+          : <div className="no-comments">
+            <p>Vous n'avez pas encore écrit de commentaires.</p>
+          </div>}
+        </section>
+
+        <section className='profile-user-bookings'>
+          <h2>Mes réservations</h2>
+          { myBookings.length > 0 ?
+            <div className="tabs">
+                <div className="tabs-my-bookings">
+                    <button className="tab-my-bookings active-tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>En attente de réalisation</button>
+                    <button className="tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>En attente d'acceptation</button>
+                    <button className="tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>Terminées</button>
+                </div>
+                <div className="tab-my-bookings-content active-tab-my-bookings-content">
+                { myBookings.some(booking => booking.status === "en attente de réalisation") ? (
+                  <ul>
+                    { myBookings.map(booking => {
+                      if (booking.status === "en attente de réalisation"){
+                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
                     }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas d'activités hors ligne.</p>}
-              </div>
-              <div className="tab-activities-content">
-              { activities.some((activity) => (activity.status === "en attente de validation" || activity.status === "invalidé" )) ? (
-              <ul>
-                  { activities.map(activity => {
-                    if (activity.status === "en attente de validation"){
-                      return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
-                    } else if (activity.status === "invalidé") {
-                      return (<li key={activity.id}><Link style={{color: "red"}} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
-                    } else {
-                      return null
+                  </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation.</p>}
+                </div>
+                <div className="tab-my-bookings-content">
+                { myBookings.some(booking => booking.status === "en attente d'acceptation") ? (
+                  <ul>
+                    { myBookings.map(booking => {
+                      if (booking.status === "en attente d'acceptation"){
+                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
                     }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas d'activités en attente de validation ou invalidée.</p>}
-              </div>
-          </div>
-
-
-         : <p>Vous n'avez pas encore créé d'activités.</p>}
-         <Link to ="/activity/create"><FontAwesomeIcon icon={faSquarePlus}/> Créer une nouvelle activité</Link>
-      </section>
-
-      <section className='profile-user-comments'>
-        <h2>Mes commentaires</h2>
-        { comments.length > 0 ?
-          <div className="tabs">
-              <div className="tabs-comments">
-                  <button className="tab-comments active-tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>Validés</button>
-                  <button className="tab-comments" onClick={(e)=>{tabsCommentsAnimation(e)}}>En attente de validation / invalidé</button>
-              </div>
-              <div className="tab-comments-content active-tab-comments-content">
-              { comments.some(comment => comment.status === "validé") ? (
+                  </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation.</p>}
+                </div>
+                <div className="tab-my-bookings-content">
+                { myBookings.some(booking => booking.status === "terminée") ? (
                 <ul>
-                  { comments.map(comment => {
-                    if (comment.status === "validé"){
-                      return (<li key={comment.id}>{comment.title}</li>)
-                    } else {
-                      return null
+                    { myBookings.map(booking => {
+                      if (booking.status === "terminée"){
+                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
                     }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de commentaires validés.</p>}
-              </div>
-              <div className="tab-comments-content">
-              { comments.some((comment) => (comment.status === "en attente de validation" || comment.status === "invalidé")) ? (
-              <ul>
-                  { comments.map(comment => {
-                    if (comment.status === "en attente de validation"){
-                      return (<li key={comment.id}>{comment.title}</li>)
-                    } else if (comment.status === "invalidé") {
-                      return (<li key={comment.id}>{comment.title}</li>)
-                    } else {
-                      return null
-                    }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de commentaires en attente de validation ou invalidé.</p>}
-              </div>
-          </div>
-        : <div className="no-comments">
-          <p>Vous n'avez pas encore écrit de commentaires.</p>
-        </div>}
-      </section>
+                  </ul>) : <p>Vous n'avez pas de réservations archivées.</p>}
+                </div>
+            </div>
+          : <div className="no-my-bookings">
+            <p>Vous n'avez pas encore fait de réservations.</p>
+          </div>}
+        </section>
 
-      <section className='profile-user-bookings'>
-        <h2>Mes réservations</h2>
-        { myBookings.length > 0 ?
-          <div className="tabs">
-              <div className="tabs-my-bookings">
-                  <button className="tab-my-bookings active-tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>En attente de réalisation</button>
-                  <button className="tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>En attente d'acceptation</button>
-                  <button className="tab-my-bookings" onClick={(e)=>{tabsMyBookingsAnimation(e)}}>Terminées</button>
-              </div>
-              <div className="tab-my-bookings-content active-tab-my-bookings-content">
-              { myBookings.some(booking => booking.status === "en attente de réalisation") ? (
+        <section className='profile-user-bookings-for-my-activities'>
+          <h2>Les réservations sur mes activités</h2>
+          { bookingsForMyActivities.length > 0 ?
+            <div className="tabs">
+                <div className="tabs-bookings-for-my-activities">
+                    <button className="tab-bookings-for-my-activities active-tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>En attente de réalisation</button>
+                    <button className="tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>En attente d'acceptation</button>
+                    <button className="tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>Terminées</button>
+                </div>
+                <div className="tab-bookings-for-my-activities-content active-tab-bookings-for-my-activities-content">
+                { bookingsForMyActivities.some(booking => booking.status === "en attente de réalisation") ? (
+                  <ul>
+                    { bookingsForMyActivities.map(booking => {
+                      if (booking.status === "en attente de réalisation"){
+                         return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
+                    }
+                  </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation concernant vos activités.</p>}
+                </div>
+                <div className="tab-bookings-for-my-activities-content">
+                { bookingsForMyActivities.some(booking => booking.status === "en attente d'acceptation") ? (
                 <ul>
-                  { myBookings.map(booking => {
-                    if (booking.status === "en attente de réalisation"){
-                      return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
-                    } else {
-                      return null
+                    { bookingsForMyActivities.map(booking => {
+                      if (booking.status === "en attente d'acceptation"){
+                         return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
                     }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation.</p>}
-              </div>
-              <div className="tab-my-bookings-content">
-              { myBookings.some(booking => booking.status === "en attente d'acceptation") ? (
+                  </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation concernant vos activités.</p>}
+                </div>
+                <div className="tab-bookings-for-my-activities-content">
+                { bookingsForMyActivities.some(booking => booking.status === "terminée") ? (
                 <ul>
-                  { myBookings.map(booking => {
-                    if (booking.status === "en attente d'acceptation"){
-                      return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
-                    } else {
-                      return null
+                    { bookingsForMyActivities.map(booking => {
+                      if (booking.status === "terminée"){
+                         return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                      } else {
+                        return null
+                      }
+                      })
                     }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation.</p>}
-              </div>
-              <div className="tab-my-bookings-content">
-              { myBookings.some(booking => booking.status === "terminée") ? (
-              <ul>
-                  { myBookings.map(booking => {
-                    if (booking.status === "terminée"){
-                      return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
-                    } else {
-                      return null
-                    }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de réservations archivées.</p>}
-              </div>
-          </div>
-        : <div className="no-my-bookings">
-          <p>Vous n'avez pas encore fait de réservations.</p>
-        </div>}
-      </section>
-
-      <section className='profile-user-bookings-for-my-activities'>
-        <h2>Les réservations sur mes activités</h2>
-        { bookingsForMyActivities.length > 0 ?
-          <div className="tabs">
-              <div className="tabs-bookings-for-my-activities">
-                  <button className="tab-bookings-for-my-activities active-tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>En attente de réalisation</button>
-                  <button className="tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>En attente d'acceptation</button>
-                  <button className="tab-bookings-for-my-activities" onClick={(e)=>{tabsBookingsAboutMyActivitiesAnimation(e)}}>Terminées</button>
-              </div>
-              <div className="tab-bookings-for-my-activities-content active-tab-bookings-for-my-activities-content">
-              { bookingsForMyActivities.some(booking => booking.status === "en attente de réalisation") ? (
-                <ul>
-                  { bookingsForMyActivities.map(booking => {
-                    if (booking.status === "en attente de réalisation"){
-                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
-                    } else {
-                      return null
-                    }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation concernant vos activités.</p>}
-              </div>
-              <div className="tab-bookings-for-my-activities-content">
-              { bookingsForMyActivities.some(booking => booking.status === "en attente d'acceptation") ? (
-              <ul>
-                  { bookingsForMyActivities.map(booking => {
-                    if (booking.status === "en attente d'acceptation"){
-                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
-                    } else {
-                      return null
-                    }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation concernant vos activités.</p>}
-              </div>
-              <div className="tab-bookings-for-my-activities-content">
-              { bookingsForMyActivities.some(booking => booking.status === "terminée") ? (
-              <ul>
-                  { bookingsForMyActivities.map(booking => {
-                    if (booking.status === "terminée"){
-                       return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
-                    } else {
-                      return null
-                    }
-                    })
-                  }
-                </ul>) : <p>Vous n'avez pas de réservations archivées concernant vos activités.</p>}
-              </div>
-          </div>
-        : <div className="no-bookings-for-my-activities">
-          <p>Vos activités n'ont pas encore été réservées.</p>
-        </div>}
-      </section>
-    </>
-  )
+                  </ul>) : <p>Vous n'avez pas de réservations archivées concernant vos activités.</p>}
+                </div>
+            </div>
+          : <div className="no-bookings-for-my-activities">
+            <p>Vos activités n'ont pas encore été réservées.</p>
+          </div>}
+        </section>
+      </>
+    )
+  }
 }
 
 export default Profile;
