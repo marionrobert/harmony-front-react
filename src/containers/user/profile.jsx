@@ -104,26 +104,26 @@ const Profile = () => {
 
   //fonction callback de cloudinary déclenché lors de l'envoi d'un fichier
   const checkUploadResult = (resultEvent) => {
-      if (resultEvent.event === "success"){
-        let picture = resultEvent.info.public_id
-        console.log("la photo a été chargée")
-        // console.log("resultEvent.info.public_id", resultEvent.info.public_id)
-        console.log("avatar -->", picture)
-        updateAvatar({"avatar": picture}, user.data.key_id)
-        .then((res)=> {
-          console.log("res de updateAvatar -->", res)
-          if (res.status === 200){
-            setMsgSuccess("La photo a bien été chargée. Veuillez rafraîchir la page.")
-          }
-        })
-        .catch(err => console.log(err))
-      } else {
-        if (msgSuccess === null){
-          setMsgError("Erreur de chargement de la photo.")
+    if (resultEvent.event === "success"){
+      updateAvatar({"avatar": resultEvent.info.public_id}, user.data.key_id)
+      .then((res)=> {
+        if (res.status === 200){
+          getOneUser(user.data.key_id)
+          .then((response)=>{
+            if (response.status === 200){
+              let myUser = response.user
+              myUser.token = user.data.token
+              dispatch(setUser(myUser))
+            }
+          })
+          .catch((error)=>{ console.log(error)})
+        } else {
+          setMsgError("Echec de l'enregistrement de la photo")
         }
-      }
+      })
+      .catch(err => console.log(err))
+    }
   }
-
 
   useEffect(()=> {
     setMsgError(null)
@@ -170,7 +170,7 @@ const Profile = () => {
       console.log("err from getAllBookingsByAuthorId -->", err)
     })
 
-  }, [user, user.data.id])
+  }, [user.data.id])
 
   if (user !== null){
     return (

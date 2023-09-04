@@ -49,7 +49,7 @@ export const updateUser = (data, key_id) => {
 export const updateAvatar = (data, key_id) =>{
   return axios.put(`${config.api_url}/api/v1/user/update-avatar/${key_id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios updateAvatar -->", res)
+    // console.log("res de requête axios updateAvatar -->", res)
     return res.data
   })
   .catch((err)=>{
