@@ -58,6 +58,7 @@ const Basket = () => {
     .then((res) => {
       if (res.status === 200){
         setNewBookingId(res.insertId)
+        removeActivityFromBasket(currentBasket.basket, activity)
         setRedirect(true)
         // à voir plus tard
         // let activityCard = document.querySelector(`#activity-${activity.id}`)
