@@ -36,6 +36,7 @@ export const getAllBookingsByAuthorId = (author_id) => {
   })
 }
 
+
 export const saveOneBooking = (data) => {
   return axios.post(`${config.api_url}/api/v1/booking/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
