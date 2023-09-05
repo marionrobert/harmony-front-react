@@ -315,7 +315,7 @@ const Profile = () => {
                   <ul>
                     { myBookings.map(booking => {
                       if (booking.status === "en attente de réalisation"){
-                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                        return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
                       }
@@ -328,7 +328,7 @@ const Profile = () => {
                   <ul>
                     { myBookings.map(booking => {
                       if (booking.status === "en attente d'acceptation"){
-                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                        return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
                       }
@@ -341,7 +341,7 @@ const Profile = () => {
                 <ul>
                     { myBookings.map(booking => {
                       if (booking.status === "terminée"){
-                        return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                        return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
                       }
@@ -369,7 +369,7 @@ const Profile = () => {
                   <ul>
                     { bookingsForMyActivities.map(booking => {
                       if (booking.status === "en attente de réalisation"){
-                         return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
                       }
@@ -382,7 +382,7 @@ const Profile = () => {
                 <ul>
                     { bookingsForMyActivities.map(booking => {
                       if (booking.status === "en attente d'acceptation"){
-                         return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
                       }
@@ -395,7 +395,7 @@ const Profile = () => {
                 <ul>
                     { bookingsForMyActivities.map(booking => {
                       if (booking.status === "terminée"){
-                         return (<li key={booking.id}>Réservation n°{booking.id} - {booking.activity_title}</li>)
+                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
                       }

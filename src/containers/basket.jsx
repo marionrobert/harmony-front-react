@@ -55,7 +55,7 @@ const Basket = () => {
     saveOneBooking(data)
     .then((res) => {
       if (res.status === 200){
-        setNewBookingId(res.insertId)
+        setNewBookingId(res.booking.insertId)
         removeActivityFromBasket(currentBasket.basket, activity)
         setRedirect(true)
         // à voir plus tard
