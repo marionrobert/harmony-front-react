@@ -92,6 +92,10 @@ const Booking = () => {
               { errorForm !== null && <p style={{color: "firebrick"}}>{errorForm}</p>}
             </fieldset>
           }
+          {parseInt(user.data.id) === parseInt(booking.booker_id) &&
+            <button onClick={(e) =>{declineBooking(e)}}>Annuler ma demande de réservation</button>
+          }
+
         </article>
         <article style={{border: "1px solid black"}}>
           <h2>Informations sur l'activité</h2>
