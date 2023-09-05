@@ -104,7 +104,7 @@ const Basket = () => {
                     <div>
                       <h3>{activity.title}</h3>
                       {/* <p >{activity.description.substring(0, 50)}...</p> */}
-                      <p>{activity.authorIsProvider ? "Coût" : "Gain"} : {activity.points} points</p>
+                      <p>{activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>
                     </div>
                     <button onClick={()=>{validateOne(activity)}}>Je valide la réservation</button>
                   </div>

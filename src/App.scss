@@ -92,7 +92,7 @@ table {
 	border-spacing: 0;
 }
 
-button {
+button, a {
   cursor: pointer;
 }
 
@@ -334,6 +334,7 @@ article.comment-card {
   p.comment-card-score{
     font-size: 0.8rem;
     font-weight: bold;
+    color:  rgb(194, 169, 102);
   }
 
   h3.comment-card-title{
@@ -361,7 +362,7 @@ article.activity-card {
   padding: 0 0rem 0.5rem;
   border-radius: 1.5px;
   position: relative;
-  transition: transform .1s;
+  transition: transform 0.1s;
 
   .activity-card-picture {
     width: 100%;
@@ -431,9 +432,9 @@ article.activity-card {
 }
 
 article.activity-card:hover{
-  -ms-transform: scale(1.01); /* IE 9 */
-  -webkit-transform: scale(1.01); /* Safari 3-8 */
-  transform: scale(1.01);
+  -ms-transform: scale(1.09); /* IE 9 */
+  -webkit-transform: scale(1.09); /* Safari 3-8 */
+  transform: scale(1.09);
 };
 
 
