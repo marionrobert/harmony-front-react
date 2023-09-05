@@ -10,6 +10,7 @@ import { selectUser } from "../slices/userSlice";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faPlus, faMinus, faXmark, faSquarePlus, faSquareMinus} from '@fortawesome/free-solid-svg-icons'
+import { faFaceFrownOpen} from '@fortawesome/free-regular-svg-icons'
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 import { config } from "../config"
@@ -19,14 +20,11 @@ const Basket = () => {
   const user = useSelector(selectUser)
   const [error, setError] = useState(null)
   const [redirect, setRedirect] = useState(null)
-  const [orderId, setOrderId] = useState(null)
-  const [nbItems, setNbItems] = useState(0)
-  const dispatch = useDispatch()
   const [newBookingId, setNewBookingId] = useState(null)
+  const dispatch = useDispatch()
 
-
-  useEffect(() => {
-
+  useEffect(()=>{
+    setError(null)
   }, [])
 
   const removeActivityFromBasket = (oldBasket, activity) => {
@@ -38,10 +36,10 @@ const Basket = () => {
     dispatch(cleanBasket())
   }
 
-  const validateAll = () => {
-    console.log("veut tout valider d'un coup, on valide un par un !")
-    console.log("on commence par valider toutes les activités où on est provider")
-  }
+  // const validateAll = () => {
+  //   console.log("veut tout valider d'un coup, on valide un par un !")
+  //   console.log("on commence par valider toutes les activités où on est provider")
+  // }
 
   const validateOne = (activity) => {
     // console.log("valide one -->", activity)
@@ -53,7 +51,7 @@ const Basket = () => {
       "provider_id": activity.authorIsProvider ? activity.author_id : user.data.id,
       "beneficiary_id": activity.authorIsProvider ? user.data.id : activity.author_id
     }
-    console.log("data -->", data)
+    // console.log("data -->", data)
     saveOneBooking(data)
     .then((res) => {
       if (res.status === 200){
@@ -64,7 +62,9 @@ const Basket = () => {
         // let activityCard = document.querySelector(`#activity-${activity.id}`)
         // activityCard.style.filter = "blur(1px)"
       } else {
-        setError(`Echec: ${res.msg}`)
+        let errorParagraph = document.querySelector(`#activity-${activity.id} p.error-booking`)
+        errorParagraph.innerHTML = "Vous n'avez pas assez de points pour réserver."
+        errorParagraph.style.display = "block"
       }
     })
     .catch((err) => console.log(err))
@@ -112,6 +112,8 @@ const Basket = () => {
                   <p className='deleteItem'>
                     <FontAwesomeIcon icon={ faXmark}  onClick={()=>{removeActivityFromBasket(currentBasket.basket, activity)}}/>
                   </p>
+
+                  <p className="error-booking"></p>
               </li>
             )
           }))

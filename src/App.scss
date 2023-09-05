@@ -92,6 +92,9 @@ table {
 	border-spacing: 0;
 }
 
+button {
+  cursor: pointer;
+}
 
 
 // ******** MY NORMALIZE CSS ********* //
@@ -599,7 +602,7 @@ section.basket {
     max-width: 600px;
   }
 
-  .basket-item {
+  li.basket-item {
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     display: flex;
     justify-content: left;
@@ -636,6 +639,22 @@ section.basket {
       right: 10px;
       top: 5px;
       z-index: 2;
+    }
+
+    p.error-booking{
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: larger;
+      font-weight: bold;
+      color: rgb(178, 34, 34);
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      z-index: 2;
+      background-color: rgba(128, 128, 128, 0.8);
+      backdrop-filter: blur(1px)
     }
   }
 }
