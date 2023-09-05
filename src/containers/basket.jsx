@@ -22,6 +22,8 @@ const Basket = () => {
   const [orderId, setOrderId] = useState(null)
   const [nbItems, setNbItems] = useState(0)
   const dispatch = useDispatch()
+  const [newBookingId, setNewBookingId] = useState(null)
+
 
   useEffect(() => {
 
@@ -36,8 +38,39 @@ const Basket = () => {
     dispatch(cleanBasket())
   }
 
-  if (redirect) {
-    return <Navigate to={`/profile`}/>
+  const validateAll = () => {
+    console.log("veut tout valider d'un coup, on valide un par un !")
+    console.log("on commence par valider toutes les activités où on est provider")
+  }
+
+  const validateOne = (activity) => {
+    // console.log("valide one -->", activity)
+    let data = {
+      "booker_id": user.data.id,
+      "activity_id": activity.id,
+      "activity_title": activity.title,
+      "points": activity.points,
+      "provider_id": activity.authorIsProvider ? activity.author_id : user.data.id,
+      "beneficiary_id": activity.authorIsProvider ? user.data.id : activity.author_id
+    }
+    console.log("data -->", data)
+    saveOneBooking(data)
+    .then((res) => {
+      if (res.status === 200){
+        setNewBookingId(res.insertId)
+        setRedirect(true)
+        // à voir plus tard
+        // let activityCard = document.querySelector(`#activity-${activity.id}`)
+        // activityCard.style.filter = "blur(1px)"
+      } else {
+        setError(`Echec: ${res.msg}`)
+      }
+    })
+    .catch((err) => console.log(err))
+  }
+
+  if (redirect && newBookingId !== null) {
+    return <Navigate to={`/booking/${newBookingId}`}/>
   }
 
   return (
@@ -53,10 +86,10 @@ const Basket = () => {
 
       <ul className="basket-all-items">
         { error !== null && <p style={{color:"red"}}>{error}</p>}
-        <button className="first-validation" onClick={()=>{handleValidation()}}>Valider toute les réservations</button>
+        <button onClick={()=>{deleteBasket()}}>Supprimer tout le panier</button>
           {currentBasket.basket.map((activity=>{
             return (
-              <li  key={activity.id} className='basket-item' >
+              <li  key={activity.id} className='basket-item' id={`activity-${activity.id}`} >
                   { activity.urlPicture !== null ?
                     <CloudinaryContext cloudName="dptcisxbs">
                         <Image publicId={activity.urlPicture}>
@@ -72,7 +105,7 @@ const Basket = () => {
                       {/* <p >{activity.description.substring(0, 50)}...</p> */}
                       <p>{activity.authorIsProvider ? "Coût" : "Gain"} : {activity.points} points</p>
                     </div>
-                    <button className="validate-booking">Je valide la réservation</button>
+                    <button onClick={()=>{validateOne(activity)}}>Je valide la réservation</button>
                   </div>
 
                   <p className='deleteItem'>

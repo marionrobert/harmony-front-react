@@ -155,7 +155,7 @@ const Details = () => {
             <p>{ activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>
           </section>
 
-          { activity.status === "en ligne" &&
+          { activity.status === "en ligne" && activity.author_id !== user.data.id &&
             <div>
               <button onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
                 Je réserve !
