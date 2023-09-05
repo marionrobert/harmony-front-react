@@ -39,7 +39,7 @@ export const getAllBookingsByAuthorId = (author_id) => {
 export const getOneBooking = (id) => {
   return axios.get(`${config.api_url}/api/v1/booking/one/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getOneBooking -->", res)
+    // console.log("res de requête axios getOneBooking -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -73,7 +73,7 @@ export const acceptBooking = (data, id) => {
 export const deleteOneBooking = (id) => {
   return axios.delete(`${config.api_url}/api/v1/booking/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios deleteOneBooking -->", res)
+    // console.log("res de requête axios deleteOneBooking -->", res)
     return res.data
   })
   .catch((err)=>{

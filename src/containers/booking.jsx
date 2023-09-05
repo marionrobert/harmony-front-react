@@ -44,7 +44,6 @@ const Booking = () => {
 
   const validateBooking = (e) => {
     e.preventDefault()
-    console.log("j'accepte le booking")
     acceptBooking({"status": "en attente de réalisation"}, booking.booking_id)
     .then((res)=>{
       if (res.status === 200){
@@ -58,7 +57,6 @@ const Booking = () => {
 
   const declineBooking = (e) => {
     e.preventDefault()
-    console.log("je refuse le booking")
     deleteOneBooking(booking.booking_id)
     .then((res)=>{
       if (res.status === 200){
