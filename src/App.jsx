@@ -2,7 +2,9 @@ import './App.scss'
 
 import Header from "./components/header"
 import Footer from "./components/footer"
+
 import Home from './containers/home'
+import Basket from './containers/basket'
 
 // activities
 import Activities from './containers/activities'
@@ -32,6 +34,7 @@ function App() {
       <main>
         <Routes>
           <Route exact path="/" element={<RequireDataAuth child={Home} auth={false} admin={false} />} />
+          <Route exact path="/basket" element={<RequireDataAuth child={Basket} auth={true} admin={false} />} />
 
           {/* ACTIVITIES, DETAILS, ADD ACTIVITY, UPDATE ACTIVITY, DELETE ACTIVITY */}
           <Route exact path="/activities" element={<RequireDataAuth child={Activities} auth={true} admin={false} />} />
