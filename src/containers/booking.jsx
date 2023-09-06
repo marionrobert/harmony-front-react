@@ -78,23 +78,29 @@ const Booking = () => {
       <>
       <section>
         <h1>Réservation n° {booking.booking_id}</h1>
-        <article>
-          <h2>Statut de la réservation: {booking.booking_status}</h2>
-          {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
-            <fieldset>
-              <legend>Souhaitez-vous accepter la réservation?</legend>
-              <input type="radio" name="answer" value="oui" onChange={(e) => {validateBooking(e)}} />
-              <label htmlFor="answer">Oui</label>
-              <input type="radio" name="answer" value={false} onChange={(e) =>{declineBooking(e)}} />
-              <label htmlFor="answer">Non</label>
-              { errorForm !== null && <p style={{color: "firebrick"}}>{errorForm}</p>}
-            </fieldset>
-          }
-          {parseInt(user.data.id) === parseInt(booking.booker_id) &&
-            <button onClick={(e) =>{declineBooking(e)}}>Annuler ma demande de réservation</button>
-          }
+        { booking.booking_status === "en attente d'acceptation" ?
+          <article>
+            <h2>Statut de la réservation: {booking.booking_status}</h2>
+            {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
+              <fieldset>
+                <legend>Souhaitez-vous accepter la réservation?</legend>
+                <input type="radio" name="answer" value="oui" onChange={(e) => {validateBooking(e)}} />
+                <label htmlFor="answer">Oui</label>
+                <input type="radio" name="answer" value={false} onChange={(e) =>{declineBooking(e)}} />
+                <label htmlFor="answer">Non</label>
+                { errorForm !== null && <p style={{color: "firebrick"}}>{errorForm}</p>}
+              </fieldset>
+            }
+            {parseInt(user.data.id) === parseInt(booking.booker_id) &&
+              <button onClick={(e) =>{declineBooking(e)}}>Annuler ma demande de réservation</button>
+            }
+          </article>
+        :
+          <article>
+            <h2>Statut de la réservation: {booking.booking_status}</h2>
+          </article>
+        }
 
-        </article>
         <article style={{border: "1px solid black"}}>
           <h2>Informations sur l'activité</h2>
           <p>Activité: {booking.activity_title}</p>
