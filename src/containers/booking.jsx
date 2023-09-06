@@ -4,7 +4,7 @@ import { getOneBooking } from "../api/booking";
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
 import {getOneUserById} from "../api/user"
-import { acceptBooking, deleteOneBooking } from "../api/booking";
+import { acceptBooking, deleteOneBooking, validateAchievementByBeneficiary, validateAchievementByProvider } from "../api/booking";
 
 
 const Booking = () => {
@@ -15,6 +15,7 @@ const Booking = () => {
   const user = useSelector(selectUser)
   const [errorForm, setErrorForm] = useState(null)
   const [redirect, setRedirect]  = useState(null)
+  const [switchChecked, setSwitchChecked] = useState(false)
 
   useEffect(()=>{
     getOneBooking(parseInt(params.id))
@@ -42,6 +43,7 @@ const Booking = () => {
     .catch(err => console.log(err))
   }, [])
 
+
   const validateBooking = (e) => {
     e.preventDefault()
     acceptBooking({"status": "en attente de réalisation"}, booking.booking_id)
@@ -68,17 +70,43 @@ const Booking = () => {
     .catch(() => {setErrorForm("Une erreur est survenue")})
   }
 
+  const confirm = (e) => {
+    e.preventDefault()
+    console.log("wants to confirm")
+    setSwitchChecked(true)
+    if (user.data.id === booking.provider_id) {
+      validateAchievementByProvider(booking.booking_id)
+      .then((res) => {
+        if (res.status === 200){
+          setErrorForm("confirmation par provider ok")
+        } else {
+          setErrorForm("Une erreur est survenue.")
+        }
+      })
+      .catch(err => setErrorForm("Une erreur est survenue."))
+    } else {
+      validateAchievementByBeneficiary(booking.booking_id)
+      .then((res) => {
+        if (res.status === 200){
+          setErrorForm("confirmation par beneficiary ok")
+        } else {
+          setErrorForm("Une erreur est survenue.")
+        }
+      })
+      .catch(err => setErrorForm("Une erreur est survenue."))
+    }
+  }
+
   if (redirect){
     return <Navigate to={`/profile`}/>
   }
 
   if (booking !== null ){
-
+    // console.log(typeof booking.providerValidation)
     return (
-      <>
-      <section>
+      <section className="booking">
         <h1>Réservation n° {booking.booking_id}</h1>
-        { booking.booking_status === "en attente d'acceptation" ?
+        { booking.booking_status === "en attente d'acceptation" &&
           <article>
             <h2>Statut de la réservation: {booking.booking_status}</h2>
             {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
@@ -95,27 +123,78 @@ const Booking = () => {
               <button onClick={(e) =>{declineBooking(e)}}>Annuler ma demande de réservation</button>
             }
           </article>
-        :
-          <article>
-            <h2>Statut de la réservation: {booking.booking_status}</h2>
-          </article>
         }
 
-        <article style={{border: "1px solid black"}}>
+        <article className="booking-data" style={{border: "1px solid black"}}>
           <h2>Informations sur l'activité</h2>
           <p>Activité: {booking.activity_title}</p>
           <p>Lieu de rendez-vous: {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
           <p> {user.data.id === booking.provider_id ? "Gain" : "Coût"}: {booking.points} points</p>
+          <h2>Participants : { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> }  &  { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>}</h2>
           <p>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p>
         </article>
-        <article style={{border: "1px solid blue"}}>
-          <h2>Participants : { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> }  &  { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>}</h2>
+
+
+        { booking.booking_status === "en attente de réalisation" &&
+
+        <article className="confirmer">
+          <h2>Avez-vous déjà réalisé l'activité ?</h2>
+          {/* provider */}
+          { user.data.id === booking.provider_id ?
+            <div>
+              { booking.providerValidation === 1 ?
+              <p>Vous avez confirmé la réalisation de l'activité.</p>
+              :
+              <div>
+                  <p>Confirmer la réalisation de l'activité ?</p>
+                  <label className="switch" htmlFor="checkbox">
+                    <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
+                    <div className="slider round"></div>
+                  </label>
+                  { errorForm !== null && <p style={{color: "red"}}>{errorForm}</p>}
+              </div>
+              }
+            </div>
+          :
+          <div>
+            { booking.providerValidation === 1 ?
+                <p>X a confirmé la réalisation de l'activité.</p>
+                :
+                <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
+          </div>
+          }
+
+          {/* beneficiary */}
+          { user.data.id === booking.beneficiary_id ?
+            <div>
+              { booking.beneficiaryValidation === 1 ?
+              <p>Vous avez confirmé la réalisation de l'activité.</p>
+              :
+              <div>
+                  <p>Confirmer la réalisation de l'activité ?</p>
+                  <label className="switch" htmlFor="checkbox">
+                    <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
+                    <div className="slider round"></div>
+                  </label>
+                  { errorForm !== null && <p style={{color: "red"}}>{errorForm}</p>}
+              </div>
+              }
+            </div>
+          :
+          <div>
+            { booking.providerValidation === 1 ?
+                <p>X a confirmé la réalisation de l'activité.</p>
+                :
+                <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
+          </div>
+          }
+
         </article>
+        }
+
+
+
       </section>
-
-
-
-      </>
     )
   }
 
