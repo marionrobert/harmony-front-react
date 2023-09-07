@@ -81,9 +81,8 @@ export const deleteOneBooking = (id) => {
   })
 }
 
-export const validateAchievementByBeneficiary = (id) => {
-  console.log("coucou je suis dans le front avec le token-->", token)
-  return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/beneficiary/${id}`, null, {headers: {"x-access-token": token}})
+export const validateAchievementByBeneficiary = (data, id) => {
+  return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/beneficiary/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios validateAchievementByBeneficiary -->", res)
     return res.data
@@ -93,9 +92,8 @@ export const validateAchievementByBeneficiary = (id) => {
   })
 }
 
-export const validateAchievementByProvider = (id) => {
-  console.log("coucou je suis dans le front avec le token-->", token)
-  return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/provider/${id}`, null, {headers: {"x-access-token": token}})
+export const validateAchievementByProvider = (data, id) => {
+  return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/provider/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios validateAchievementByProvider -->", res)
     return res.data

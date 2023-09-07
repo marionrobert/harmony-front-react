@@ -16,12 +16,15 @@ const Booking = () => {
   const [errorForm, setErrorForm] = useState(null)
   const [redirect, setRedirect]  = useState(null)
   const [switchChecked, setSwitchChecked] = useState(false)
+  const [bookingStatus, setBookingStatus] = useState(null)
 
   useEffect(()=>{
     getOneBooking(parseInt(params.id))
     .then((res)=>{
       if (res.status === 200){
+        console.log(res)
         setBooking(res.booking)
+        setBookingStatus(res.booking.booking_status)
 
         getOneUserById(res.booking.provider_id)
         .then((response)=>{
@@ -41,7 +44,7 @@ const Booking = () => {
       }
     })
     .catch(err => console.log(err))
-  }, [])
+  }, [params.id])
 
 
   const validateBooking = (e) => {
@@ -75,20 +78,24 @@ const Booking = () => {
     console.log("wants to confirm")
     setSwitchChecked(true)
     if (user.data.id === booking.provider_id) {
-      validateAchievementByProvider(booking.booking_id)
+      validateAchievementByProvider({"status": "terminée"}, booking.booking_id)
       .then((res) => {
         if (res.status === 200){
-          setErrorForm("confirmation par provider ok")
+          if (res.bookingStatus) {
+            setBookingStatus(res.bookingStatus)
+          }
         } else {
           setErrorForm("Une erreur est survenue.")
         }
       })
       .catch(err => setErrorForm("Une erreur est survenue."))
     } else {
-      validateAchievementByBeneficiary(booking.booking_id)
+      validateAchievementByBeneficiary({"status": "terminée"}, booking.booking_id)
       .then((res) => {
         if (res.status === 200){
-          setErrorForm("confirmation par beneficiary ok")
+          if (res.bookingStatus) {
+            setBookingStatus(res.bookingStatus)
+          }
         } else {
           setErrorForm("Une erreur est survenue.")
         }
@@ -101,14 +108,14 @@ const Booking = () => {
     return <Navigate to={`/profile`}/>
   }
 
-  if (booking !== null ){
+  if (booking !== null && bookingStatus !== null){
     // console.log(typeof booking.providerValidation)
     return (
       <section className="booking">
         <h1>Réservation n° {booking.booking_id}</h1>
-        { booking.booking_status === "en attente d'acceptation" &&
+        { bookingStatus === "en attente d'acceptation" &&
           <article>
-            <h2>Statut de la réservation: {booking.booking_status}</h2>
+            <h2>Statut de la réservation: {bookingStatus}</h2>
             {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
               <fieldset>
                 <legend>Souhaitez-vous accepter la réservation?</legend>
@@ -135,65 +142,68 @@ const Booking = () => {
         </article>
 
 
-        { booking.booking_status === "en attente de réalisation" &&
-
-        <article className="confirmer">
-          <h2>Avez-vous déjà réalisé l'activité ?</h2>
-          {/* provider */}
-          { user.data.id === booking.provider_id ?
+        { bookingStatus === "en attente de réalisation" &&
+          <article style={{border: "1px solid blue"}} className="confirmer">
+            <h2>Avez-vous déjà réalisé l'activité ?</h2>
+            {/* provider */}
+            { user.data.id === booking.provider_id ?
+              <div>
+                { booking.providerValidation === 1 ?
+                <p>Vous avez confirmé la réalisation de l'activité.</p>
+                :
+                <div>
+                    <p>Confirmer la réalisation de l'activité ?</p>
+                    <label className="switch" htmlFor="checkbox">
+                      <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
+                      <div className="slider round"></div>
+                    </label>
+                    { errorForm !== null && <p style={{color: "red"}}>{errorForm}</p>}
+                </div>
+                }
+              </div>
+            :
             <div>
               { booking.providerValidation === 1 ?
-              <p>Vous avez confirmé la réalisation de l'activité.</p>
-              :
-              <div>
-                  <p>Confirmer la réalisation de l'activité ?</p>
-                  <label className="switch" htmlFor="checkbox">
-                    <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
-                    <div className="slider round"></div>
-                  </label>
-                  { errorForm !== null && <p style={{color: "red"}}>{errorForm}</p>}
-              </div>
-              }
+                  <p>X a confirmé la réalisation de l'activité.</p>
+                  :
+                  <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
-          :
-          <div>
-            { booking.providerValidation === 1 ?
-                <p>X a confirmé la réalisation de l'activité.</p>
-                :
-                <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
-          </div>
-          }
+            }
 
-          {/* beneficiary */}
-          { user.data.id === booking.beneficiary_id ?
+            {/* beneficiary */}
+            { user.data.id === booking.beneficiary_id ?
+              <div>
+                { booking.beneficiaryValidation === 1 ?
+                <p>Vous avez confirmé la réalisation de l'activité.</p>
+                :
+                <div>
+                    <p>Confirmer la réalisation de l'activité ?</p>
+                    <label className="switch" htmlFor="checkbox">
+                      <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
+                      <div className="slider round"></div>
+                    </label>
+                    { errorForm !== null && <p style={{color: "red"}}>{errorForm}</p>}
+                </div>
+                }
+              </div>
+            :
             <div>
-              { booking.beneficiaryValidation === 1 ?
-              <p>Vous avez confirmé la réalisation de l'activité.</p>
-              :
-              <div>
-                  <p>Confirmer la réalisation de l'activité ?</p>
-                  <label className="switch" htmlFor="checkbox">
-                    <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
-                    <div className="slider round"></div>
-                  </label>
-                  { errorForm !== null && <p style={{color: "red"}}>{errorForm}</p>}
-              </div>
-              }
+              { booking.providerValidation === 1 ?
+                  <p>X a confirmé la réalisation de l'activité.</p>
+                  :
+                  <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
-          :
-          <div>
-            { booking.providerValidation === 1 ?
-                <p>X a confirmé la réalisation de l'activité.</p>
-                :
-                <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
-          </div>
-          }
+            }
 
-        </article>
+          </article>
         }
 
-
-
+        { bookingStatus === "terminée" &&
+          <article style={{border: "1px solid red"}} className="finished">
+            <h2>L'activité est réalisée.</h2>
+            <p>si je suis le booker, je vais pouvoir laisser un commentaire !</p>
+          </article>
+        }
       </section>
     )
   }
