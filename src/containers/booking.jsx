@@ -17,6 +17,8 @@ const Booking = () => {
   const [redirect, setRedirect]  = useState(null)
   const [switchChecked, setSwitchChecked] = useState(false)
   const [bookingStatus, setBookingStatus] = useState(null)
+  const [beneficiaryValidation, setBeneficiaryValidation] = useState(null)
+  const [providerValidation, setProviderValidation] = useState(null)
 
   useEffect(()=>{
     getOneBooking(parseInt(params.id))
@@ -24,6 +26,8 @@ const Booking = () => {
       if (res.status === 200){
         setBooking(res.booking)
         setBookingStatus(res.booking.booking_status)
+        setBeneficiaryValidation(res.booking.beneficiaryValidation)
+        setProviderValidation(res.booking.providerValidation)
 
         getOneUserById(res.booking.provider_id)
         .then((response)=>{
@@ -52,6 +56,7 @@ const Booking = () => {
     .then((res)=>{
       if (res.status === 200){
         setBooking(res.bookingUpdated)
+        setBookingStatus("en attente de réalisation")
       } else {
         setErrorForm(res.msg)
       }
@@ -80,6 +85,7 @@ const Booking = () => {
       validateAchievementByProvider({"status": "terminée"}, booking.booking_id)
       .then((res) => {
         if (res.status === 200){
+          setProviderValidation(1)
           if (res.bookingStatus) {
             setBookingStatus(res.bookingStatus)
           }
@@ -92,6 +98,7 @@ const Booking = () => {
       validateAchievementByBeneficiary({"status": "terminée"}, booking.booking_id)
       .then((res) => {
         if (res.status === 200){
+          setBeneficiaryValidation(1)
           if (res.bookingStatus) {
             setBookingStatus(res.bookingStatus)
           }
@@ -146,7 +153,7 @@ const Booking = () => {
             {/* provider */}
             { user.data.id === booking.provider_id ?
               <div>
-                { booking.providerValidation === 1 ?
+                { providerValidation === 1 ?
                 <p>Vous avez confirmé la réalisation de l'activité.</p>
                 :
                 <div>
@@ -161,7 +168,7 @@ const Booking = () => {
               </div>
             :
             <div>
-              { booking.providerValidation === 1 ?
+              { providerValidation === 1 ?
                   <p>{ provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } a confirmé la réalisation de l'activité.</p>
                   :
                   <p>{ provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } n'a pas encore confirmé la réalisation de l'activité.</p>}
@@ -171,7 +178,7 @@ const Booking = () => {
             {/* beneficiary */}
             { user.data.id === booking.beneficiary_id ?
               <div>
-                { booking.beneficiaryValidation === 1 ?
+                { beneficiaryValidation === 1 ?
                 <p>Vous avez confirmé la réalisation de l'activité.</p>
                 :
                 <div>
@@ -186,7 +193,7 @@ const Booking = () => {
               </div>
             :
             <div>
-              { booking.providerValidation === 1 ?
+              { providerValidation === 1 ?
                   <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} a confirmé la réalisation de l'activité.</p>
                   :
                   <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} n'a pas encore confirmé la réalisation de l'activité.</p>}

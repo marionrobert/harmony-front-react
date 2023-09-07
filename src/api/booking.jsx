@@ -84,7 +84,7 @@ export const deleteOneBooking = (id) => {
 export const validateAchievementByBeneficiary = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/beneficiary/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios validateAchievementByBeneficiary -->", res)
+    // console.log("res de requête axios validateAchievementByBeneficiary -->", res)
     return res.data
   })
   .catch((err)=>{
