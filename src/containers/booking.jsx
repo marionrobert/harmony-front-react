@@ -22,7 +22,6 @@ const Booking = () => {
     getOneBooking(parseInt(params.id))
     .then((res)=>{
       if (res.status === 200){
-        console.log(res)
         setBooking(res.booking)
         setBookingStatus(res.booking.booking_status)
 
@@ -113,6 +112,15 @@ const Booking = () => {
     return (
       <section className="booking">
         <h1>Réservation n° {booking.booking_id}</h1>
+        <article className="booking-data" style={{border: "1px solid black"}}>
+          <h2>Informations sur l'activité</h2>
+          <p>Activité: {booking.activity_title}</p>
+          <p>Lieu de rendez-vous: {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
+          <p> {user.data.id === booking.provider_id ? "Gain" : "Coût"}: {booking.points} points</p>
+          <h2>Participants : { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> }  &  { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>}</h2>
+          <p>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p>
+        </article>
+
         { bookingStatus === "en attente d'acceptation" &&
           <article>
             <h2>Statut de la réservation: {bookingStatus}</h2>
@@ -131,16 +139,6 @@ const Booking = () => {
             }
           </article>
         }
-
-        <article className="booking-data" style={{border: "1px solid black"}}>
-          <h2>Informations sur l'activité</h2>
-          <p>Activité: {booking.activity_title}</p>
-          <p>Lieu de rendez-vous: {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
-          <p> {user.data.id === booking.provider_id ? "Gain" : "Coût"}: {booking.points} points</p>
-          <h2>Participants : { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> }  &  { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>}</h2>
-          <p>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p>
-        </article>
-
 
         { bookingStatus === "en attente de réalisation" &&
           <article style={{border: "1px solid blue"}} className="confirmer">
@@ -164,9 +162,9 @@ const Booking = () => {
             :
             <div>
               { booking.providerValidation === 1 ?
-                  <p>X a confirmé la réalisation de l'activité.</p>
+                  <p>{ provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } a confirmé la réalisation de l'activité.</p>
                   :
-                  <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
+                  <p>{ provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
             }
 
@@ -189,9 +187,9 @@ const Booking = () => {
             :
             <div>
               { booking.providerValidation === 1 ?
-                  <p>X a confirmé la réalisation de l'activité.</p>
+                  <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} a confirmé la réalisation de l'activité.</p>
                   :
-                  <p>X n'a pas encore confirmé la réalisation de l'activité.</p>}
+                  <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
             }
 
@@ -201,7 +199,7 @@ const Booking = () => {
         { bookingStatus === "terminée" &&
           <article style={{border: "1px solid red"}} className="finished">
             <h2>L'activité est réalisée.</h2>
-            <p>si je suis le booker, je vais pouvoir laisser un commentaire !</p>
+            { user.data.id === booking.booker_id && <p>si je suis le booker, je vais pouvoir laisser un commentaire !</p> }
           </article>
         }
       </section>
