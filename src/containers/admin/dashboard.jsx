@@ -14,7 +14,7 @@ const Admin = () => {
   useEffect(() => {
     getAllWaitingActivities()
     .then((res)=>{
-      // console.log(res)
+      console.log(res)
       if (res.status === 200){
         setActivites(res.activities)
       }
@@ -23,7 +23,7 @@ const Admin = () => {
 
     getAllWaitingComments()
     .then((res)=>{
-      // console.log(res)
+      console.log(res)
       if (res.status === 200){
         setComments(res.comments)
       }
@@ -104,7 +104,7 @@ const Admin = () => {
                     </td>
                     <td>{moment(comment.creationTimestamp).locale("fr").format("DD/MM/YYYY")}</td>
                     <td>
-                      <Link to={`/`}><FontAwesomeIcon icon={faEye}/></Link>
+                      <Link to={`/comment/moderate/${comment.id}`}><FontAwesomeIcon icon={faEye}/></Link>
                     </td>
                   </tr>
                 )

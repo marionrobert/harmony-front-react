@@ -102,7 +102,7 @@ export const deleteOneComment = (id) => {
   })
 }
 
-export const moderateComment = (id, data) =>{
+export const moderateOneComment = (id, data) =>{
   return axios.put(`${config.api_url}/api/v1/comment/moderate/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updateOneComment -->", res)

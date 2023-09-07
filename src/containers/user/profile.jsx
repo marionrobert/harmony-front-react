@@ -272,7 +272,7 @@ const Profile = () => {
                   <ul>
                     { comments.map(comment => {
                       if (comment.status === "validé"){
-                        return (<li key={comment.id}>{comment.title}</li>)
+                        return (<li key={comment.id}><Link to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else {
                         return null
                       }
@@ -285,9 +285,9 @@ const Profile = () => {
                 <ul>
                     { comments.map(comment => {
                       if (comment.status === "en attente de validation"){
-                        return (<li key={comment.id}>{comment.title}</li>)
+                        return (<li key={comment.id}><Link to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else if (comment.status === "invalidé") {
-                        return (<li key={comment.id}>{comment.title}</li>)
+                        return (<li key={comment.id}><Link style={{color: "red"}} to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else {
                         return null
                       }
