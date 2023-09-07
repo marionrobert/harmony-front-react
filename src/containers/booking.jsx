@@ -5,22 +5,36 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
 import {getOneUserById} from "../api/user"
 import { acceptBooking, deleteOneBooking, validateAchievementByBeneficiary, validateAchievementByProvider } from "../api/booking";
+import {saveOneComment, getOneCommentByBookingId, updateOneComment} from "../api/comment"
+import CommentCard from "../components/comment-card";
 
 
 const Booking = () => {
   const params = useParams()
+
   const [booking, setBooking] = useState(null)
   const [provider, setProvider] = useState(null)
   const [beneficiary, setBeneficiary] = useState(null)
   const user = useSelector(selectUser)
-  const [errorForm, setErrorForm] = useState(null)
   const [redirect, setRedirect]  = useState(null)
   const [switchChecked, setSwitchChecked] = useState(false)
   const [bookingStatus, setBookingStatus] = useState(null)
   const [beneficiaryValidation, setBeneficiaryValidation] = useState(null)
   const [providerValidation, setProviderValidation] = useState(null)
 
+  const [comment, setComment] = useState(null)
+  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
+  const [score, setScore] = useState("")
+  const [errorForm, setErrorForm] = useState(null)
+  const [msgForm, setMsgForm] = useState(null)
+
+
+
   useEffect(()=>{
+    setMsgForm(null)
+    setErrorForm(null)
+
     getOneBooking(parseInt(params.id))
     .then((res)=>{
       if (res.status === 200){
@@ -41,9 +55,22 @@ const Booking = () => {
         .then((answer)=>{
           if (answer.status === 200){
             setBeneficiary(answer.user)
+
           }
         })
         .catch(error => console.log(error))
+
+        getOneCommentByBookingId(params.id)
+        .then((response) => {
+          if (response.status === 200){
+            setComment(response.comment)
+            setTitle(response.comment.title)
+            setContent(response.comment.content)
+            setScore(response.comment.score)
+          }
+        })
+        .catch((error) => console.log(error))
+
       }
     })
     .catch(err => console.log(err))
@@ -110,6 +137,67 @@ const Booking = () => {
     }
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMsgForm(null)
+    setErrorForm(null)
+    let data = {
+      "title": title,
+      "content": content,
+      "score": parseInt(score),
+      "author_id": user.data.id,
+      "activity_id": booking.activity_id,
+      "booking_id": booking.booking_id
+    }
+    saveOneComment(data)
+    .then((res) => {
+      if (res.status === 200){
+        console.log(res)
+        setMsgForm("Votre commentaire a bien été créé.")
+      } else {
+        setErrorForm(`${res.msg}`)
+      }
+    })
+    .catch(()=>{setErrorForm("Une erreur est survenue.")})
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    switch (e.currentTarget.name) {
+      case "title":
+        setTitle(e.currentTarget.value)
+        break;
+      case "content":
+        setContent(e.currentTarget.value)
+        break;
+      case "score":
+        setScore(e.currentTarget.value)
+        break;
+    }
+  }
+
+  const updateComment = (e) => {
+    e.preventDefault(e)
+    console.log("update")
+    setMsgForm(null)
+    setErrorForm(null)
+    let data = {
+      "title": title,
+      "content": content,
+      "score": parseInt(score)
+    }
+
+    updateOneComment(data, comment.id)
+    .then((res)=> {
+      if (res.status === 200){
+        setMsgForm("Votre commentaire a bien été modifié.")
+      } else {
+        setErrorForm(`${res.msg}`)
+      }
+    })
+    .catch(()=>{setErrorForm("Une erreur est survenue.")})
+  }
+
   if (redirect){
     return <Navigate to={`/profile`}/>
   }
@@ -118,14 +206,15 @@ const Booking = () => {
     // console.log(typeof booking.providerValidation)
     return (
       <section className="booking">
-        <h1>Réservation n° {booking.booking_id}</h1>
+
         <article className="booking-data" style={{border: "1px solid black"}}>
-          <h2>Informations sur l'activité</h2>
+          <h2>Informations sur la réservation n°{booking.booking_id}</h2>
+          <p>Statut de la réservation: {bookingStatus}</p>
           <p>Activité: {booking.activity_title}</p>
           <p>Lieu de rendez-vous: {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
           <p> {user.data.id === booking.provider_id ? "Gain" : "Coût"}: {booking.points} points</p>
           <h2>Participants : { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> }  &  { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>}</h2>
-          <p>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p>
+          <p style={{"color": "red"}}>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p>
         </article>
 
         { bookingStatus === "en attente d'acceptation" &&
@@ -203,12 +292,60 @@ const Booking = () => {
           </article>
         }
 
-        { bookingStatus === "terminée" &&
+        { bookingStatus === "terminée" && comment !== null && comment.status === "validé" &&
+          <CommentCard key={comment.id} comment={comment} />
+        }
+
+        { bookingStatus === "terminée" && comment !== null && comment.status !== "validé" &&
           <article style={{border: "1px solid red"}} className="finished">
-            <h2>L'activité est réalisée.</h2>
-            { user.data.id === booking.booker_id && <p>si je suis le booker, je vais pouvoir laisser un commentaire !</p> }
+            <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
+            <p>Votre commentaire n'a pas encore été validé par l'administration. Vous pouvez encore le modifier.</p>
+            <form onSubmit={(e) => {updateComment(e)}}>
+              <label htmlFor="title" >Titre de votre commentaire :</label>
+              <input type="text" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title} required></input>
+              <label htmlFor="content">Décrivez votre expérience :</label>
+              <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} defaultValue={content} required></textarea>
+              <label htmlFor="score">Quelle note donneriez-vous ?</label>
+              <select name="score" onChange={(e) =>{handleChange(e)}} defaultValue={parseInt(score)} required>
+                <option value="">Choisissez une note</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+              </select>
+              <button>Modifier</button>
+            </form>
+            { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}
+            { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
           </article>
         }
+
+        { bookingStatus === "terminé" && comment === null &&
+          <article style={{border: "1px solid red"}} className="finished">
+            <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
+            <form onSubmit={(e) => {handleSubmit(e)}}>
+              <label htmlFor="title" >Titre de votre commentaire :</label>
+              <input type="text" name="title" onChange={(e) =>{handleChange(e)}} required></input>
+              <label htmlFor="content">Décrivez cette expérience :</label>
+              <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} required></textarea>
+              <label htmlFor="score">Quelle note donneriez-vous ?</label>
+              <select name="score" onChange={(e) =>{handleChange(e)}} required>
+                <option value="">Choisissez une note</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+              </select>
+              <button>Valider</button>
+            </form>
+            { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}
+            { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
+          </article>
+        }
+
+
       </section>
     )
   }

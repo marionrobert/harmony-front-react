@@ -28,7 +28,7 @@ export const getAllWaitingComments = () => {
 export const getOneCommentById = (id) => {
   return axios.get(`${config.api_url}/api/v1/comment/one/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getOneCommentById -->", res)
+    // console.log("res de requête axios getOneCommentById -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -39,7 +39,7 @@ export const getOneCommentById = (id) => {
 export const getOneCommentByBookingId = (booking_id) => {
   return axios.get(`${config.api_url}/api/v1/comment/one/booking/${booking_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getOneCommentByBookingId -->", res)
+    // console.log("res de requête axios getOneCommentByBookingId -->", res)
     return res.data
   })
   .catch((err)=>{
