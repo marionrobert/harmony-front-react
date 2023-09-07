@@ -206,9 +206,10 @@ const Booking = () => {
     // console.log(typeof booking.providerValidation)
     return (
       <section className="booking">
+        <h1>Réservation n°{booking.booking_id}</h1>
 
         <article className="booking-data" style={{border: "1px solid black"}}>
-          <h2>Informations sur la réservation n°{booking.booking_id}</h2>
+          <h2>Informations sur la réservation : </h2>
           <p>Statut de la réservation: {bookingStatus}</p>
           <p>Activité: {booking.activity_title}</p>
           <p>Lieu de rendez-vous: {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
@@ -299,7 +300,10 @@ const Booking = () => {
         { bookingStatus === "terminée" && comment !== null && comment.status !== "validé" &&
           <article style={{border: "1px solid red"}} className="finished">
             <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
-            <p>Votre commentaire n'a pas encore été validé par l'administration. Vous pouvez encore le modifier.</p>
+            { comment.status === "en attente de validation" ?
+              <p>Votre commentaire n'a pas encore été validé par l'administration. Vous pouvez le modifier.</p>
+              :
+              <p>Votre commentaire a été invalidé par l'administration. Vous pouvez le modifier.</p> }
             <form onSubmit={(e) => {updateComment(e)}}>
               <label htmlFor="title" >Titre de votre commentaire :</label>
               <input type="text" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title} required></input>
