@@ -20,6 +20,7 @@ import Forgot from "./containers/user/forgot"
 import Register from "./containers/user/register"
 import Logout from "./containers/user/logout"
 import Profile from "./containers/user/profile"
+import EditUser from './containers/user/edit'
 
 // admin
 import Admin from './containers/admin/dashboard'
@@ -54,6 +55,8 @@ function App() {
           <Route exact path="/logout" element={<RequireDataAuth child={Logout} auth={true} admin={false} />} />
           <Route exact path="/forgot" element={<Forgot/>}/>
           <Route path="/profile" element={<RequireDataAuth child={Profile} auth={true} admin={false}/>}/>
+          <Route path="/profile/edit" element={<RequireDataAuth child={EditUser} auth={true} admin={false}/>}/>
+
 
           {/* ADMIN: DASHBOARD, MODERATE ACTIVITY, MODERATE COMMENT */}
           <Route path="/admin" element={<RequireDataAuth child={Admin} auth={true} admin={true}/>}/>

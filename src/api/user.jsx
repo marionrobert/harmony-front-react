@@ -38,7 +38,7 @@ export const forgotPassword = (data) => {
 export const updateUser = (data, key_id) => {
   return axios.put(`${config.api_url}/api/v1/user/update/${key_id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios updateUser -->", res)
+    // console.log("res de requête axios updateUser -->", res)
     return res.data
   })
   .catch((err)=>{
