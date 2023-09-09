@@ -200,7 +200,7 @@ const Profile = () => {
 
           <p>Mes points: {user.data.points}</p>
           <p>Mon numéro de téléphone: {user.data.phone}</p>
-          <Link>Modifier mes informations</Link>
+          <Link to="/profile/edit">Modifier mes informations</Link>
         </section>
         <section className='profile-user-activities'>
           <h2>Mes activités</h2>
