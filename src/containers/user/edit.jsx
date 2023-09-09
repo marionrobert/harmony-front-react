@@ -50,15 +50,8 @@ const EditUser = () => {
       updateUser(data, user.data.key_id)
       .then((res) => {
         if (res.status === 200){
-          getOneUserById(user.data.id)
-          .then((response)=>{
-            if (response.status === 200){
-              dispatch(setUser(response.user))
-              setRedirect(true)
-            } else {
-              setError(res.msg)
-            }
-          })
+          dispatch(setUser(res.user))
+          setRedirect(true)
         } else {
           setError(res.msg)
         }
