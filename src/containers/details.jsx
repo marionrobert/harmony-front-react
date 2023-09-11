@@ -129,13 +129,13 @@ const Details = () => {
             { activity.urlPicture !== null ?
               <CloudinaryContext cloudName="dptcisxbs">
                 <div>
-                  <Image className="details-image" publicId={activity.urlPicture} >
+                  <Image className="details-image" publicId={activity.urlPicture} alt={`Image de l'activité ${activity.title}`}>
                     <Transformation quality="auto" fetchFormat="auto" />
                   </Image>
                 </div>
               </CloudinaryContext>
               :
-              <img className="details-image" src={`${config.pict_url}/no-image.png`} />
+              <img className="details-image" src={`${config.pict_url}/no-image.png`} alt="Pas d'image disponible"/>
             }
             <p>Lieu de rendez-vous: {activity.address}, {activity.zip} {activity.city}</p>
 
@@ -143,13 +143,13 @@ const Details = () => {
             { author !== null && author.avatar !== null ?
               <CloudinaryContext cloudName="dptcisxbs" className="details-activity-avatar">
                 <div>
-                  <Image className="details-activity-avatar" publicId={author.avatar} >
+                  <Image className="details-activity-avatar" publicId={author.avatar} alt={`Photo de l'utilisateur ${author.firstName} ${author.lastName}`}>
                     <Transformation quality="auto" fetchFormat="auto" />
                   </Image>
                 </div>
               </CloudinaryContext>
               :
-              <img src={`${config.pict_url}/user.png`} className="details-activity-avatar"/>
+              <img src={`${config.pict_url}/user.png`} className="details-activity-avatar" alt="Icône d'utilisateur"/>
             }
             <p>Durée de l'activité: {activity.duration} minutes</p>
             <p>{ activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>

@@ -26,12 +26,12 @@ const ActivityCard = (props) => {
         { activity.urlPicture !== null ?
           <CloudinaryContext cloudName="dptcisxbs" className="activity-card-picture">
 
-              <Image publicId={activity.urlPicture} className="activity-card-picture">
+              <Image publicId={activity.urlPicture} className="activity-card-picture" alt={`Image de l'activité ${activity.title}`}>
                 <Transformation quality="auto" fetchFormat="auto" />
               </Image>
 
           </CloudinaryContext> :
-          <img src={`${config.pict_url}/no-image.png`} className="activity-card-picture"/>
+          <img src={`${config.pict_url}/no-image.png`} className="activity-card-picture" alt="Pas d'image disponible"/>
         }
 
         { author !== null && author.avatar !== null ?

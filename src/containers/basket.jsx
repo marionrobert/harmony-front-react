@@ -93,11 +93,11 @@ const Basket = () => {
               <li  key={activity.id} className='basket-item' id={`activity-${activity.id}`} >
                   { activity.urlPicture !== null ?
                     <CloudinaryContext cloudName="dptcisxbs">
-                        <Image publicId={activity.urlPicture}>
+                        <Image publicId={activity.urlPicture} alt={`Image de l'activité ${activity.title}`}>
                           <Transformation quality="auto" fetchFormat="auto" />
                         </Image>
                     </CloudinaryContext> :
-                    <img src={`${config.pict_url}/no-image.png`}/>
+                    <img src={`${config.pict_url}/no-image.png`} alt="Pas d'image disponible"/>
                   }
 
                   <div className="basket-item-data">

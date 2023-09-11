@@ -62,11 +62,11 @@ const ModerateActivity = () => {
         { activity.urlPicture !== null ?
         <CloudinaryContext cloudName="dptcisxbs">
           <div>
-            <Image className="details-image" publicId={activity.urlPicture} >
+            <Image className="details-image" publicId={activity.urlPicture} alt={`Image de l'activité ${activity.title}`}>
               <Transformation quality="auto" fetchFormat="auto" />
             </Image>
           </div>
-        </CloudinaryContext> : <p>L'auteur de l'activité n'a pas chargé de photo.</p>}
+        </CloudinaryContext> : <p>L'auteur de l'activité n'a pas chargé d'image pour son activité.</p>}
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <fieldset>
             <legend>Souhaitez-vous valider la publication de l'activité ?</legend>

@@ -41,7 +41,7 @@ const Header = () => {
       <nav id="navbar-menu">
         <div id="brand">
           <Link to="/">
-            <img src={`${config.pict_url}/icons/lifetree.avif`} className="brand-icon" alt="Logo représentant un arbre de vie"/>
+            <img src={`${config.pict_url}/icons/lifetree.avif`} className="brand-icon" alt="Logo arbre de vie"/>
           </Link>
           <Link to="/"><span>Harmony</span></Link>
         </div>
