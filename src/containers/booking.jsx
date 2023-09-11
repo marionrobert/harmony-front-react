@@ -7,6 +7,8 @@ import {getOneUserById} from "../api/user"
 import { acceptBooking, deleteOneBooking, validateAchievementByBeneficiary, validateAchievementByProvider } from "../api/booking";
 import {saveOneComment, getOneCommentByBookingId, updateOneComment} from "../api/comment"
 import CommentCard from "../components/comment-card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMobile, faPhone, faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 
 const Booking = () => {
@@ -106,7 +108,7 @@ const Booking = () => {
 
   const confirm = (e) => {
     e.preventDefault()
-    console.log("wants to confirm")
+    // console.log("wants to confirm")
     setSwitchChecked(true)
     if (user.data.id === booking.provider_id) {
       validateAchievementByProvider({"status": "terminée"}, booking.booking_id)
@@ -203,18 +205,34 @@ const Booking = () => {
   }
 
   if (booking !== null && bookingStatus !== null){
-    // console.log(typeof booking.providerValidation)
     return (
       <section className="booking">
         <h1>Réservation n°{booking.booking_id}</h1>
 
         <article className="booking-data" style={{border: "1px solid black"}}>
           <h2>Informations sur la réservation : </h2>
-          <p>Statut de la réservation: {bookingStatus}</p>
+          <p>La réservation est {bookingStatus}</p>
           <p>Activité: {booking.activity_title}</p>
-          <p>Lieu de rendez-vous: {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
+          <p><FontAwesomeIcon icon={faMapLocationDot}/> {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
           <p> {user.data.id === booking.provider_id ? "Gain" : "Coût"}: {booking.points} points</p>
-          <h2>Participants : { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> }  &  { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>}</h2>
+
+          <h2>Participants : </h2>
+          { provider !== null ?
+            <div>
+              <p>{provider.firstName} {provider.lastName.substring(0, 1)}.</p>
+              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {provider.phone}</p>}
+            </div>
+            :
+            <p>Inconnu</p>
+          }
+          { beneficiary !== null ?
+            <div>
+              <p>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</p>
+              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {beneficiary.phone}</p>}
+            </div>
+            :
+            <p>Inconnu</p>
+          }
           <p style={{"color": "red"}}>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p>
         </article>
 
