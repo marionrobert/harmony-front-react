@@ -78,7 +78,7 @@ const Profile = () => {
     tabsMyBookingsContents[indexToShow].classList.add("active-tab-bookings-for-my-activities-content");
   }
 
-  //fonction d'affichage de notre interface de chargement d'images/videos de cloudinary
+  //fonction d'affichage de notre interface de chargement d'images
   const showWidget = (e) => {
     e.preventDefault()
     //paramètrage de l'interface
@@ -182,13 +182,13 @@ const Profile = () => {
           { user.data.avatar !== null ?
             <CloudinaryContext cloudName="dptcisxbs" className="profile-avatar">
               <div>
-                <Image className="profile-avatar" publicId={user.data.avatar} >
+                <Image className="profile-avatar" publicId={user.data.avatar} alt={`Votre photo de profil`}>
                   <Transformation quality="auto" fetchFormat="auto" />
                 </Image>
               </div>
             </CloudinaryContext>
             :
-            <img src={`${config.pict_url}/user.png`} className="profile-avatar"/>
+            <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur"/>
           }
           <button onClick={(e) => {showWidget(e)}} >
             { user.data.avatar === null ? "Ajouter une " : "Modifier ma " }photo de profil

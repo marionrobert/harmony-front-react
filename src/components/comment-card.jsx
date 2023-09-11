@@ -30,13 +30,13 @@ const CommentCard = (props) => {
         { author.avatar !== null ?
           <CloudinaryContext cloudName="dptcisxbs" className="comment-card-avatar">
             <div>
-              <Image className="comment-card-avatar" publicId={author.avatar} >
+              <Image className="comment-card-avatar" publicId={author.avatar} alt={`Photo de l'utilisateur ${author.firstName} ${author.lastName}`}>
                 <Transformation quality="auto" fetchFormat="auto" />
               </Image>
             </div>
           </CloudinaryContext>
           :
-          <img src={`${config.pict_url}/user.png`} className="comment-card-avatar"/>
+          <img src={`${config.pict_url}/user.png`} className="comment-card-avatar" alt="Pas d'image disponible"/>
         }
 
         <div className="comment-card-data">

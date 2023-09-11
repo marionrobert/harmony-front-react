@@ -233,7 +233,7 @@ const EditActivity = () => {
           <div>
             <CloudinaryContext cloudName="dptcisxbs">
               <div>
-                <Image className="details-image" publicId={activity.urlPicture} >
+                <Image className="details-image" publicId={activity.urlPicture} alt={`Image de l'activité ${activity.title}`}>
                   <Transformation quality="auto" fetchFormat="auto" />
                 </Image>
               </div>
