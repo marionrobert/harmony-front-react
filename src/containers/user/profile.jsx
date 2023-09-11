@@ -23,7 +23,6 @@ const Profile = () => {
   const [msgError, setMsgError] = useState(null)
 
 
-
   function tabsAnimation(e, tabContainerId){
     const tabs = [...document.querySelectorAll(`#${tabContainerId} .tab`)]
     const tabContents = [...document.querySelectorAll(`#${tabContainerId} .tab-content`)]
@@ -33,7 +32,6 @@ const Profile = () => {
     tabs[indexToRemove].setAttribute("tabindex", "-1")
     tabs[indexToRemove].classList.remove("active-tab");
     tabContents[indexToRemove].classList.remove("active-tab-content");
-
 
     const indexToShow = tabs.indexOf(e.target)
     tabs[indexToShow].setAttribute("tabindex", "0")
@@ -184,7 +182,7 @@ const Profile = () => {
           <button onClick={(e) => { showWidget(e) }} >
             {user.data.avatar === null ? "Ajouter une " : "Modifier ma "}photo de profil
           </button>
-          {msgSuccess === null && msgError !== null && <p style={{ color: "red" }}>{msgError}</p>}
+          {msgSuccess === null && msgError !== null && <p style={{ color: "indianred" }}>{msgError}</p>}
           {msgSuccess !== null && <p style={{ color: "green" }}>{msgSuccess}</p>}
           <p>Mes points: {user.data.points}</p>
           <p>Mon numéro de téléphone: {user.data.phone}</p>
@@ -296,7 +294,7 @@ const Profile = () => {
                       if (activity.status === "en attente de validation") {
                         return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                       } else if (activity.status === "invalidé") {
-                        return (<li key={activity.id}><Link style={{ color: "red" }} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                        return (<li key={activity.id}><Link style={{ color: "indianred" }} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                       } else {
                         return null
                       }
@@ -322,6 +320,12 @@ const Profile = () => {
                   className="tab active-tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-2")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-2")}}
+                  role="tab"
+                  aria-controls="panel-1"
+                  id="tab-1"
+                  type="button"
+                  aria-selected="true"
+                  tabIndex="0"
                 >
                   Validés
                 </button>
@@ -329,11 +333,23 @@ const Profile = () => {
                   className="tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-2")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-2")}}
+                  role="tab"
+                  aria-controls="panel-2"
+                  id="tab-2"
+                  type="button"
+                  aria-selected="false"
+                  tabIndex="-1"
                 >
                   En attente de validation / invalidé
                   </button>
               </div>
-              <div className="tab-content active-tab-content">
+              <div
+                className="tab-content active-tab-content"
+                id="panel-1"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-1"
+              >
                 {comments.some(comment => comment.status === "validé") ? (
                   <ul>
                     {comments.map(comment => {
@@ -346,14 +362,20 @@ const Profile = () => {
                     }
                   </ul>) : <p>Vous n'avez pas de commentaires validés.</p>}
               </div>
-              <div className="tab-content">
+              <div
+                className="tab-content"
+                id="panel-2"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-2"
+              >
                 {comments.some((comment) => (comment.status === "en attente de validation" || comment.status === "invalidé")) ? (
                   <ul>
                     {comments.map(comment => {
                       if (comment.status === "en attente de validation") {
                         return (<li key={comment.id}><Link to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else if (comment.status === "invalidé") {
-                        return (<li key={comment.id}><Link style={{ color: "red" }} to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
+                        return (<li key={comment.id}><Link style={{ color: "indianred" }} to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else {
                         return null
                       }
@@ -380,6 +402,12 @@ const Profile = () => {
                   className="tab active-tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-3")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-3")}}
+                  role="tab"
+                  aria-controls="panel-1"
+                  id="tab-1"
+                  type="button"
+                  aria-selected="true"
+                  tabIndex="0"
                 >
                   En attente de réalisation
                 </button>
@@ -387,6 +415,12 @@ const Profile = () => {
                   className="tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-3")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-3")}}
+                  role="tab"
+                  aria-controls="panel-2"
+                  id="tab-2"
+                  type="button"
+                  aria-selected="false"
+                  tabIndex="-1"
                 >
                   En attente d'acceptation
                 </button>
@@ -394,11 +428,23 @@ const Profile = () => {
                   className="tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-3")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-3")}}
+                  role="tab"
+                  aria-controls="panel-3"
+                  id="tab-3"
+                  type="button"
+                  aria-selected="false"
+                  tabIndex="-1"
                 >
                   Terminées
                 </button>
               </div>
-              <div className="tab-content active-tab-content">
+              <div
+                className="tab-content active-tab-content"
+                id="panel-1"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-1"
+              >
                 {myBookings.some(booking => booking.status === "en attente de réalisation") ? (
                   <ul>
                     {myBookings.map(booking => {
@@ -411,7 +457,13 @@ const Profile = () => {
                     }
                   </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation.</p>}
               </div>
-              <div className="tab-content">
+              <div
+                className="tab-content"
+                id="panel-2"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-2"
+              >
                 {myBookings.some(booking => booking.status === "en attente d'acceptation") ? (
                   <ul>
                     {myBookings.map(booking => {
@@ -424,7 +476,13 @@ const Profile = () => {
                     }
                   </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation.</p>}
               </div>
-              <div className="tab-content">
+              <div
+                className="tab-content"
+                id="panel-3"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-3"
+              >
                 {myBookings.some(booking => booking.status === "terminée") ? (
                   <ul>
                     {myBookings.map(booking => {
@@ -456,6 +514,12 @@ const Profile = () => {
                   className="tab active-tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-4")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-4")}}
+                  role="tab"
+                  aria-controls="panel-1"
+                  id="tab-1"
+                  type="button"
+                  aria-selected="true"
+                  tabIndex="0"
                 >
                   En attente de réalisation
                 </button>
@@ -463,6 +527,12 @@ const Profile = () => {
                   className="tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-4")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-4")}}
+                  role="tab"
+                  aria-controls="panel-2"
+                  id="tab-2"
+                  type="button"
+                  aria-selected="false"
+                  tabIndex="-1"
                 >
                   En attente d'acceptation
                 </button>
@@ -470,11 +540,23 @@ const Profile = () => {
                   className="tab"
                   onClick={(e)=>{tabsAnimation(e, "tabs-4")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-4")}}
+                  role="tab"
+                  aria-controls="panel-3"
+                  id="tab-3"
+                  type="button"
+                  aria-selected="false"
+                  tabIndex="-1"
                 >
                   Terminées
                 </button>
               </div>
-              <div className="tab-content active-tab-content">
+              <div
+                className="tab-content active-tab-content"
+                id="panel-1"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-1"
+              >
                 {bookingsForMyActivities.some(booking => booking.status === "en attente de réalisation") ? (
                   <ul>
                     {bookingsForMyActivities.map(booking => {
@@ -485,9 +567,15 @@ const Profile = () => {
                       }
                     })
                     }
-                  </ul>) : <p>Vous n'avez pas de réservations en attente de réalisation concernant vos activités.</p>}
+                  </ul>) : <p>Il n'y a pas de réservations en attente de réalisation pour vos activités.</p>}
               </div>
-              <div className="tab-content">
+              <div
+                className="tab-content"
+                id="panel-2"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-2"
+              >
                 {bookingsForMyActivities.some(booking => booking.status === "en attente d'acceptation") ? (
                   <ul>
                     {bookingsForMyActivities.map(booking => {
@@ -498,9 +586,15 @@ const Profile = () => {
                       }
                     })
                     }
-                  </ul>) : <p>Vous n'avez pas de réservations en attente d'acceptation concernant vos activités.</p>}
+                  </ul>) : <p>Il n'y a pas de réservations en attente d'acceptation pour vos activités.</p>}
               </div>
-              <div className="tab-content">
+              <div
+                className="tab-content"
+                id="panel-3"
+                role="tabpanel"
+                tabIndex="0"
+                aria-labelledby="tab-3"
+              >
                 {bookingsForMyActivities.some(booking => booking.status === "terminée") ? (
                   <ul>
                     {bookingsForMyActivities.map(booking => {
@@ -511,7 +605,7 @@ const Profile = () => {
                       }
                     })
                     }
-                  </ul>) : <p>Vous n'avez pas de réservations archivées concernant vos activités.</p>}
+                  </ul>) : <p>Il n'y a pas de réservations archivées pour vos activités.</p>}
               </div>
             </div>
             : <div className="no-bookings-for-my-activities">
