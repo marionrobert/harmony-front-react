@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom"
+
 import { useState, useEffect } from "react";
 import {getAllWaitingComments} from "../../api/comment"
 import { getAllWaitingActivities } from "../../api/activity"
-import { Link } from "react-router-dom"
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEye } from "@fortawesome/free-regular-svg-icons"
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+
 import moment from "moment"
 
 const Admin = () => {
@@ -14,7 +17,7 @@ const Admin = () => {
   useEffect(() => {
     getAllWaitingActivities()
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       if (res.status === 200){
         setActivites(res.activities)
       }
@@ -23,7 +26,7 @@ const Admin = () => {
 
     getAllWaitingComments()
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       if (res.status === 200){
         setComments(res.comments)
       }

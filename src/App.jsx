@@ -8,7 +8,7 @@ import Basket from './containers/basket'
 
 // activities
 import Activities from './containers/activities'
-import Details from "./containers/details"
+import Details from "./containers/activity/details"
 import AddActivity from './containers/activity/addActivity'
 import EditActivity from './containers/activity/editActivity'
 

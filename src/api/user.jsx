@@ -5,7 +5,7 @@ const token = window.localStorage.getItem('harmony-token')
 export const saveUser = (data) => {
   return axios.post(`${config.api_url}/api/v1/user/register`, data)
   .then((res)=>{
-    console.log("res appel api saveUser -->", res)
+    // console.log("res appel api saveUser -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -20,14 +20,14 @@ export const loginUser = (data) => {
     return res.data
   })
   .catch((err)=>{
-    // console.log("erreur appel api loginUser -->", err)
+    console.log("erreur appel api loginUser -->", err)
   })
 }
 
 export const forgotPassword = (data) => {
   return axios.post(`${config.api_url}/api/v1/user/forgotPassword`, data)
   .then((res)=>{
-    console.log("res de requête axios forgotPassword -->", res)
+    // console.log("res de requête axios forgotPassword -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -60,12 +60,11 @@ export const updateAvatar = (data, key_id) =>{
 export const getOneUser = (key_id) => {
   return axios.get(`${config.api_url}/api/v1/user/one/${key_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getOneUser -->", res)
+    // console.log("res de requête axios getOneUser -->", res)
     return res.data
   })
   .catch((err)=>{
     console.log("err de requête axios getOneUser -->", err)
-    return err.response.data
   })
 }
 
@@ -76,7 +75,6 @@ export const getOneUserById = (id) => {
     return res.data
   })
   .catch((err)=>{
-    // console.log("err de requête axios export const  -->", err)
-    return err.response.data
+    console.log("err de requête axios export const  -->", err)
   })
 }

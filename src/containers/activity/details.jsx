@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectBasket, updateBasket } from "../slices/basketSlice";
-import { selectUser, setUser} from "../slices/userSlice"
+import { selectBasket, updateBasket } from "../../slices/basketSlice";
+import { selectUser} from "../../slices/userSlice"
+import { setOnlineActivities } from "../../slices/activitySlice";
 
-import { getOneActivity, updateOnlineOfflineStatus } from "../api/activity";
-import { getOneUserById } from "../api/user";
-import { getAllCommentsByActivityId } from "../api/comment";
+import { getOneActivity, updateOnlineOfflineStatus, getAllOnlineActivities } from "../../api/activity";
+import { getOneUserById } from "../../api/user";
+import { getAllCommentsByActivityId } from "../../api/comment";
 
-import CommentCard from "../components/comment-card";
-import { config } from "../config";
+import CommentCard from "../../components/comment-card";
+import { config } from "../../config";
 import {Link, Navigate} from "react-router-dom"
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
@@ -83,9 +84,16 @@ const Details = () => {
     .then((res) => {
       if (res.status === 200){
         getOneActivity(params.id)
-        .then((response) => {
-          if (response.status === 200){
-            setActivity(response.activity)
+        .then((answer) => {
+          if (answer.status === 200){
+            setActivity(answer.activity)
+            getAllOnlineActivities()
+            .then((answer)=>{
+              if (answer.status === 200){
+                dispatch(setOnlineActivities(answer.activities))
+              }
+            })
+            .catch(mistake => console.log(mistake))
           }
         })
         .catch(error => console.log(error))

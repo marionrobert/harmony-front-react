@@ -11,7 +11,7 @@ const Activities = () => {
       { activities.activities.length > 0 &&
         <section className="section-activities">
           <h1>Toutes les activités disponibles</h1>
-          {activities.activities.slice(-10).map(activity => {
+          {activities.activities.map(activity => {
             return <ActivityCard key={activity.id} activity={activity} />
           })}
         </section>

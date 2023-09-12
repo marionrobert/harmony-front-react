@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { getOneActivity, moderateOneActivity } from "../../api/activity";
-import { useParams } from "react-router-dom";
+import { getOneActivity, moderateOneActivity, getAllOnlineActivities } from "../../api/activity";
+import { useParams, Navigate } from "react-router-dom";
+
+import { useDispatch } from "react-redux"
+import { setOnlineActivities } from "../../slices/activitySlice";
+
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
-import { Navigate} from "react-router-dom"
 
 
 const ModerateActivity = () => {
-  const [activity, setActivity] = useState(null)
+  const dispatch = useDispatch()
   const params = useParams()
+  const [activity, setActivity] = useState(null)
   const [status, setStatus] = useState("invalidé")
   const [explanation, setExplanation] = useState("")
   const [redirect, setRedirect] = useState(null)
@@ -33,8 +37,15 @@ const ModerateActivity = () => {
     moderateOneActivity(data, params.id)
     .then((res) => {
       if (res.status === 200){
-        setRedirect(true)
+        getAllOnlineActivities()
+        .then((response) => {
+          if (response.status === 200){
+            dispatch(setOnlineActivities(response.activities))
+          }
+        })
+        .catch(error => console.log(error))
       }
+      setRedirect(true)
     })
     .catch(err => console.log(err))
   }

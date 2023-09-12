@@ -95,7 +95,7 @@ export const validateAchievementByBeneficiary = (data, id) => {
 export const validateAchievementByProvider = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/provider/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios validateAchievementByProvider -->", res)
+    // console.log("res de requête axios validateAchievementByProvider -->", res)
     return res.data
   })
   .catch((err)=>{

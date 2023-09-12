@@ -155,6 +155,16 @@ const Booking = () => {
     .then((res) => {
       if (res.status === 200){
         console.log(res)
+        getOneCommentByBookingId(params.id)
+        .then((response) => {
+          if (response.status === 200){
+            setComment(response.comment)
+            setTitle(response.comment.title)
+            setContent(response.comment.content)
+            setScore(response.comment.score)
+          }
+        })
+        .catch((error) => console.log(error))
         setMsgForm("Votre commentaire a bien été créé.")
       } else {
         setErrorForm(`${res.msg}`)
@@ -301,7 +311,7 @@ const Booking = () => {
               </div>
             :
             <div>
-              { providerValidation === 1 ?
+              { beneficiaryValidation === 1 ?
                   <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} a confirmé la réalisation de l'activité.</p>
                   :
                   <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} n'a pas encore confirmé la réalisation de l'activité.</p>}
@@ -343,7 +353,7 @@ const Booking = () => {
           </article>
         }
 
-        { bookingStatus === "terminé" && comment === null &&
+        { bookingStatus === "terminée" && comment === null &&
           <article style={{border: "1px solid red"}} className="finished">
             <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
             <form onSubmit={(e) => {handleSubmit(e)}}>
@@ -366,7 +376,6 @@ const Booking = () => {
             { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
           </article>
         }
-
 
       </section>
     )

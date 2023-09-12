@@ -51,7 +51,7 @@ const Home = () => {
       { comments.length > 0 &&
       <section className="section-comments">
         <h2>Ils ont essayé, ils ont adoré !</h2>
-        {comments.slice(-6).map(comment => {
+        {comments.slice(-5).map(comment => {
           return <CommentCard key={comment.id} comment={comment} />
         })}
       </section>}

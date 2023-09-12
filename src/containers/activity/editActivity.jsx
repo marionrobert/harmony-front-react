@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
-import { getOneActivity, updateOneActivity, getCoords } from "../../api/activity";
+import { getOneActivity, updateOneActivity, getCoords, getAllOnlineActivities } from "../../api/activity";
 import { getAllCategories } from "../../api/category";
 import { selectUser } from "../../slices/userSlice";
-import axios from 'axios'
-import { config } from "../../config";
-import { Navigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { setOnlineActivities } from "../../slices/activitySlice";
+import { Navigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
-
 
 const EditActivity = () => {
   const params = useParams()
+  const dispatch = useDispatch()
   const [activity, setActivity] = useState(null)
   const [categories, setCategories] = useState([])
   const [categoryId, setCategoryId] = useState("")
@@ -96,6 +94,13 @@ const EditActivity = () => {
         updateOneActivity(data, params.id)
         .then((response)=>{
           if (response.status === 200){
+            getAllOnlineActivities()
+            .then((answer)=>{
+              if (answer.status === 200){
+                dispatch(setOnlineActivities(answer.activities))
+              }
+            })
+            .catch(mistake => console.log(mistake))
             setRedirect(true)
           } else {
             setErrorForm(response.msg)
