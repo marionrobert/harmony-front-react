@@ -149,7 +149,6 @@ const Profile = () => {
         console.log("err from getAllBookingsByBookerId -->", err)
       })
 
-
     getAllBookingsByAuthorId(user.data.id)
       .then((res) => {
         if (res.status === 200) {
@@ -238,7 +237,7 @@ const Profile = () => {
                   aria-selected="false"
                   tabIndex={"-1"}
                 >
-                  En attente de validation / Invalidée
+                  En attente de validation
                 </button>
 
               </div>
@@ -340,7 +339,7 @@ const Profile = () => {
                   aria-selected="false"
                   tabIndex="-1"
                 >
-                  En attente de validation / invalidé
+                  En attente de validation
                   </button>
               </div>
               <div
@@ -385,7 +384,7 @@ const Profile = () => {
               </div>
             </div>
             : <div className="no-comments">
-              <p>Vous n'avez pas encore écrit de commentaires.</p>
+              <p>Vous n'avez pas encore laissé de commentaires.</p>
             </div>}
         </section>
 
