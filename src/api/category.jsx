@@ -50,7 +50,7 @@ export const saveOneCategory = (data) => {
 export const updateOneCategory = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/category/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios updateOneCategory -->", res)
+    // console.log("res de requête axios updateOneCategory -->", res)
     return res.data
   })
   .catch((err)=>{

@@ -668,6 +668,8 @@ section.basket {
 // ******** ADMIN ********** //
 
 section.admin {
+  width: 90%;
+  margin: 0 auto;
 
   h1 {
     font-size: 1.3rem;
@@ -677,9 +679,11 @@ section.admin {
   table, td {
     border: 1px solid black;
     padding: 0.5rem;
+    table-layout: fixed;
+    font-size: 0.9rem;
   }
 
-  section {
+  article {
     h2 {
       font-size: 1.1rem;
       font-weight: bold;
