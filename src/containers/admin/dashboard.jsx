@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react";
 import {getAllWaitingComments} from "../../api/comment"
 import { getAllWaitingActivities } from "../../api/activity"
-import { getAllCategories, updateOneCategory, deleteOneCategory} from "../../api/category"
+import { getAllCategories, updateOneCategory, deleteOneCategory, saveOneCategory} from "../../api/category"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEye } from "@fortawesome/free-regular-svg-icons"
@@ -17,6 +17,8 @@ const Admin = () => {
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState("")
   const [error, setError] = useState(null)
+  const [newCategory, setNewCategory] = useState("")
+  const [errorCreateCategory, setErrorCreateCategory] = useState(null)
 
   useEffect(() => {
     getAllWaitingActivities()
@@ -83,6 +85,29 @@ const Admin = () => {
         setError(res.msg)
       }
     })
+  }
+
+  const createCategory = (e) => {
+    e.preventDefault()
+    let form = e.currentTarget
+    let data = {title: newCategory}
+    saveOneCategory(data)
+    .then((res) => {
+      if (res.status === 200){
+        form.reset()
+        getAllCategories()
+        .then((response)=>{
+          if (response.status === 200){
+            setCategories(response.categories)
+          }
+        })
+        .catch(error => console.log(error))
+      } else {
+        setErrorCreateCategory(res.msg)
+      }
+    })
+    .catch(err => console.log(err))
+
   }
 
   return (
@@ -173,10 +198,18 @@ const Admin = () => {
         </article>
       }
 
+      <article>
+        <h2>Créer une nouvelle catégorie</h2>
+        { errorCreateCategory !== null && <p>{errorCreateCategory}</p>}
+        <form onSubmit={(e)=>{createCategory(e)}}>
+          <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} defaultValue={"Titre de la catégorie"} />
+          <button>Valider</button>
+        </form>
+      </article>
+
 
       <article>
         <h2>Gestion des catégories</h2>
-        <p>Créer une nouvelle catégorie</p>
         { error !== null && <p>{error}</p>}
         { categories.length !== 0 ?
           <table className="manage-categories">

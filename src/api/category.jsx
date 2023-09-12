@@ -39,7 +39,7 @@ export const getOneCategoryByTitle = (data) => {
 export const saveOneCategory = (data) => {
   return axios.post(`${config.api_url}/api/v1/category/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios saveOneCategory -->", res)
+    // console.log("res de requête axios saveOneCategory -->", res)
     return res.data
   })
   .catch((err)=>{

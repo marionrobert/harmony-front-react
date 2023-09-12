@@ -96,6 +96,14 @@ button, a {
   cursor: pointer;
 }
 
+button {
+  background-color: rgb(194, 169, 102);
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 0.2rem;
+}
+
 
 // ******** MY NORMALIZE CSS ********* //
 a {
@@ -677,10 +685,10 @@ section.admin {
   }
 
   table, td {
-    border: 1px solid black;
+    border: 1px solid rgb(194, 169, 102);
     padding: 0.5rem;
-    table-layout: fixed;
     font-size: 0.9rem;
+
   }
 
   article {
