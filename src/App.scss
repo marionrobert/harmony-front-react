@@ -723,6 +723,12 @@ section.admin {
       padding: 0.3rem;
     }
   }
+
+  article.manage-categories {
+    form, input {
+      width: 100%;
+    }
+  }
 }
 
 

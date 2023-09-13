@@ -7,7 +7,7 @@ import { getAllCategories, updateOneCategory, deleteOneCategory, saveOneCategory
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEye } from "@fortawesome/free-regular-svg-icons"
-import { faArrowRightFromBracket, faSquareCheck, faScrewdriverWrench, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faSquareCheck, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import moment from "moment"
 
@@ -59,6 +59,7 @@ const Admin = () => {
         .then((response)=>{
           if (response.status === 200){
             setCategories(response.categories)
+            displayOriginalFrame(id)
           }
         })
         .catch(error => console.log(error))
@@ -68,6 +69,30 @@ const Admin = () => {
     })
     .catch(err => console.log(err))
   }
+
+  const displayModifyZone = (id, title) => {
+    let label = document.querySelector(`label.category_${id}`)
+    let input = document.querySelector(`input.category_${id}`)
+    let iconToHide = document.querySelector(`.fa-screwdriver-category_${id}`)
+    let iconToDisplay = document.querySelector(`.fa-check-category_${id}`)
+    label.style.display = "none"
+    input.style.display = "inline-block"
+    iconToHide.style.display = "none"
+    iconToDisplay.style.display = "inline-block"
+    setCategory(title)
+  }
+
+  const displayOriginalFrame = (id) => {
+    let label = document.querySelector(`label.category_${id}`)
+    let input = document.querySelector(`input.category_${id}`)
+    let iconToHide = document.querySelector(`.fa-screwdriver-category_${id}`)
+    let iconToDisplay = document.querySelector(`.fa-check-category_${id}`)
+    label.style.display = "inline-block"
+    input.style.display = "none"
+    iconToHide.style.display = "inline-block"
+    iconToDisplay.style.display = "none"
+  }
+
 
   const deleteCategory = (id) => {
     deleteOneCategory(parseInt(id))
@@ -108,6 +133,7 @@ const Admin = () => {
     .catch(err => console.log(err))
 
   }
+
 
   return (
     <section className="admin">
@@ -217,15 +243,16 @@ const Admin = () => {
                 return (
                   <tr key={category.id}>
                     <td>
-                      {category.title}
-                    </td>
-                    <td>
                       <form onSubmit={(e) => {handleSubmit(e, category.id )}}>
-                        <input type="text" defaultValue={category.title} onChange={(e)=>{setCategory(e.currentTarget.value)}}/>
-                        <FontAwesomeIcon icon={faSquareCheck} onClick={(e) => {handleSubmit(e, category.id )}}/>
+                        <label className={`category_${category.id}`}>{category.title}</label>
+                        <input className={`category_${category.id}`} type="text" style={{"display": "none"}} defaultValue={category.title} onChange={(e)=>{setCategory(e.currentTarget.value)}}/>
                       </form>
                     </td>
-                    <td><FontAwesomeIcon icon={faTrashCan} onClick={(e) => {deleteCategory(category.id)}}/></td>
+                    <td>
+                      <FontAwesomeIcon icon={faPenToSquare} className={`fa-screwdriver-category_${category.id}`} onClick={() => {displayModifyZone(category.id, category.title)}}/>
+                      <FontAwesomeIcon icon={faSquareCheck} className={`fa-check-category_${category.id}`} style={{"display": "none"}} onClick={(e) => {handleSubmit(e, category.id )}}/>
+                    </td>
+                    <td><FontAwesomeIcon icon={faTrashCan} onClick={() => {deleteCategory(category.id)}}/></td>
                   </tr>
                 )
               })}
