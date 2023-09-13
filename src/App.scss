@@ -677,9 +677,11 @@ section.basket {
 // ******** ADMIN DASHBOARD ********** //
 
 section.admin {
-  margin: 0 auto;
-  width: 95%;
+  margin: 0 1rem;
   position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
   a.logout-link {
     display: block;
@@ -690,6 +692,7 @@ section.admin {
     font-size: 1.3rem;
     font-weight: bold;
     margin-top: 1rem;
+    width: 100%;
   }
 
   table {
@@ -708,14 +711,13 @@ section.admin {
       font-weight: bold;
       margin-bottom: 0.5rem;
     }
-
     margin-top: 2rem;
+    width: 100%;
   }
 
   article.create-new-category {
     border:  1px solid rgb(194, 169, 102);
     padding: 0.5rem;
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -725,8 +727,10 @@ section.admin {
   }
 
   article.manage-categories {
-    form, input {
-      width: 100%;
+    input {
+      width: 400px;
+      color: "red";
+      /* Autres styles si nécessaire */
     }
   }
 }

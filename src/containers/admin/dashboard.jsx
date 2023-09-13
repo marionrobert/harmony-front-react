@@ -245,7 +245,7 @@ const Admin = () => {
                     <td>
                       <form onSubmit={(e) => {handleSubmit(e, category.id )}}>
                         <label className={`category_${category.id}`}>{category.title}</label>
-                        <input className={`category_${category.id}`} type="text" style={{"display": "none"}} defaultValue={category.title} onChange={(e)=>{setCategory(e.currentTarget.value)}}/>
+                        <input className={`category_${category.id}`} type="text" style={{"display": "none", "width": "100%"}} defaultValue={category.title} onChange={(e)=>{setCategory(e.currentTarget.value)}}/>
                       </form>
                     </td>
                     <td>
