@@ -243,7 +243,7 @@ section.home-banner {
   padding: 120px 20px;
   text-align: end;
 
-  > h1, p {
+  h1, p {
     padding-top: 1rem;
     color: rgba(246, 237, 222, 1);
     text-shadow: 2px 1px 2px black;
@@ -282,6 +282,7 @@ section.home-banner {
 }
 
 section.section-activities {
+  margin: 0 1rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -295,6 +296,7 @@ section.section-activities {
 }
 
 section.section-comments {
+  margin: 0 1rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

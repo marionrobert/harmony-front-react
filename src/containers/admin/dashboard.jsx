@@ -262,11 +262,6 @@ const Admin = () => {
           <p>Aucune catégorie trouvée, veuillez recharger la page.</p>
         }
       </article>
-
-
-
-
-
     </section>
   )
 }
