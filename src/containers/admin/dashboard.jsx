@@ -70,8 +70,7 @@ const Admin = () => {
   }
 
   const deleteCategory = (id) => {
-    console.log(id)
-    deleteOneCategory(id)
+    deleteOneCategory(parseInt(id))
     .then((res) => {
       if (res.status === 200){
         getAllCategories()
@@ -112,8 +111,8 @@ const Admin = () => {
 
   return (
     <section className="admin">
+      <Link to ="/logout" className="logout-link"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
       <h1>Tableau de bord adminisrateur</h1>
-      <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
 
       { activities.length !== 0 ?
         <article className="admin-activities">
@@ -198,11 +197,11 @@ const Admin = () => {
         </article>
       }
 
-      <article>
+      <article className="create-new-category">
         <h2>Créer une nouvelle catégorie</h2>
         { errorCreateCategory !== null && <p>{errorCreateCategory}</p>}
         <form onSubmit={(e)=>{createCategory(e)}}>
-          <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} defaultValue={"Titre de la catégorie"} />
+          <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} placeholder={"Titre de la catégorie"} />
           <button>Valider</button>
         </form>
       </article>

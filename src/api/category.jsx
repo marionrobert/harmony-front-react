@@ -59,9 +59,10 @@ export const updateOneCategory = (data, id) => {
 }
 
 export const deleteOneCategory = (id) => {
-  return axios.put(`${config.api_url}/api/v1/category/delete/${id}`, {headers: {"x-access-token": token}})
+  console.log("coucouuuuu")
+  return axios.delete(`${config.api_url}/api/v1/category/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios deleteOneCategory -->", res)
+    // console.log("res de requête axios deleteOneCategory -->", res)
     return res.data
   })
   .catch((err)=>{

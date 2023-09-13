@@ -42,7 +42,7 @@ const Home = () => {
       { allActivities.activities.length > 0 &&
       <section className="section-activities">
         <h2>Les dernières activités postées</h2>
-        {allActivities.activities.slice(-6).map(activity => {
+        {allActivities.activities.slice(0, 6).map(activity => {
           return <ActivityCard key={activity.id} activity={activity} />
         })}
       </section>
