@@ -39,7 +39,7 @@ export const getOneCategoryByTitle = (data) => {
 export const saveOneCategory = (data) => {
   return axios.post(`${config.api_url}/api/v1/category/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios saveOneCategory -->", res)
+    // console.log("res de requête axios saveOneCategory -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -50,7 +50,7 @@ export const saveOneCategory = (data) => {
 export const updateOneCategory = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/category/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios updateOneCategory -->", res)
+    // console.log("res de requête axios updateOneCategory -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -59,9 +59,10 @@ export const updateOneCategory = (data, id) => {
 }
 
 export const deleteOneCategory = (id) => {
-  return axios.put(`${config.api_url}/api/v1/category/delete/${id}`, {headers: {"x-access-token": token}})
+  console.log("coucouuuuu")
+  return axios.delete(`${config.api_url}/api/v1/category/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios deleteOneCategory -->", res)
+    // console.log("res de requête axios deleteOneCategory -->", res)
     return res.data
   })
   .catch((err)=>{
