@@ -8,7 +8,8 @@ import { getAllBookingsByAuthorId, getAllBookingsByBookerId } from '../../api/bo
 import { updateAvatar, getOneUser } from '../../api/user'
 import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRightFromBracket, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faSquarePlus, faMobile, faPhone, faImages, faImagePortrait} from "@fortawesome/free-solid-svg-icons";
+import {faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
 
@@ -163,10 +164,10 @@ const Profile = () => {
 
   if (user !== null) {
     return (
-      <>
-        <Link to="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket} /> Déconnexion</Link>
+      <section className='profile'>
+        <Link to="/logout" className='logout-link'><FontAwesomeIcon icon={faArrowRightFromBracket} /> Déconnexion</Link>
         <h1>Bienvenue {user.data.firstName}</h1>
-        <section className='profile-user-data'>
+        <div className='avatar-zone'>
           {user.data.avatar !== null ?
             <CloudinaryContext cloudName="dptcisxbs" className="profile-avatar">
               <div>
@@ -183,12 +184,15 @@ const Profile = () => {
           </button>
           {msgSuccess === null && msgError !== null && <p style={{ color: "indianred" }}>{msgError}</p>}
           {msgSuccess !== null && <p style={{ color: "green" }}>{msgSuccess}</p>}
+        </div>
+        <article className='profile-user-data'>
           <p>Mes points: {user.data.points}</p>
-          <p>Mon numéro de téléphone: {user.data.phone}</p>
-          <Link to="/profile/edit">Modifier mes informations</Link>
-        </section>
+          <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {user.data.phone}</p>
+          <Link to="/profile/edit"><FontAwesomeIcon icon={faPenToSquare}/> Modifier mes informations</Link>
+          <Link to="/activity/create"><FontAwesomeIcon icon={faSquarePlus} /> Créer une nouvelle activité</Link>
+        </article>
 
-        <section className='profile-user-activities'>
+        <article >
           <h2>Mes activités</h2>
           {activities.length > 0 ?
             <div className="tabs" id="tabs-1">
@@ -303,10 +307,9 @@ const Profile = () => {
               </div>
             </div>
             : <p>Vous n'avez pas encore créé d'activités.</p>}
-          <Link to="/activity/create"><FontAwesomeIcon icon={faSquarePlus} /> Créer une nouvelle activité</Link>
-        </section>
+        </article>
 
-        <section className='profile-user-comments'>
+        <article >
           <h2>Mes commentaires</h2>
           {comments.length > 0 ?
             <div className="tabs" id="tabs-2">
@@ -386,9 +389,9 @@ const Profile = () => {
             : <div className="no-comments">
               <p>Vous n'avez pas encore laissé de commentaires.</p>
             </div>}
-        </section>
+        </article>
 
-        <section className='profile-user-bookings'>
+        <article >
           <h2>Mes réservations</h2>
           {myBookings.length > 0 ?
             <div className="tabs" id="tabs-3">
@@ -498,9 +501,9 @@ const Profile = () => {
             : <div className="no-my-bookings">
               <p>Vous n'avez pas encore fait de réservations.</p>
             </div>}
-        </section>
+        </article>
 
-        <section className='profile-user-bookings-for-my-activities'>
+        <article>
           <h2>Les réservations sur mes activités</h2>
           {bookingsForMyActivities.length > 0 ?
             <div className="tabs" id="tabs-4">
@@ -610,8 +613,8 @@ const Profile = () => {
             : <div className="no-bookings-for-my-activities">
               <p>Vos activités n'ont pas encore été réservées.</p>
             </div>}
-        </section>
-      </>
+        </article>
+      </section>
     )
   }
 }
