@@ -93,7 +93,6 @@ const Admin = () => {
     iconToDisplay.style.display = "none"
   }
 
-
   const deleteCategory = (id) => {
     deleteOneCategory(parseInt(id))
     .then((res) => {
@@ -134,14 +133,13 @@ const Admin = () => {
 
   }
 
-
   return (
     <section className="admin">
       <Link to ="/logout" className="logout-link"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
       <h1>Tableau de bord adminisrateur</h1>
 
       { activities.length !== 0 ?
-        <article className="admin-activities">
+        <article>
           <h2>Activités en attente de validation</h2>
           <table>
             <thead>
@@ -176,7 +174,7 @@ const Admin = () => {
           </table>
         </article>
       :
-        <article className="admin-comments">
+        <article>
           <h2>Activités en attente de validation</h2>
           <p>Il n'y a pas d'activités en attente de validation</p>
         </article>
@@ -223,45 +221,53 @@ const Admin = () => {
         </article>
       }
 
-      <article className="create-new-category">
-        <h2>Créer une nouvelle catégorie</h2>
-        { errorCreateCategory !== null && <p>{errorCreateCategory}</p>}
-        <form onSubmit={(e)=>{createCategory(e)}}>
-          <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} placeholder={"Titre de la catégorie"} />
-          <button>Valider</button>
-        </form>
-      </article>
+      <hr />
 
+      <article className="admin-categories">
+        <div className="create-new-category">
+          <h2>Créer une nouvelle catégorie</h2>
+          { errorCreateCategory !== null && <p>{errorCreateCategory}</p>}
+          <form onSubmit={(e)=>{createCategory(e)}}>
+            <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} placeholder={"Titre de la catégorie"} />
+            <button>Valider</button>
+          </form>
+        </div>
 
-      <article>
-        <h2>Gestion des catégories</h2>
-        { error !== null && <p>{error}</p>}
         { categories.length !== 0 ?
-          <table className="manage-categories">
-            <tbody>
-              { categories.map((category)=>{
-                return (
-                  <tr key={category.id}>
-                    <td>
-                      <form onSubmit={(e) => {handleSubmit(e, category.id )}}>
-                        <label className={`category_${category.id}`}>{category.title}</label>
-                        <input className={`category_${category.id}`} type="text" style={{"display": "none", "width": "100%"}} defaultValue={category.title} onChange={(e)=>{setCategory(e.currentTarget.value)}}/>
-                      </form>
-                    </td>
-                    <td>
-                      <FontAwesomeIcon icon={faPenToSquare} className={`fa-screwdriver-category_${category.id}`} onClick={() => {displayModifyZone(category.id, category.title)}}/>
-                      <FontAwesomeIcon icon={faSquareCheck} className={`fa-check-category_${category.id}`} style={{"display": "none"}} onClick={(e) => {handleSubmit(e, category.id )}}/>
-                    </td>
-                    <td><FontAwesomeIcon icon={faTrashCan} onClick={() => {deleteCategory(category.id)}}/></td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+        <div className="manage-categories">
+          <h2>Gestion des catégories</h2>
+          { error !== null && <p>{error}</p>}
+            <table >
+              <tbody>
+                { categories.map((category)=>{
+                  return (
+                    <tr key={category.id}>
+                      <td>
+                        <form onSubmit={(e) => {handleSubmit(e, category.id )}}>
+                          <label className={`category_${category.id}`}>{category.title}</label>
+                          <input className={`category_${category.id}`} type="text" style={{"display": "none", "width": "100%"}} defaultValue={category.title} onChange={(e)=>{setCategory(e.currentTarget.value)}}/>
+                        </form>
+                      </td>
+                      <td>
+                        <FontAwesomeIcon icon={faPenToSquare} className={`fa-screwdriver-category_${category.id}`} onClick={() => {displayModifyZone(category.id, category.title)}}/>
+                        <FontAwesomeIcon icon={faSquareCheck} className={`fa-check-category_${category.id}`} style={{"display": "none"}} onClick={(e) => {handleSubmit(e, category.id )}}/>
+                      </td>
+                      <td><FontAwesomeIcon icon={faTrashCan} onClick={() => {deleteCategory(category.id)}}/></td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+        </div>
           :
+        <div>
+          <h2>Gestion des catégories</h2>
           <p>Aucune catégorie trouvée, veuillez recharger la page.</p>
+        </div>
         }
       </article>
+
+
     </section>
   )
 }
