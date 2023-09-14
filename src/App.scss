@@ -101,7 +101,7 @@ button {
   color: white;
   border: none;
   border-radius: 2px;
-  padding: 0.2rem;
+  padding: 0.3rem 0.5rem;
 }
 
 
@@ -309,6 +309,7 @@ section.section-comments {
   }
 }
 
+
 // ******** COMMENT CARD ********* //
 article.comment-card {
   margin: 1rem 0 2.5rem ;
@@ -454,17 +455,69 @@ article.activity-card:hover{
 
 // ******** ACTIVITY DETAILS ********* //
 
-img.details-image{
-  width: 50%;
+section.activity-details {
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  > * {
+    width: 100%;
+  }
+
+  a {
+    width: 100%;
+    text-align: right;
+  }
+
+  h1 {
+    font-family: 'Pacifico', cursive;
+    margin: 1rem 0 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+
+  img.details-image{
+    width: 250px;
+    height: 250px;
+    margin-top: 1rem;
+    object-fit: cover;
+    border-radius: 1%;
+  }
+
+  img.details-activity-avatar{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border: white 1px solid;
+  }
+
+  div.zone-to-book {
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  article.article-comments {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    h2 {
+      font-family: 'Pacifico', cursive;
+      padding-top: 1.5rem;
+      font-size: 1.2rem;
+      width: 100%;
+    }
+  }
+
 }
 
-img.details-activity-avatar{
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border: white 1px solid;
-}
+
 
 // ******** PROFILE ********* //
 .profile-avatar {
@@ -680,7 +733,7 @@ section.basket {
 
 section.admin {
   margin: 0 1rem;
-  position: relative;
+  // position: relative;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
