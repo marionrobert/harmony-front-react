@@ -16,7 +16,7 @@ import {Link, Navigate} from "react-router-dom"
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGears, faArrowRotateLeft, faMapLocationDot, faCoins} from "@fortawesome/free-solid-svg-icons";
-import { faFaceGrinWink, faClock } from "@fortawesome/free-regular-svg-icons";
+import { faFaceGrinWink, faClock, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 
 const Details = () => {
@@ -142,7 +142,7 @@ const Details = () => {
             }
             <div>
               <p><FontAwesomeIcon icon={faClock}/> Durée : {activity.duration} minutes</p>
-              <p><FontAwesomeIcon icon={faCoins}/> { activity.authorIsProvider ? "Coût" : "Gain"} : {activity.points} points</p>
+              <p><FontAwesomeIcon icon={faCoins}/> { activity.authorIsProvider === parseInt("1") ? "Coût" : "Gain"} : {activity.points} points</p>
             </div>
 
 
@@ -165,9 +165,9 @@ const Details = () => {
           }
 
           { author.id === user.data.id &&
-            <article className="author-zone" style={{border: "1px solid red"}}>
+            <article className="author-zone">
               <p>Statut de votre annonce : {activity.status}</p>
-              <Link to={`/activity/update/${activity.id}`}> <FontAwesomeIcon icon={faGears}/> Modifier mon annonce</Link>
+              <Link to={`/activity/update/${activity.id}`}> <FontAwesomeIcon icon={faPenToSquare}/> Modifier mon annonce</Link>
               { (activity.status === "en ligne" || activity.status === "hors ligne") &&
               <div className="container">
                 <p>Mettre mon annonce {activity.status === "en ligne" ? "hors ligne" : "en ligne"} : </p>

@@ -312,15 +312,16 @@ section.section-comments {
 
 // ******** COMMENT CARD ********* //
 article.comment-card {
-  margin: 1rem 0 2.5rem ;
+  margin: 1rem 0 2rem ;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 0.5rem;
+  padding: 0.6rem 0.5rem;
   width: 300px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   background: white;
+  font-size: 0.9rem;
 
   h3 {
     font-weight: bold;
@@ -334,7 +335,7 @@ article.comment-card {
 
   h3.comment-card-username{
     text-transform: capitalize;
-    padding: 0.5rem 0 0.7rem;
+    padding: 0.3rem 0 0;
     font-size: 1rem;
   }
 
@@ -353,12 +354,13 @@ article.comment-card {
   }
 
   h3.comment-card-title{
-    padding: 0.8rem 0 0.5rem;
+    padding: 0.5rem 0 0.1rem;
     font-size: 0.9rem;
   }
 
   p.comment-card-content{
     font-size: 0.9rem;
+    margin: 0;
   }
 
 }
@@ -513,6 +515,12 @@ section.activity-details {
       font-size: 1.2rem;
       width: 100%;
     }
+  }
+
+  article.author-zone {
+    margin-top: 2rem;
+    border: 1px solid rgb(194, 169, 102);
+    font-size: 0.9rem;
   }
 
 }
