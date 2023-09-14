@@ -41,13 +41,56 @@ const CommentCard = (props) => {
 
         <div className="comment-card-data">
           <h3 className="comment-card-username" >{author.firstName} {author.lastName.substring(0, 1).toUpperCase()}.</h3>
-          <p className="comment-card-score">
-            <FontAwesomeIcon icon={fullStar}/>
-            <FontAwesomeIcon icon={fullStar}/>
-            <FontAwesomeIcon icon={fullStar}/>
-            <FontAwesomeIcon icon={fullStar}/>
-            { comment.score === 5 ? <FontAwesomeIcon icon={fullStar}/> : <FontAwesomeIcon icon={faStar}/> } {comment.score}/5
-          </p>
+
+          { comment.score === 1 &&
+            <p className="comment-card-score">
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={faStar}/>
+              <FontAwesomeIcon icon={faStar}/>
+              <FontAwesomeIcon icon={faStar}/>
+              <FontAwesomeIcon icon={faStar}/> {comment.score}/5
+            </p>
+          }
+
+          { comment.score === 2 &&
+            <p className="comment-card-score">
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={faStar}/>
+              <FontAwesomeIcon icon={faStar}/>
+              <FontAwesomeIcon icon={faStar}/> {comment.score}/5
+            </p>
+          }
+
+          { comment.score === 3 &&
+            <p className="comment-card-score">
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={faStar}/>
+              <FontAwesomeIcon icon={faStar}/> {comment.score}/5
+            </p>
+          }
+
+          { comment.score === 4 &&
+            <p className="comment-card-score">
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={faStar}/> {comment.score}/5
+            </p>
+          }
+
+          { comment.score === 5 &&
+            <p className="comment-card-score">
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/>
+              <FontAwesomeIcon icon={fullStar}/> {comment.score}/5
+            </p>
+          }
         </div>
 
         <h3 className="comment-card-title">{comment.title}</h3>

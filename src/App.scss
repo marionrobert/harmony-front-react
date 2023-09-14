@@ -335,7 +335,7 @@ article.comment-card {
 
   h3.comment-card-username{
     text-transform: capitalize;
-    padding: 0.3rem 0 0;
+    padding: 0.5rem 0;
     font-size: 1rem;
   }
 
@@ -458,24 +458,33 @@ article.activity-card:hover{
 // ******** ACTIVITY DETAILS ********* //
 
 section.activity-details {
-  padding: 1rem;
+  padding: 3% 5%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
-  > * {
-    width: 100%;
-  }
-
   a {
     width: 100%;
     text-align: right;
+    margin: 1rem 0;
   }
+
+  div.activity-details-first-part, div.activity-details-second-part {
+    margin-top: 1.5rem;
+    width: 90%;
+  }
+
+  div.activity-details-second-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
 
   h1 {
     font-family: 'Pacifico', cursive;
-    margin: 1rem 0 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    padding: 1rem 0;
   }
 
   p {
@@ -486,7 +495,6 @@ section.activity-details {
   img.details-image{
     width: 250px;
     height: 250px;
-    margin-top: 1rem;
     object-fit: cover;
     border-radius: 1%;
   }
@@ -505,22 +513,33 @@ section.activity-details {
   }
 
   article.article-comments {
+    padding-top: 1.5rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 
     h2 {
       font-family: 'Pacifico', cursive;
-      padding-top: 1.5rem;
+      padding: 1rem 0;
       font-size: 1.2rem;
       width: 100%;
     }
   }
 
   article.author-zone {
+    width: 100%;
     margin-top: 2rem;
     border: 1px solid rgb(194, 169, 102);
     font-size: 0.9rem;
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    a {
+      text-align: center;
+      padding-top: 1rem;
+    }
   }
 
 }
@@ -820,6 +839,42 @@ footer {
 
 /* ADAPTATION TABLETTES */
 @media screen and (min-width: 721px){
+  section.activity-details {
+    align-items: center;
+
+    div.activity-details-first-part, div.activity-details-second-part {
+      width: 45%;
+      margin: 1.5rem 1rem;
+    }
+
+    img.details-image{
+      width: 300px;
+      height: 300px;
+    }
+
+    article.author-zone {
+      width: 80%;
+    }
+  }
+}
 
 
+@media screen and (min-width: 1024px){
+  section.activity-details {
+    align-items: center;
+    justify-content: space-around;
+
+    div.activity-details-first-part, div.activity-details-second-part {
+      width: 35%;
+    }
+
+    img.details-image{
+      width: 400px;
+      height: 400px;
+    }
+
+    article.author-zone {
+      width: 70%;
+    }
+  }
 }
