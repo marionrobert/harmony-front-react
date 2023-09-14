@@ -8,7 +8,7 @@ import { getAllBookingsByAuthorId, getAllBookingsByBookerId } from '../../api/bo
 import { updateAvatar, getOneUser } from '../../api/user'
 import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRightFromBracket, faSquarePlus, faMobile, faPhone} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faSquarePlus, faMobile, faPhone, faImages, faImagePortrait} from "@fortawesome/free-solid-svg-icons";
 import {faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
@@ -189,6 +189,7 @@ const Profile = () => {
           <p>Mes points: {user.data.points}</p>
           <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {user.data.phone}</p>
           <Link to="/profile/edit"><FontAwesomeIcon icon={faPenToSquare}/> Modifier mes informations</Link>
+          <Link to="/activity/create"><FontAwesomeIcon icon={faSquarePlus} /> Créer une nouvelle activité</Link>
         </article>
 
         <article >
@@ -306,7 +307,6 @@ const Profile = () => {
               </div>
             </div>
             : <p>Vous n'avez pas encore créé d'activités.</p>}
-          <Link to="/activity/create"><FontAwesomeIcon icon={faSquarePlus} /> Créer une nouvelle activité</Link>
         </article>
 
         <article >
