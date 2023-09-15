@@ -9,8 +9,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { selectUser } from "../slices/userSlice";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan, faPlus, faMinus, faXmark, faSquarePlus, faSquareMinus} from '@fortawesome/free-solid-svg-icons'
-import { faFaceFrownOpen} from '@fortawesome/free-regular-svg-icons'
+import { faTrashCan, faXmark, faCoins} from '@fortawesome/free-solid-svg-icons'
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 import { config } from "../config"
@@ -36,11 +35,6 @@ const Basket = () => {
     dispatch(cleanBasket())
   }
 
-  // const validateAll = () => {
-  //   console.log("veut tout valider d'un coup, on valide un par un !")
-  //   console.log("on commence par valider toutes les activités où on est provider")
-  // }
-
   const validateOne = (activity) => {
     // console.log("valide one -->", activity)
     let data = {
@@ -63,7 +57,7 @@ const Basket = () => {
         // activityCard.style.filter = "blur(1px)"
       } else {
         let errorParagraph = document.querySelector(`#activity-${activity.id} p.error-booking`)
-        errorParagraph.innerHTML = "Vous n'avez pas assez de points pour réserver."
+        errorParagraph.innerHTML = `${res.msg}`
         errorParagraph.style.display = "block"
       }
     })
