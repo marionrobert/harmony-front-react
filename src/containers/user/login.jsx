@@ -63,7 +63,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <section className="login-register">
       {redirect && <Navigate to="/" />}
       <h1>Se connecter</h1>
       {error !== null && <p className="error">{error}</p>}
@@ -75,7 +75,7 @@ const Login = () => {
         <button type="submit" disabled={disabled}>Se connecter</button>
       </form>
       <Link to="/forgot">Mot de passe oublié ?</Link>
-    </>
+    </section>
   )
 }
 
