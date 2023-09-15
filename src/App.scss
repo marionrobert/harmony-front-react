@@ -1036,8 +1036,10 @@ section.moderate {
 
   form {
     font-size: 0.9rem;
+    margin-top: 1.5rem;
     padding: 1.5rem 0;
     width: 90%;
+    border: 1px solid rgb(194, 169, 102);
 
     fieldset {
       input[type="radio"]:checked {
@@ -1313,6 +1315,19 @@ footer {
       }
 
 
+    }
+  }
+
+  section.moderate {
+
+    article.activity-data {
+      width: 45%;
+      margin-right: 1rem;
+      margin-top: 4rem;
+    }
+
+    form {
+      width: 75%;
     }
   }
 }
