@@ -459,9 +459,10 @@ section.activity-details {
   flex-wrap: wrap;
   justify-content: center;
 
-  a {
-    width: 100%;
+  div.go-back {
+    display: block;
     text-align: right;
+    width: 100%;
     margin: 1rem 0;
   }
 
@@ -559,11 +560,10 @@ section.profile {
   flex-wrap: wrap;
   justify-content: center;
 
-  a.logout-link {
-    width: 100%;
+  div.logout-link {
     display: block;
     text-align: right;
-    margin-bottom: 1.5rem;
+    width: 100%;
   }
 
   h1{
@@ -611,6 +611,17 @@ section.profile {
       width: 100%;
       padding: 0.5rem 0;
       font-size: 0.9rem;
+    }
+
+    div.user-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
+      > * {
+        width: 100%;
+        padding-bottom: 0.7rem;
+      }
     }
   }
 
@@ -674,6 +685,13 @@ section.profile {
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.4s ease-out;
+      }
+      li:hover {
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      }
+
+      li a {
+        display: block;
       }
     }
 
@@ -834,7 +852,7 @@ section.admin {
     width: 50px;
   }
 
-  a.logout-link {
+  div.logout-link {
     display: block;
     text-align: right;
     width: 100%;
@@ -952,6 +970,15 @@ footer {
     article{
       width: 80%;
     }
+
+    article.profile-user-data {
+
+      div.user-actions {
+        > * {
+          width: 33%;
+        }
+      }
+    }
   }
 
   section.admin {
@@ -991,6 +1018,7 @@ footer {
       width: 45%;
       margin: 1rem;
     }
+
   }
 
   section.admin {

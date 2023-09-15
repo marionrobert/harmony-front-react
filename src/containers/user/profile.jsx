@@ -8,7 +8,7 @@ import { getAllBookingsByAuthorId, getAllBookingsByBookerId } from '../../api/bo
 import { updateAvatar, getOneUser } from '../../api/user'
 import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRightFromBracket, faSquarePlus, faMobile, faPhone, faImages, faImagePortrait} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faSquarePlus, faMobile, faPhone, faImages, faCamera} from "@fortawesome/free-solid-svg-icons";
 import {faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
@@ -165,7 +165,9 @@ const Profile = () => {
   if (user !== null) {
     return (
       <section className='profile'>
-        <Link to="/logout" className='logout-link'><FontAwesomeIcon icon={faArrowRightFromBracket} /> Déconnexion</Link>
+        <div className="logout-link">
+          <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
+        </div>
         <h1>Bienvenue {user.data.firstName}</h1>
         <div className='avatar-zone'>
           {user.data.avatar !== null ?
@@ -179,17 +181,22 @@ const Profile = () => {
             :
             <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
           }
-          <button onClick={(e) => { showWidget(e) }} >
+          {/* <button onClick={(e) => { showWidget(e) }} >
             {user.data.avatar === null ? "Ajouter une " : "Modifier ma "}photo de profil
-          </button>
-          {msgSuccess === null && msgError !== null && <p style={{ color: "indianred" }}>{msgError}</p>}
-          {msgSuccess !== null && <p style={{ color: "green" }}>{msgSuccess}</p>}
+          </button> */}
+          {/* {msgSuccess === null && msgError !== null && <p style={{ color: "indianred" }}>{msgError}</p>}
+          {msgSuccess !== null && <p style={{ color: "green" }}>{msgSuccess}</p>} */}
         </div>
         <article className='profile-user-data'>
           <p>Mes points: {user.data.points}</p>
           <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {user.data.phone}</p>
-          <Link to="/profile/edit"><FontAwesomeIcon icon={faPenToSquare}/> Modifier mes informations</Link>
-          <Link to="/activity/create"><FontAwesomeIcon icon={faSquarePlus} /> Créer une nouvelle activité</Link>
+          <div className='user-actions'>
+            <span><Link  onClick={(e) => { showWidget(e) }}><FontAwesomeIcon icon={faCamera}/> {user.data.avatar === null ? "Ajouter une " : "Modifier ma "}photo</Link></span>
+            <span><Link to="/profile/edit"><FontAwesomeIcon icon={faPenToSquare}/> Modifier mes informations</Link></span>
+            <span><Link to="/activity/create"><FontAwesomeIcon icon={faSquarePlus} /> Créer une activité</Link></span>
+          </div>
+          {msgSuccess === null && msgError !== null && <p style={{ color: "indianred" }}>{msgError}</p>}
+          {msgSuccess !== null && <p style={{ color: "green" }}>{msgSuccess}</p>}
         </article>
 
         <article >

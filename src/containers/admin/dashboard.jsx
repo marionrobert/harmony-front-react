@@ -6,8 +6,7 @@ import { getAllWaitingActivities } from "../../api/activity"
 import { getAllCategories, updateOneCategory, deleteOneCategory, saveOneCategory} from "../../api/category"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEye } from "@fortawesome/free-regular-svg-icons"
-import { faArrowRightFromBracket, faSquareCheck, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faSquareCheck, faPenToSquare, faTrashCan, faEye } from "@fortawesome/free-solid-svg-icons";
 
 import moment from "moment"
 
@@ -135,7 +134,9 @@ const Admin = () => {
 
   return (
     <section className="admin">
-      <Link to ="/logout" className="logout-link"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
+      <div className="logout-link">
+        <Link to ="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket}/> Déconnexion</Link>
+      </div>
       <h1>Tableau de bord adminisrateur</h1>
 
       { activities.length !== 0 ?

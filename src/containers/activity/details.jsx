@@ -112,7 +112,9 @@ const Details = () => {
       return (
         <>
           <section className="activity-details">
-            <Link to="/activities">Retour vers les activités <FontAwesomeIcon icon={faArrowRotateLeft}/></Link>
+            <div className="go-back">
+              <Link to="/activities">Retour vers les activités <FontAwesomeIcon icon={faArrowRotateLeft}/></Link>
+            </div>
 
             <div className="activity-details-first-part">
               { activity.urlPicture !== null ?
@@ -191,7 +193,9 @@ const Details = () => {
   } else {
     return(<>
       <p>Une erreur est survenue...</p>
-      <Link to="/activities">Retour vers toutes les activités</Link>
+      <div className="go-back">
+        <Link to="/activities">Retour vers les activités <FontAwesomeIcon icon={faArrowRotateLeft}/></Link>
+      </div>
     </>)
   }
 }
