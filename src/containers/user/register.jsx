@@ -77,8 +77,8 @@ const Register = () => {
   }
 
   return (
-    <>
-      <h1>Créer mon compte Harmony</h1>
+    <section className="login-register">
+      <h1>Créer votre compte Harmony</h1>
       { error !== null && <p className="error">{error}</p>}
       { success !== null && <p>{success}</p>}
 
@@ -97,7 +97,7 @@ const Register = () => {
         <input type="text" name="phone" onChange={handleChange} required/>
         <button type="submit">Valider</button>
       </form>
-    </>
+    </section>
   )
 }
 

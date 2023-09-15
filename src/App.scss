@@ -308,6 +308,53 @@ section.section-comments {
 }
 
 
+// ******** LOGIN / REGISTER FORM ********* //
+section.login-register {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+
+  > * {
+    width: 100%
+  }
+
+  h1{
+    font-size: 1.3rem;
+    padding: 1.5rem 0;
+  }
+
+  form {
+    border: 1px solid rgb(194, 169, 102);
+    border-radius: 2px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 75%;
+
+    > * {
+      width: 90%;
+    }
+
+    > label {
+      padding: 1rem 0 0.5rem;
+    }
+
+    button {
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      padding: 0.5rem;
+      margin: 1rem 0;
+      width: 65%;
+    }
+  }
+}
+
 // ******** COMMENT CARD ********* //
 article.comment-card {
   margin: 1rem 0 2rem ;
@@ -450,7 +497,7 @@ article.activity-card:hover{
   -ms-transform: scale(1.09); /* IE 9 */
   -webkit-transform: scale(1.09); /* Safari 3-8 */
   transform: scale(1.09);
-};
+}
 
 
 // ******** ACTIVITY DETAILS ********* //
@@ -551,7 +598,6 @@ section.activity-details {
   }
 
 }
-
 
 
 // ******** PROFILE ********* //
@@ -1177,6 +1223,22 @@ footer {
       }
     }
   }
+
+  section.login-register {
+    form {
+      width: 50%;
+
+      > * {
+        width: 70%;
+      }
+
+      button {
+        width: 50%;
+      }
+
+
+    }
+  }
 }
 
 
@@ -1256,6 +1318,16 @@ footer {
     article.participants {
       div {
         width: 10%;
+      }
+    }
+  }
+
+  section.login-register {
+    form {
+      width: 40%;
+
+      button {
+        width: 35%;
       }
     }
   }
