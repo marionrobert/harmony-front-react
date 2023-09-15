@@ -768,7 +768,7 @@ input:checked + .slider:before {
 
 // ******** BASKET ********* //
 section.basket {
-  padding: 1rem;
+  padding: 2rem 1rem 1rem;
   margin-left: auto;
   margin-right: auto;
 
@@ -789,6 +789,23 @@ section.basket {
   ul {
     margin: 1rem auto;
     max-width: 600px;
+  }
+
+  div.no-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    p {
+      padding: 1rem 0 2rem;
+      width: 90%;
+      font-size: 0.9rem;
+    }
+    button {
+      a {
+        color: white;
+      }
+    }
+
   }
 
   li.basket-item {
@@ -823,6 +840,11 @@ section.basket {
         font-size: 0.75rem;
         margin: 0 auto 0.1rem;
       }
+
+      p.basket-description-activity {
+        display: none;
+        padding-bottom: 0.3rem;
+      }
     }
 
     p.deleteItem{
@@ -831,6 +853,7 @@ section.basket {
       right: 10px;
       top: 5px;
       z-index: 2;
+      cursor: pointer;
     }
 
     p.error-booking{
@@ -1004,6 +1027,30 @@ footer {
       width: 80%;
     }
   }
+
+  section.basket {
+    li.basket-item {
+      font-size: 0.8rem;
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      h3 {
+        font-size: 0.85rem;
+      }
+
+      .basket-item-data{
+
+        width: 80%;
+        p.basket-description-activity {
+          display: block;
+        }
+      }
+    }
+  }
 }
 
 
@@ -1037,6 +1084,16 @@ footer {
       margin: 1rem;
     }
 
+  }
+
+  section.basket {
+    li.basket-item {
+      .basket-item-data{
+        p.basket-description-activity {
+          display: block;
+        }
+      }
+    }
   }
 
   section.admin {
