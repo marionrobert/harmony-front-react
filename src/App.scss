@@ -768,13 +768,44 @@ input:checked + .slider:before {
 
 // ******** BASKET ********* //
 section.basket {
-  padding: 1rem;
+  padding: 2rem 1rem 1rem;
   margin-left: auto;
   margin-right: auto;
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  button {
+    background-color: rgb(194, 169, 102);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+    width: 200px;
+  }
 
   ul {
     margin: 1rem auto;
     max-width: 600px;
+  }
+
+  div.no-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    p {
+      padding: 1rem 0 2rem;
+      width: 90%;
+      font-size: 0.9rem;
+    }
+    button {
+      a {
+        color: white;
+      }
+    }
+
   }
 
   li.basket-item {
@@ -793,7 +824,7 @@ section.basket {
 
     .basket-item-data{
       text-align: left;
-      width: 80%;
+      width: 70%;
       padding: 5px;
       display: flex;
       flex-direction: column;
@@ -801,10 +832,18 @@ section.basket {
 
       h3{
         font-weight: bold;
+        padding-bottom: 0.1rem;
       }
 
       button {
-        width: 170px;
+        width: 150px;
+        font-size: 0.75rem;
+        margin: 0 auto 0.1rem;
+      }
+
+      p.basket-description-activity {
+        display: none;
+        padding-bottom: 0.3rem;
       }
     }
 
@@ -814,6 +853,7 @@ section.basket {
       right: 10px;
       top: 5px;
       z-index: 2;
+      cursor: pointer;
     }
 
     p.error-booking{
@@ -821,15 +861,16 @@ section.basket {
       position: absolute;
       top: 0;
       left: 0;
-      font-size: larger;
+      font-size: 1rem;
       font-weight: bold;
-      color: rgb(178, 34, 34);
+      color: rgb(219, 55, 55);
+      text-shadow: 0 1px 1px white;
       width: 100%;
       height: 100%;
-      padding: 1rem;
-      z-index: 2;
-      background-color: rgba(128, 128, 128, 0.8);
-      backdrop-filter: blur(1px)
+      padding: 1.5rem 4rem;
+      z-index: 1;
+      background-color: rgba(128, 128, 128, 0.6);
+      backdrop-filter: blur(2px)
     }
   }
 }
@@ -986,6 +1027,30 @@ footer {
       width: 80%;
     }
   }
+
+  section.basket {
+    li.basket-item {
+      font-size: 0.8rem;
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      h3 {
+        font-size: 0.85rem;
+      }
+
+      .basket-item-data{
+
+        width: 80%;
+        p.basket-description-activity {
+          display: block;
+        }
+      }
+    }
+  }
 }
 
 
@@ -1019,6 +1084,16 @@ footer {
       margin: 1rem;
     }
 
+  }
+
+  section.basket {
+    li.basket-item {
+      .basket-item-data{
+        p.basket-description-activity {
+          display: block;
+        }
+      }
+    }
   }
 
   section.admin {

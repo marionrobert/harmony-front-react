@@ -9,8 +9,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { selectUser } from "../slices/userSlice";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan, faPlus, faMinus, faXmark, faSquarePlus, faSquareMinus} from '@fortawesome/free-solid-svg-icons'
-import { faFaceFrownOpen} from '@fortawesome/free-regular-svg-icons'
+import {faXmark} from '@fortawesome/free-solid-svg-icons'
+import {faFaceSmileBeam} from '@fortawesome/free-regular-svg-icons'
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 import { config } from "../config"
@@ -36,11 +36,6 @@ const Basket = () => {
     dispatch(cleanBasket())
   }
 
-  // const validateAll = () => {
-  //   console.log("veut tout valider d'un coup, on valide un par un !")
-  //   console.log("on commence par valider toutes les activités où on est provider")
-  // }
-
   const validateOne = (activity) => {
     // console.log("valide one -->", activity)
     let data = {
@@ -63,7 +58,7 @@ const Basket = () => {
         // activityCard.style.filter = "blur(1px)"
       } else {
         let errorParagraph = document.querySelector(`#activity-${activity.id} p.error-booking`)
-        errorParagraph.innerHTML = "Vous n'avez pas assez de points pour réserver."
+        errorParagraph.innerHTML = `${res.msg}`
         errorParagraph.style.display = "block"
       }
     })
@@ -78,8 +73,8 @@ const Basket = () => {
     <section className="basket">
       <h1>Mon panier</h1>
       { currentBasket.basket.length === 0 ?
-      <div>
-        <p>Vous n'avez pas encore ajouté d'articles à votre panier ... n'attendez plus!</p>
+      <div className="no-items">
+        <p>Vous n'avez pas encore ajouté d'activités à votre panier ... n'attendez pas plus longtemps pour réserver! <FontAwesomeIcon icon={faFaceSmileBeam}/></p>
         <button><Link to="/activities">Découvrez les activités</Link></button>
       </div>
 
@@ -102,8 +97,8 @@ const Basket = () => {
 
                   <div className="basket-item-data">
                     <div>
-                      <h3>{activity.title}</h3>
-                      {/* <p >{activity.description.substring(0, 50)}...</p> */}
+                      <h3><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></h3>
+                      <p className="basket-description-activity" >{activity.description.substring(0, 100)}...</p>
                       <p>{activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>
                     </div>
                     <button onClick={()=>{validateOne(activity)}}>Je valide la réservation</button>
