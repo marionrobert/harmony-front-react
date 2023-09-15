@@ -459,9 +459,10 @@ section.activity-details {
   flex-wrap: wrap;
   justify-content: center;
 
-  a {
-    width: 100%;
+  div.go-back {
+    display: block;
     text-align: right;
+    width: 100%;
     margin: 1rem 0;
   }
 
@@ -534,6 +535,7 @@ section.activity-details {
     width: 100%;
     margin-top: 2rem;
     border: 1px solid rgb(194, 169, 102);
+    border-radius: 2px;
     font-size: 0.9rem;
     padding: 1.5rem 0;
     display: flex;
@@ -558,11 +560,10 @@ section.profile {
   flex-wrap: wrap;
   justify-content: center;
 
-  a.logout-link {
-    width: 100%;
+  div.logout-link {
     display: block;
     text-align: right;
-    margin-bottom: 1.5rem;
+    width: 100%;
   }
 
   h1{
@@ -610,6 +611,17 @@ section.profile {
       width: 100%;
       padding: 0.5rem 0;
       font-size: 0.9rem;
+    }
+
+    div.user-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
+      > * {
+        width: 100%;
+        padding-bottom: 0.7rem;
+      }
     }
   }
 
@@ -673,6 +685,13 @@ section.profile {
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.4s ease-out;
+      }
+      li:hover {
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      }
+
+      li a {
+        display: block;
       }
     }
 
@@ -819,21 +838,29 @@ section.basket {
 // ******** ADMIN DASHBOARD ********** //
 
 section.admin {
-  margin: 0 1rem;
-  // position: relative;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 
-  a.logout-link {
+  hr {
+    margin: 1% 25%;
+    color: rgb(194, 169, 102);
+    border-style: none;
+    border-bottom-style: dotted;
+    border-width: 8px;
+    width: 50px;
+  }
+
+  div.logout-link {
     display: block;
     text-align: right;
+    width: 100%;
   }
 
   h1 {
     font-size: 1.3rem;
-    font-weight: bold;
-    margin-top: 1rem;
+    margin: 2rem 0 1rem;
     width: 100%;
   }
 
@@ -850,29 +877,50 @@ section.admin {
   article {
     h2 {
       font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.9rem;
     }
-    margin-top: 2rem;
+    margin: 1.5rem 0;
     width: 100%;
   }
 
-  article.create-new-category {
-    border:  1px solid rgb(194, 169, 102);
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    > * {
-      padding: 0.3rem;
+  article.admin-categories {
+    display: flex;;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    div.create-new-category {
+      width: 100%;
+      height: 100px;
+      border:  1px solid rgb(194, 169, 102);
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+      > * {
+        padding: 0.3rem;
+      }
+      button {
+        background-color: rgb(194, 169, 102);
+        color: white;
+        border: none;
+        border-radius: 2px;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+        margin: 0 0.5rem;
+      }
+    }
+
+    div.manage-categories {
+      width: 100%;
     }
   }
+
 
   article.manage-categories {
     input {
       width: 400px;
       color: "red";
-      /* Autres styles si nécessaire */
     }
   }
 }
@@ -899,6 +947,7 @@ footer {
 
 /* ADAPTATION TABLETTES */
 @media screen and (min-width: 721px){
+
   section.activity-details {
     align-items: center;
 
@@ -919,6 +968,21 @@ footer {
 
   section.profile {
     article{
+      width: 80%;
+    }
+
+    article.profile-user-data {
+
+      div.user-actions {
+        > * {
+          width: 33%;
+        }
+      }
+    }
+  }
+
+  section.admin {
+    article {
       width: 80%;
     }
   }
@@ -953,6 +1017,26 @@ footer {
     article{
       width: 45%;
       margin: 1rem;
+    }
+
+  }
+
+  section.admin {
+    article {
+      width: 45%;
+      margin: 1rem;
+    }
+
+    article.admin-categories {
+      width: 100%;
+
+      div.create-new-category, div.manage-categories {
+        width: 45%;
+      }
+
+      div.create-new-category{
+        margin-top: 2rem;
+      }
     }
   }
 }
