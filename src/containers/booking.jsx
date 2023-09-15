@@ -8,8 +8,10 @@ import { acceptBooking, deleteOneBooking, validateAchievementByBeneficiary, vali
 import {saveOneComment, getOneCommentByBookingId, updateOneComment} from "../api/comment"
 import CommentCard from "../components/comment-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMobile, faPhone, faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
-
+import { faMobile, faPhone, faCoins, faLocationDot, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
+import { config } from "../config"
 
 const Booking = () => {
   const params = useParams()
@@ -219,36 +221,69 @@ const Booking = () => {
       <section className="booking">
         <h1>Réservation n°{booking.booking_id}</h1>
 
-        <article className="booking-data" style={{border: "1px solid black"}}>
-          <h2>Informations sur la réservation : </h2>
-          <p>La réservation est {bookingStatus}</p>
+        <article className="booking-info">
+          <h2>Informations sur la réservation</h2>
           <p>Activité: {booking.activity_title}</p>
-          <p><FontAwesomeIcon icon={faMapLocationDot}/> {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
-          <p> {user.data.id === booking.provider_id ? "Gain" : "Coût"}: {booking.points} points</p>
+          <p><FontAwesomeIcon icon={faLocationDot}/> {booking.activity_address}, {booking.activity_zip}, {booking.activity_city}</p>
+          <p><FontAwesomeIcon icon={faCoins}/> {user.data.id === booking.provider_id ? "Gain" : "Coût"}: {booking.points} points</p>
+        </article>
 
-          <h2>Participants : </h2>
+        <hr/>
+
+        <article className="participants">
+            <h2>Participants</h2>
           { provider !== null ?
             <div>
+              {provider.avatar !== null ?
+                <CloudinaryContext cloudName="dptcisxbs" className="profile-avatar">
+                  <div>
+                    <Image className="profile-avatar" publicId={provider.avatar} alt={`Votre photo de profil`}>
+                      <Transformation quality="auto" fetchFormat="auto" />
+                    </Image>
+                  </div>
+                </CloudinaryContext>
+                :
+                <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
+              }
               <p>{provider.firstName} {provider.lastName.substring(0, 1)}.</p>
               {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {provider.phone}</p>}
             </div>
             :
-            <p>Inconnu</p>
+            <div>
+              <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
+              <p>Inconnu</p>
+            </div>
           }
           { beneficiary !== null ?
             <div>
+              {beneficiary.avatar !== null ?
+                <CloudinaryContext cloudName="dptcisxbs" className="profile-avatar">
+                  <div>
+                    <Image className="profile-avatar" publicId={beneficiary.avatar} alt={`Votre photo de profil`}>
+                      <Transformation quality="auto" fetchFormat="auto" />
+                    </Image>
+                  </div>
+                </CloudinaryContext>
+                :
+                <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
+              }
               <p>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</p>
               {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {beneficiary.phone}</p>}
             </div>
             :
-            <p>Inconnu</p>
+            <div>
+              <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
+              <p>Inconnu</p>
+            </div>
           }
-          <p style={{"color": "red"}}>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p>
         </article>
+        {/* <p style={{"color": "red"}}>Votre rôle: {user.data.id === booking.provider_id ? "vous allez réalisé l'activité" : "vous êtes le bénéficiaire de l'activité"}</p> */}
+
+        <hr/>
 
         { bookingStatus === "en attente d'acceptation" &&
           <article>
-            <h2>Statut de la réservation: {bookingStatus}</h2>
+            <h3>La réservation est {bookingStatus}</h3>
             {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
               <fieldset>
                 <legend>Souhaitez-vous accepter la réservation?</legend>
@@ -266,7 +301,7 @@ const Booking = () => {
         }
 
         { bookingStatus === "en attente de réalisation" &&
-          <article style={{border: "1px solid blue"}} className="confirmer">
+          <article className="confirmer">
             <h2>Avez-vous déjà réalisé l'activité ?</h2>
             {/* provider */}
             { user.data.id === booking.provider_id ?
@@ -275,7 +310,7 @@ const Booking = () => {
                 <p>Vous avez confirmé la réalisation de l'activité.</p>
                 :
                 <div>
-                    <p>Confirmer la réalisation de l'activité ?</p>
+                    <p>Souhaitez-vous confirmer la réalisation de l'activité ?</p>
                     <label className="switch" htmlFor="checkbox">
                       <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
                       <div className="slider round"></div>
@@ -287,7 +322,7 @@ const Booking = () => {
             :
             <div>
               { providerValidation === 1 ?
-                  <p>{ provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } a confirmé la réalisation de l'activité.</p>
+                  <p><FontAwesomeIcon icon={faThumbsUp} /> { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } a confirmé la réalisation de l'activité.</p>
                   :
                   <p>{ provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
@@ -312,7 +347,7 @@ const Booking = () => {
             :
             <div>
               { beneficiaryValidation === 1 ?
-                  <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} a confirmé la réalisation de l'activité.</p>
+                  <p><FontAwesomeIcon icon={faThumbsUp} /> { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} a confirmé la réalisation de l'activité.</p>
                   :
                   <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
@@ -325,36 +360,38 @@ const Booking = () => {
           <CommentCard key={comment.id} comment={comment} />
         }
 
-        { bookingStatus === "terminée" && comment !== null && comment.status !== "validé" &&
-          <article style={{border: "1px solid red"}} className="finished">
-            <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
-            { comment.status === "en attente de validation" ?
-              <p>Votre commentaire n'a pas encore été validé par l'administration. Vous pouvez le modifier.</p>
-              :
-              <p>Votre commentaire a été invalidé par l'administration. Vous pouvez le modifier.</p> }
-            <form onSubmit={(e) => {updateComment(e)}}>
-              <label htmlFor="title" >Titre de votre commentaire :</label>
-              <input type="text" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title} required></input>
-              <label htmlFor="content">Décrivez votre expérience :</label>
-              <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} defaultValue={content} required></textarea>
-              <label htmlFor="score">Quelle note donneriez-vous ?</label>
-              <select name="score" onChange={(e) =>{handleChange(e)}} defaultValue={parseInt(score)} required>
-                <option value="">Choisissez une note</option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-              </select>
-              <button>Modifier</button>
-            </form>
-            { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}
-            { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
-          </article>
+        { bookingStatus === "terminée" && comment !== null && comment.status !== "validé" && user.data.id === booking.booker_id &&
+            <article className="finished">
+              <h2>L'activité est maintenant terminée.</h2>
+              <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
+              { comment.status === "en attente de validation" ?
+                <p className="message-comment">Votre commentaire est en attente de validation. Vous pouvez encore le modifier.</p>
+                :
+                <p>Votre commentaire a été invalidé par l'administration. Vous pouvez le modifier.</p> }
+              <form onSubmit={(e) => {updateComment(e)}}>
+                <label htmlFor="title" >Titre de votre commentaire</label>
+                <input type="text" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title} required></input>
+                <label htmlFor="content">Décrivez votre expérience</label>
+                <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} defaultValue={content} required></textarea>
+                <label htmlFor="score">Quelle note donneriez-vous ?</label>
+                <select name="score" onChange={(e) =>{handleChange(e)}} defaultValue={parseInt(score)} required>
+                  <option value="">Choisissez une note</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+                <button>Modifier</button>
+              { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}
+              { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
+              </form>
+            </article>
         }
 
-        { bookingStatus === "terminée" && comment === null &&
-          <article style={{border: "1px solid red"}} className="finished">
+        { bookingStatus === "terminée" && comment === null && user.data.id === booking.booker_id &&
+          <article className="finished">
+            <h2>L'activité est maintenant terminée.</h2>
             <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
             <form onSubmit={(e) => {handleSubmit(e)}}>
               <label htmlFor="title" >Titre de votre commentaire :</label>
@@ -376,6 +413,16 @@ const Booking = () => {
             { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
           </article>
         }
+
+        { bookingStatus === "terminée" && (comment === null || (comment !== null && comment.status !== "validé")) && user.data.id !== booking.booker_id &&
+          <article>
+            <h2>L'activité est maintenant terminée.</h2>
+            { provider !== null & beneficiary !== null &&
+              <p>{ booking.activity_author_id !== provider.id ? `${provider.firstName}` : `${beneficiary.firstName}`} est invité.e à laisser un commentaire concernant votre activité.</p>
+            }
+          </article>
+        }
+
 
       </section>
     )

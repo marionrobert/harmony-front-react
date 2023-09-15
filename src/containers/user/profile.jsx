@@ -181,11 +181,6 @@ const Profile = () => {
             :
             <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
           }
-          {/* <button onClick={(e) => { showWidget(e) }} >
-            {user.data.avatar === null ? "Ajouter une " : "Modifier ma "}photo de profil
-          </button> */}
-          {/* {msgSuccess === null && msgError !== null && <p style={{ color: "indianred" }}>{msgError}</p>}
-          {msgSuccess !== null && <p style={{ color: "green" }}>{msgSuccess}</p>} */}
         </div>
         <article className='profile-user-data'>
           <p>Mes points: {user.data.points}</p>

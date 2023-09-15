@@ -117,6 +117,10 @@ h1, h2 {
   color: rgb(94, 82, 56);
 }
 
+input, textarea, select {
+  border:  1px solid rgb(194, 169, 102);
+}
+
 
 // ******** HEADER ********* //
 
@@ -286,7 +290,6 @@ section.section-activities {
   h1, h2 {
     padding-top: 1.5rem;
     font-size: 1.3rem;
-    font-weight: bold;
     width: 100%;
   }
 }
@@ -300,7 +303,6 @@ section.section-comments {
   h2 {
     padding-top: 1.5rem;
     font-size: 1.3rem;
-    font-weight: bold;
     width: 100%;
   }
 }
@@ -587,17 +589,6 @@ section.profile {
       border: white 1px solid;
       margin: 0 auto 0.5rem;
     }
-
-    button {
-      background-color: rgb(194, 169, 102);
-      color: white;
-      border: none;
-      border-radius: 2px;
-      padding: 0.3rem 0.5rem;
-      font-size: 0.8rem;
-      width: 200px;
-      margin: 0 auto 0.5rem;
-    }
   }
 
   article.profile-user-data {
@@ -877,7 +868,6 @@ section.basket {
 
 
 // ******** ADMIN DASHBOARD ********** //
-
 section.admin {
   padding: 1rem;
   display: flex;
@@ -933,6 +923,7 @@ section.admin {
       width: 100%;
       height: 100px;
       border:  1px solid rgb(194, 169, 102);
+      border-radius: 2px;
       padding: 0.5rem;
       display: flex;
       flex-direction: column;
@@ -967,6 +958,128 @@ section.admin {
 }
 
 
+// ******** BOOKING PAGE ********* //
+section.booking {
+  padding: 1rem 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  h1 {
+    font-size: 1.3rem;
+    margin: 2rem 0 1rem;
+    width: 100%;
+  }
+
+  hr {
+    color: rgb(194, 169, 102);
+    border-style: none;
+    border-bottom-style:solid;
+    border-width: 1px;
+    width: 90%;
+  }
+
+  article {
+    border-radius: 2px;
+    padding: 1rem;
+    width: 100%;
+    font-size: 0.9rem;
+
+    h2 {
+      font-size: 1.1rem;
+      padding-bottom: 1rem;
+    }
+
+    h3 {
+      font-size:0.9rem;
+      font-weight: bold;
+      padding-bottom: 1rem;
+    }
+
+    p {
+      padding: 0.2rem 0;
+    }
+
+    button {
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+      width: 200px;
+    }
+  }
+
+  article.participants {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    h2 {
+      width: 100%;
+    }
+
+    div {
+      width: 35%;
+    }
+    .profile-avatar {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      border: white 1px solid;
+      margin: 0 auto 0.5rem;
+    }
+  }
+
+  article.finished {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    > * {
+      width: 90%;
+    }
+    form {
+      border:  1px solid rgb(194, 169, 102);
+      border-radius: 2px;
+      padding: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      > * {
+        width: 80%;
+      }
+
+      select {
+        text-align: center;
+        width: 30%;
+      }
+
+      > input, textarea, select {
+        border:  1px solid rgb(194, 169, 102);
+      }
+
+      > label {
+        padding: 1.5rem 0 0.5rem;
+      }
+
+      button {
+        margin: 1rem 15rem;
+        width: 200px;
+      }
+    }
+
+    p.message-comment {
+      color: rgb(78, 77, 77);
+      padding-bottom: 0.5rem;
+    }
+  }
+
+}
+
 // ******** FOOTER ********* //
 footer {
   background-color: rgb(246, 237, 222);
@@ -975,8 +1088,6 @@ footer {
   justify-content: center;
   align-items: center;
   height: 60px;
-  // position:fixed;
-  // bottom: 0;
   width: 100%;
   a, p {
     padding: 0 0.5rem;
@@ -1051,6 +1162,21 @@ footer {
       }
     }
   }
+
+  section.booking {
+
+    article.participants {
+      div {
+        width: 25%;
+      }
+    }
+
+    article.finished{
+      form {
+        width: 60%;
+      }
+    }
+  }
 }
 
 
@@ -1111,6 +1237,25 @@ footer {
 
       div.create-new-category{
         margin-top: 2rem;
+      }
+    }
+  }
+
+  section.booking {
+
+    hr {
+      width: 50%;
+    }
+
+    article.finished{
+      form {
+        width: 50%;
+      }
+    }
+
+    article.participants {
+      div {
+        width: 10%;
       }
     }
   }

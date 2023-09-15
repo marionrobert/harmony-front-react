@@ -78,7 +78,7 @@ const Register = () => {
 
   return (
     <>
-      <h1>Créer mon compte</h1>
+      <h1>Créer mon compte Harmony</h1>
       { error !== null && <p className="error">{error}</p>}
       { success !== null && <p>{success}</p>}
 
