@@ -52,11 +52,13 @@ const ModerateComment = () => {
 
   if (comment !== null) {
     return (
-      <>
-        <h1>Modérer le contenu du commentaire n° {comment.id}</h1>
-        <h2>Voici les informations du commentaire:</h2>
-        <p>Titre du commentaire: {comment.title}</p>
-        <p>Description du commentaire: {comment.content}</p>
+      <section className="moderate">
+        <h1>Modérer le contenu d'un commentaire</h1>
+        <article className="comment-data">
+          <h2>Informations du commentaire n°{comment.id}</h2>
+          <p><span style={{"font-weight": "bold"}}>Titre :</span> « {comment.title} »</p>
+          <p><span style={{"font-weight": "bold"}}>Description :</span> « {comment.content} »</p>
+        </article>
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <fieldset>
             <legend>Souhaitez-vous valider le commentaire?</legend>
@@ -65,11 +67,15 @@ const ModerateComment = () => {
             <input name="status" type="radio" value="invalidé" checked={status === "invalidé"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Non</label>
           </fieldset>
-          <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que le commentaire soit validé.</label>
-          <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "validé" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
+          <div>
+            <span>
+              <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que le commentaire soit validé.</label>
+            </span>
+            <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "validé" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
+          </div>
           <button type="submit">Envoyer</button>
         </form>
-      </>
+      </section>
     )
   }
 }

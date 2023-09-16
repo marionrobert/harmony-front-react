@@ -69,8 +69,8 @@ const ModerateActivity = () => {
         <h1>Modérer le contenu d'une activité </h1>
         <article className="activity-data">
           <h2>Informations de l'activité n° {activity.id}</h2>
-          <p>Titre: {activity.title}</p>
-          <p>Description: {activity.description}</p>
+          <p><span style={{"font-weight": "bold"}}>Titre :</span> {activity.title}</p>
+          <p><span style={{"font-weight": "bold"}}>Description:</span> {activity.description}</p>
         </article>
         { activity.urlPicture !== null ?
         <CloudinaryContext cloudName="dptcisxbs">
@@ -90,7 +90,7 @@ const ModerateActivity = () => {
           </fieldset>
           <div>
             <span>
-              <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que l'annonce soit publiée.</label>
+              <label htmlFor="explanation">Indiquez à l'utilisateur ce qui est à modifier pour que l'annonce soit publiée.</label>
             </span>
             <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "en ligne" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
           </div>

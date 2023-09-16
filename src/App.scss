@@ -357,7 +357,7 @@ section.login-register {
 
 // ******** COMMENT CARD ********* //
 article.comment-card {
-  margin: 1rem 0 2rem ;
+  margin: 2rem 0.5rem ;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
@@ -1010,12 +1010,12 @@ section.moderate {
 
   h1 {
     font-size: 1.3rem;
-    margin: 2rem 0 1rem;
+    margin: 1rem;
     width: 100%;
   }
 
-  article.activity-data {
-    width: 90%;
+  article.activity-data, article.comment-data {
+    width: 95%;
     h2 {
       font-size: 1.1rem;
       padding: 1rem 0 0.5rem;
@@ -1023,6 +1023,7 @@ section.moderate {
 
     p {
       font-size: 0.9rem;
+      padding: 0.4rem 0;
     }
   }
 
@@ -1055,9 +1056,11 @@ section.moderate {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+
       span {
         padding-bottom: 0.5rem;
-        width: 80%;
+
+        width: 90%;
       }
     }
 
@@ -1329,9 +1332,13 @@ footer {
   section.moderate {
 
     article.activity-data {
-      width: 45%;
-      margin-right: 1rem;
-      margin-top: 4rem;
+      width: 40%;
+      margin-top: 3rem;
+      margin-right: 3rem;
+    }
+
+    article.comment-data {
+      width: 70%;
     }
 
     form {
