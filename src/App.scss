@@ -308,7 +308,7 @@ section.section-comments {
 }
 
 
-// ******** LOGIN / REGISTER FORM ********* //
+// ******** LOGIN / REGISTER FORM  ********* //
 section.login-register {
   display: flex;
   flex-wrap: wrap;
@@ -354,6 +354,51 @@ section.login-register {
     }
   }
 }
+
+// ******** FORGOT FORM ********* //
+section.forgot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+
+  h1{
+    font-size: 1.3rem;
+    padding: 1.5rem 0;
+    width: 100%;
+  }
+
+  form {
+    border: 1px solid rgb(194, 169, 102);
+    border-radius: 2px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+
+    > * {
+      width: 90%;
+    }
+
+    > label {
+      padding: 1rem 0 0.5rem;
+    }
+
+    button {
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      padding: 0.5rem;
+      margin: 1rem 0;
+      width: 65%;
+    }
+  }
+}
+
 
 // ******** COMMENT CARD ********* //
 article.comment-card {
@@ -1345,6 +1390,12 @@ footer {
       width: 75%;
     }
   }
+
+  section.forgot {
+    form {
+      width: 400px;
+    }
+  }
 }
 
 
@@ -1437,4 +1488,5 @@ footer {
       }
     }
   }
+
 }
