@@ -89,7 +89,9 @@ const ModerateActivity = () => {
             <label htmlFor="status">Non</label>
           </fieldset>
           <div>
-            <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que l'annonce soit publiée.</label>
+            <span>
+              <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que l'annonce soit publiée.</label>
+            </span>
             <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "en ligne" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
           </div>
           <button type="submit">Envoyer</button>
