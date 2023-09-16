@@ -62,7 +62,7 @@ export const saveOneBooking = (data) => {
 export const acceptBooking = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/booking/accept-booking/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios acceptBooking -->", res)
+    // console.log("res de requête axios acceptBooking -->", res)
     return res.data
   })
   .catch((err)=>{

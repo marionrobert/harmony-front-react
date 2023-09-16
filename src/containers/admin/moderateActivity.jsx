@@ -65,11 +65,13 @@ const ModerateActivity = () => {
 
   if (activity !== null) {
     return (
-      <>
-        <h1>Modérer le contenu de l'activité n° {activity.id}</h1>
-        <h2>Voici les informations de l'activité:</h2>
-        <p>Titre de l'activité: {activity.title}</p>
-        <p>Description de l'activité: {activity.description}</p>
+      <section className="moderate">
+        <h1>Modérer le contenu d'une activité </h1>
+        <article className="activity-data">
+          <h2>Informations de l'activité n° {activity.id}</h2>
+          <p><span style={{"font-weight": "bold"}}>Titre :</span> {activity.title}</p>
+          <p><span style={{"font-weight": "bold"}}>Description:</span> {activity.description}</p>
+        </article>
         { activity.urlPicture !== null ?
         <CloudinaryContext cloudName="dptcisxbs">
           <div>
@@ -86,11 +88,15 @@ const ModerateActivity = () => {
             <input name="status" type="radio" value="invalidé" checked={status === "invalidé"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Non</label>
           </fieldset>
-          <label htmlFor="explanation">Indiquez à l'auteur ce qui est à modifier pour que l'annonce soit publiée.</label>
-          <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "en ligne" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
+          <div>
+            <span>
+              <label htmlFor="explanation">Indiquez à l'utilisateur ce qui est à modifier pour que l'annonce soit publiée.</label>
+            </span>
+            <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "en ligne" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
+          </div>
           <button type="submit">Envoyer</button>
         </form>
-      </>
+      </section>
     )
   }
 }

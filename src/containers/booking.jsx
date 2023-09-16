@@ -83,6 +83,8 @@ const Booking = () => {
 
   const validateBooking = (e) => {
     e.preventDefault()
+    let input = document.querySelector(`input#answer-yes`)
+    input.checked = true;
     acceptBooking({"status": "en attente de réalisation"}, booking.booking_id)
     .then((res)=>{
       if (res.status === 200){
@@ -97,6 +99,8 @@ const Booking = () => {
 
   const declineBooking = (e) => {
     e.preventDefault()
+    let input = document.querySelector(`input#answer-no`)
+    input.checked = true;
     deleteOneBooking(booking.booking_id)
     .then((res)=>{
       if (res.status === 200){
@@ -246,7 +250,7 @@ const Booking = () => {
                 <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
               }
               <p>{provider.firstName} {provider.lastName.substring(0, 1)}.</p>
-              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {provider.phone}</p>}
+              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faPhone}/> {provider.phone}</p>}
             </div>
             :
             <div>
@@ -268,7 +272,7 @@ const Booking = () => {
                 <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
               }
               <p>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</p>
-              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {beneficiary.phone}</p>}
+              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faPhone}/> {beneficiary.phone}</p>}
             </div>
             :
             <div>
@@ -282,16 +286,16 @@ const Booking = () => {
         <hr/>
 
         { bookingStatus === "en attente d'acceptation" &&
-          <article>
+          <article className="waiting">
             <h3>La réservation est {bookingStatus}</h3>
             {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
               <fieldset>
                 <legend>Souhaitez-vous accepter la réservation?</legend>
-                <input type="radio" name="answer" value="oui" onChange={(e) => {validateBooking(e)}} />
-                <label htmlFor="answer">Oui</label>
-                <input type="radio" name="answer" value={false} onChange={(e) =>{declineBooking(e)}} />
-                <label htmlFor="answer">Non</label>
-                { errorForm !== null && <p style={{color: "firebrick"}}>{errorForm}</p>}
+                <input type="radio" id="answer-yes" name="answer" value="oui" onChange={(e) => {validateBooking(e)}} />
+                <label htmlFor="answer" onClick={(e) => {validateBooking(e)}}>Oui</label>
+                <input type="radio" id="answer-no" name="answer" value={false} onChange={(e) =>{declineBooking(e)}} />
+                <label htmlFor="answer" onClick={(e) =>{declineBooking(e)}}>Non</label>
+                { errorForm !== null && <p style={{color: "indianred"}}>{errorForm}</p>}
               </fieldset>
             }
             {parseInt(user.data.id) === parseInt(booking.booker_id) &&
@@ -335,7 +339,7 @@ const Booking = () => {
                 <p>Vous avez confirmé la réalisation de l'activité.</p>
                 :
                 <div>
-                    <p>Confirmer la réalisation de l'activité ?</p>
+                    <p>Souhaitez-vous confirmer la réalisation de l'activité ?</p>
                     <label className="switch" htmlFor="checkbox">
                       <input type="checkbox" id="checkbox" checked={switchChecked} onChange={(e) => {confirm(e)}}/>
                       <div className="slider round"></div>
