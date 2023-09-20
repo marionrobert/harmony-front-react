@@ -158,7 +158,7 @@ const AddActivity = () => {
 
 
   return (
-    <>
+    <section className="create-update-activity">
       <h1>Créer une nouvelle activité</h1>
       {errorForm !== null && <p style={{color:"red"}}>{errorForm}</p>}
 
@@ -172,7 +172,7 @@ const AddActivity = () => {
             })}
           </select>
 
-          <fieldset>
+          <fieldset className="provider-or-not">
             <legend>Etes-vous fournisseur de l'activité ?</legend>
             <input type="radio" name="authorIsProvider" value={true} checked={authorIsProvider === "true"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="authorIsPorvider">Oui</label>
@@ -181,13 +181,13 @@ const AddActivity = () => {
             <label htmlFor="authorIsPorvider">Non</label>
           </fieldset>
 
-          <label htmlFor="title">Titre</label>
-          <input type="text" name="title" onChange={(e) =>{handleChange(e)}} required/>
+          <label htmlFor="title">Titre de l'activité</label>
+          <input type="text" name="title" placeholder="Donne cours de pâtisserie" onChange={(e) =>{handleChange(e)}} required/>
 
           <label htmlFor="description">Description</label>
-          <textarea type="text" name="description" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} required></textarea>
+          <textarea type="text" name="description" placeholder="Je suis très douée en pâtisserie. C'est ma passion. Je souhaite partager mes connaissances." rows="5" cols="33" onChange={(e) =>{handleChange(e)}} required></textarea>
 
-          <fieldset>
+          <fieldset className="location">
             <legend>Lieu de rendez-vous</legend>
             <label htmlFor="address">Adresse</label>
             <input type="text" name="address" onChange={(e) =>{handleChange(e)}} required/>
@@ -197,7 +197,7 @@ const AddActivity = () => {
             <input type="text" name="city" onChange={(e) =>{handleChange(e)}} required/>
           </fieldset>
 
-          <label htmlFor="duration">Durée de l'activité : </label>
+          <label htmlFor="duration">Durée de l'activité </label>
           <select name="duration" onChange={(e) =>{handleChange(e)}} required>
             <option value="">Choisissez une durée</option>
             <option value={30}>30 minutes</option>
@@ -209,17 +209,14 @@ const AddActivity = () => {
           </select>
 
           <button onClick={(e) => {showWidget(e)}} >
-            Ajouter une photo d'illustration
+            Ajouter une photo
           </button>
           {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
           {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
-          <hr></hr>
-          <hr></hr>
-          <hr></hr>
-          <button type="submit">Valider</button>
+          <button className="validate" type="submit">Valider</button>
         </form>
       }
-    </>
+    </section>
   )
 }
 

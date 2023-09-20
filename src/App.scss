@@ -109,8 +109,13 @@ main {
   text-align: center;
 }
 
-.error {
-  color: rgb(109, 7, 26);
+p.error {
+  color: indianred;
+  margin-top: 0;
+}
+
+p.success {
+  color: seagreen;
 }
 
 h1, h2 {
@@ -308,7 +313,7 @@ section.section-comments {
 }
 
 
-// ******** LOGIN / REGISTER FORM ********* //
+// ******** LOGIN / REGISTER FORM  ********* //
 section.login-register {
   display: flex;
   flex-wrap: wrap;
@@ -351,6 +356,150 @@ section.login-register {
       padding: 0.5rem;
       margin: 1rem 0;
       width: 65%;
+    }
+  }
+}
+
+// ******** FORGOT FORM ********* //
+section.forgot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+
+  h1{
+    font-size: 1.3rem;
+    padding: 1.5rem 0;
+    width: 100%;
+  }
+
+  form {
+    border: 1px solid rgb(194, 169, 102);
+    border-radius: 2px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+
+    > * {
+      width: 90%;
+    }
+
+    > label {
+      padding: 1rem 0 0.5rem;
+    }
+
+    button {
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      padding: 0.5rem;
+      margin: 1rem 0;
+      width: 65%;
+    }
+  }
+}
+
+// ******** CREATE ACTIVITY FORM ********* //
+section.create-update-activity {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+
+  > * {
+    width: 100%;
+  }
+
+  h1{
+    font-size: 1.3rem;
+    padding: 1.5rem 0;
+  }
+
+  form {
+    border: 1px solid rgb(194, 169, 102);
+    border-radius: 2px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+
+    > * {
+      width: 90%;
+    }
+
+    > label {
+      margin: 1rem 0 0.5rem;
+      font-weight: bolder;
+      color: rgb(94, 82, 56);
+    }
+
+    > input, select {
+      margin-bottom: 1rem;
+    }
+
+    fieldset.location {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1rem;
+
+      > * {
+        width: 100%;
+      }
+
+      legend {
+        margin-bottom: 0.5rem;
+        font-weight: bolder;
+        color: rgb(94, 82, 56);
+      }
+
+      > label {
+        padding: 0.5rem 0;
+      }
+    
+    }
+
+    fieldset.provider-or-not {
+      legend {
+        padding-top: 1rem;
+        font-weight: bolder;
+        color: rgb(94, 82, 56);
+      }
+      input[type="radio"]:checked {
+        accent-color:  black;
+      }
+      input {
+        margin: 0.5rem 0.3rem 1rem;
+      }
+    }
+
+    button {
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      padding: 0.5rem;
+      margin: 1rem 0;
+      width: 50%;
+    }
+
+    button.validate {
+      width: 80%;
+    }
+
+    img.details-image{
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 1%;
     }
   }
 }
@@ -505,7 +654,7 @@ section.activity-details {
   padding: 3% 5%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
 
   div.go-back {
     display: block;
@@ -533,7 +682,6 @@ section.activity-details {
     justify-content: space-around;
   }
 
-
   h1 {
     font-family: 'Pacifico', cursive;
     font-size: 1.5rem;
@@ -546,8 +694,8 @@ section.activity-details {
   }
 
   img.details-image{
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 1%;
   }
@@ -1238,14 +1386,20 @@ footer {
   section.activity-details {
     align-items: center;
 
+    div.activity-details-first-part {
+      width: 30%;
+      margin: 0;
+      // margin: 1.5rem 1rem;
+    }
+
     div.activity-details-first-part, div.activity-details-second-part {
-      width: 45%;
-      margin: 1.5rem 1rem;
+      width: 50%;
+      // margin: 1.5rem 1rem;
     }
 
     img.details-image{
-      width: 300px;
-      height: 300px;
+      width: 250px;
+      height: 250px;
     }
 
     article.author-zone {
@@ -1345,21 +1499,38 @@ footer {
       width: 75%;
     }
   }
+
+  section.forgot {
+    form {
+      width: 400px;
+    }
+  }
+
+  section.create-update-activity {
+    form {
+      width: 60%;
+
+      > * {
+        width: 80%;
+      }
+    }
+  }
 }
 
 
 @media screen and (min-width: 1024px){
   section.activity-details {
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 
     div.activity-details-first-part, div.activity-details-second-part {
       width: 35%;
+      margin: 2.5rem 2rem;
     }
 
     img.details-image{
-      width: 400px;
-      height: 400px;
+      width: 325px;
+      height: 325px;
     }
 
     article.author-zone {
@@ -1437,4 +1608,23 @@ footer {
       }
     }
   }
+
+  section.create-update-activity {
+    form {
+      width: 45%;
+
+      > * {
+        width: 70%;
+      }
+
+      button {
+        width: 35%;
+      }
+
+      button.validate {
+        width: 40%;
+      }
+    }
+  }
+
 }

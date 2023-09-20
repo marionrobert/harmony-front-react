@@ -38,22 +38,21 @@ const Forgot = () => {
 
 
   return (
-    <>
+    <section className="forgot">
       {redirect && <Navigate to="/login" />}
 
       <h1>
         Vous avez oublié votre mot de passe ? Pas de panique !
       </h1>
-      <p>Entrez-votre adresse mail pour recevoir un lien de modification de votre mot de passe.</p>
 
       <form onSubmit={onSubmitForm}>
-        <label>Email</label>
+        <label>Entrez-votre adresse mail pour recevoir un lien de modification de votre mot de passe.</label>
         <input type="text" name="email" onChange={(e) => {setEmail(e.currentTarget.value);}}/>
         <button type="submit" disabled={disabled}>Envoyer</button>
       </form>
 
       {error !== null && <p className="error">{error}</p>}
-    </>
+    </section>
   );
 };
 

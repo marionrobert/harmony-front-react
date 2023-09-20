@@ -183,7 +183,7 @@ const EditActivity = () => {
   }
 
   return (
-    <>
+    <section className="create-update-activity">
       <h1>Modifier l'activité</h1>
       {errorForm !== null && <p style={{color:"red"}}>{errorForm}</p>}
 
@@ -198,7 +198,7 @@ const EditActivity = () => {
           })}
         </select>
 
-        <fieldset>
+        <fieldset className="provider-or-not">
           <legend>Etes-vous fournisseur de l'activité ?</legend>
           <input type="radio" name="authorIsProvider" value={true} checked={authorIsProvider === true} onChange={handleChange} required/>
           <label htmlFor="authorIsPorvider">Oui</label>
@@ -212,7 +212,7 @@ const EditActivity = () => {
         <label htmlFor="description">Description</label>
         <textarea type="text" name="description" rows="5" cols="33" onChange={handleChange} defaultValue={description} required></textarea>
 
-        <fieldset>
+        <fieldset className="location">
           <legend>Lieu de rendez-vous</legend>
           <label htmlFor="address">Adresse</label>
           <input type="text" name="address" onChange={handleChange} defaultValue={address} required/>
@@ -244,29 +244,25 @@ const EditActivity = () => {
               </div>
             </CloudinaryContext>
             <button onClick={(e) => {showWidget(e)}} >
-              Modifier la photo d'illustration
+              Modifier la photo
             </button>
           </div>
             :
           <div>
             <button onClick={(e) => {showWidget(e)}} >
-              Ajouter une photo d'illustration
+              Ajouter une photo
             </button>
           </div>
         }
-        {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
-        {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
-
-        <hr></hr>
-        <hr></hr>
-        <hr></hr>
-        <button type="submit">Valider</button>
+        {msgSuccess === null && msgError !== null && <p className="error">{msgError}</p>}
+        {msgSuccess !== null && <p className="success" >{msgSuccess}</p>}
+        <button className="validate" type="submit">Valider</button>
       </form>
       }
 
 
 
-    </>
+    </section>
   )
 }
 
