@@ -13,26 +13,26 @@ const Register = () => {
   const schema = yup.object().shape({
     firstName: yup.string()
       .max(50, "Le prénom ne doit pas dépasser 60 caractères.")
-      .required('Le prénom est requis'),
+      .required('Le prénom est requis.'),
     lastName: yup.string()
       .max(50, "Le nom ne doit pas dépasser 60 caractères.")
-      .required('Le nom est requis'),
+      .required('Le nom est requis.'),
     email: yup.string()
-      .email('Veuillez entrer une adresse email valide (exemple@domaine.com)')
-      .required('L\'email est requis'),
+      .email('Veuillez entrer une adresse email valide (exemple@domaine.com).')
+      .required('L\'email est requis.'),
     password: yup.string()
-      .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+      .min(8, 'Le mot de passe doit contenir au moins 8 caractères.')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/,
-        'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial'
+        'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.'
       )
-      .required('Le mot de passe est requis'),
+      .required('Le mot de passe est requis.'),
     confirmedPassword: yup.string()
-      .oneOf([yup.ref('password'), null], 'Les mots de passe ne correspondent pas')
-      .required('La confirmation du mot de passe est requise'),
+      .oneOf([yup.ref('password'), null], 'Les mots de passe ne correspondent pas.')
+      .required('La confirmation du mot de passe est requise.'),
     phone: yup.string()
-      .matches(/^[0-9]{10}$/, 'Le numéro de téléphone doit avoir 10 chiffres')
-      .required('Le numéro de téléphone est requis')
+      .matches(/^[0-9]{10}$/, 'Le numéro de téléphone doit avoir 10 chiffres.')
+      .required('Le numéro de téléphone est requis.')
   });
 
   const [errorPhone, setErrorPhone] = useState(null)
@@ -47,6 +47,8 @@ const Register = () => {
 
   useEffect(()=> {
     setError(null)
+    setErrorPassword(null)
+    setErrorConfirmedPassword(null)
     if (password !== "" && confirmedPassword !== "" && password !== confirmedPassword){
         setErrorPassword("Les mots de passe ne sont pas identiques.")
         setErrorConfirmedPassword("Les mots de passe ne sont pas identiques.")
