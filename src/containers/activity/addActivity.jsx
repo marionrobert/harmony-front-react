@@ -17,8 +17,8 @@ const AddActivity = () => {
   const [city, setCity] = useState("")
   const [duration, setDuration] = useState("")
   const [urlPicture, setUrlPicture] = useState(null)
-  const [msgError, setMsgError] = useState(null)
-  const [msgSuccess, setMsgSuccess] = useState(null)
+  const [errorPhoto, setErrorPhoto] = useState(null)
+  const [successPhoto, setSuccessPhoto] = useState(null)
   const [errorForm, setErrorForm] = useState(null)
   const [errorAddressNotFound, setErrorAddressNotFound] = useState(null)
   const [idNewActivity, setIdNewActivity] = useState(null)
@@ -27,7 +27,7 @@ const AddActivity = () => {
 
   const schema = yup.object().shape({
     categoryId: yup.string().required('Veuillez choisir une catégorie.'),
-    authorIsProvider: yup.string().required('Veuillez choiir une option.'),
+    authorIsProvider: yup.string().required('Veuillez choisir une option.'),
     title: yup.string()
       .max(80, "Le titre ne doit pas dépasser 80 caractères.")
       .required("Le titre est requis"),
@@ -36,9 +36,9 @@ const AddActivity = () => {
       .required("La description est requise"),
     address: yup.string()
       .max(120, "L'adresse ne doit pas dépasser 120 caractères.")
-      .required("LL'adresse est requise"),
+      .required("L'adresse est requise"),
     zip: yup.string()
-      .matches(/^[0-9]{5}$/, 'Le code postal doit avoir 5 chiffres.')
+      .matches(/^[0-9]{5}$/, 'Le code postal doit comporter 5 chiffres.')
       .required('Le code postal est requis.'),
     city: yup.string()
       .max(120, "La ville ne doit pas dépasser 120 caractères.")
@@ -58,8 +58,8 @@ const AddActivity = () => {
 
   useEffect(() => {
     setErrorForm(null)
-    setMsgError(null)
-    setMsgSuccess(null)
+    setErrorPhoto(null)
+    setSuccessPhoto(null)
     getAllCategories()
     .then((res)=>{
       if (res.status === 200){
@@ -72,6 +72,8 @@ const AddActivity = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorForm(null)
+    setErrorPhoto(null)
+    setSuccessPhoto(null)
     setErrorCategory(null)
     setErrorProvider(null)
     setErrorTitle(null)
@@ -233,10 +235,10 @@ const AddActivity = () => {
       // console.log("checkUploadResult", resultEvent)
       if (resultEvent.event === "success"){
         setUrlPicture(resultEvent.info.public_id)
-        setMsgSuccess("La photo a bien été chargée.")
+        setSuccessPhoto("La photo a bien été chargée.")
       } else {
-        if (msgSuccess === null){
-          setMsgError("Erreur de chargement de la photo.")
+        if (successPhoto === null){
+          setErrorPhoto("Erreur de chargement de la photo.")
         }
       }
   }
@@ -310,8 +312,8 @@ const AddActivity = () => {
           <button onClick={(e) => {showWidget(e)}} >
             Ajouter une photo
           </button>
-          {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
-          {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
+          {successPhoto === null && errorPhoto !== null && <p className="error">{errorPhoto}</p>}
+          {successPhoto !== null && <p style={{color:"green"}}>{successPhoto}</p>}
           <button className="validate" type="submit">Valider</button>
         </form>
       }
