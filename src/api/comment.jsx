@@ -72,7 +72,7 @@ export const getAllHighScoreComments = () => {
 export const saveOneComment = (data) => {
   return axios.post(`${config.api_url}/api/v1/comment/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios saveOneComment -->", res)
+    // console.log("res de requête axios saveOneComment -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -83,7 +83,7 @@ export const saveOneComment = (data) => {
 export const updateOneComment = (data, id) => {
   return axios.put(`${config.api_url}/api/v1/comment/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios updateOneComment -->", res)
+    // console.log("res de requête axios updateOneComment -->", res)
     return res.data
   })
   .catch((err)=>{
