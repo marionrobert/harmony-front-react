@@ -15,6 +15,9 @@ const ModerateActivity = () => {
   const [status, setStatus] = useState("invalidé")
   const [explanation, setExplanation] = useState("")
   const [redirect, setRedirect] = useState(null)
+  const [errorForm, setErrorForm] = useState(null)
+  const [errorStatus, setErrorStatus] = useState(null)
+  const [errorExplanation, setErrorExplanation] = useState(null)
 
   useEffect( () => {
     getOneActivity(params.id)
@@ -28,26 +31,38 @@ const ModerateActivity = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setErrorForm(null)
+    setErrorStatus(null)
+    setErrorStatus(null)
 
-    let data = {
-      "status": status,
-      "explanation": explanation
-    }
-    // console.log("data -->", data)
-    moderateOneActivity(data, params.id)
-    .then((res) => {
-      if (res.status === 200){
-        getAllOnlineActivities()
-        .then((response) => {
-          if (response.status === 200){
-            dispatch(setOnlineActivities(response.activities))
+    if (status === "") {
+      setErrorStatus("Veuillez choisir une option.")
+    } else {
+      if (status === "invalidé" && explanation === "") {
+        setErrorExplanation("Si vous ne validez pas le commentaire, l'expliquation est requise.")
+      } else {
+        let data = {
+          "status": status,
+          "explanation": explanation
+        }
+
+        // console.log("data -->", data)
+        moderateOneActivity(data, params.id)
+        .then((res) => {
+          if (res.status === 200){
+            getAllOnlineActivities()
+            .then((response) => {
+              if (response.status === 200){
+                dispatch(setOnlineActivities(response.activities))
+              }
+            })
+            .catch(error => console.log(error))
           }
+          setRedirect(true)
         })
-        .catch(error => console.log(error))
+        .catch(err => console.log(err))
       }
-      setRedirect(true)
-    })
-    .catch(err => console.log(err))
+    }
   }
 
   const handleChange = (e) => {
@@ -81,18 +96,21 @@ const ModerateActivity = () => {
           </div>
         </CloudinaryContext> : <p>L'auteur de l'activité n'a pas chargé d'image pour son activité.</p>}
         <form onSubmit={(e)=>{handleSubmit(e)}}>
+          {errorForm !== null && <p className="error">{errorForm}</p>}
           <fieldset>
             <legend>Souhaitez-vous valider la publication de l'activité ?</legend>
             <input name="status" type="radio" value="en ligne" checked={status === "en ligne"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Oui</label>
             <input name="status" type="radio" value="invalidé" checked={status === "invalidé"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Non</label>
+            {errorStatus !== null && <p className="error">{errorStatus}</p>}
           </fieldset>
           <div>
             <span>
               <label htmlFor="explanation">Indiquez à l'utilisateur ce qui est à modifier pour que l'annonce soit publiée.</label>
             </span>
             <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "en ligne" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
+            {errorExplanation !== null && <p className="error">{errorExplanation}</p>}
           </div>
           <button type="submit">Envoyer</button>
         </form>

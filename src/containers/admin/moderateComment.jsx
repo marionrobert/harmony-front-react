@@ -11,7 +11,6 @@ const ModerateComment = () => {
   const [explanation, setExplanation] = useState("")
   const [redirect, setRedirect] = useState(null)
   const [errorForm, setErrorForm] = useState(null)
-
   const [errorStatus, setErrorStatus] = useState(null)
   const [errorExplanation, setErrorExplanation] = useState(null)
 
