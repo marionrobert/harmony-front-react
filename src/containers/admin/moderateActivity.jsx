@@ -69,8 +69,8 @@ const ModerateActivity = () => {
         <h1>Modérer le contenu d'une activité </h1>
         <article className="activity-data">
           <h2>Informations de l'activité n° {activity.id}</h2>
-          <p><span style={{"font-weight": "bold"}}>Titre :</span> {activity.title}</p>
-          <p><span style={{"font-weight": "bold"}}>Description:</span> {activity.description}</p>
+          <p><span style={{"fontWeight": "bold"}}>Titre :</span> {activity.title}</p>
+          <p><span style={{"fontWeight": "bold"}}>Description:</span> {activity.description}</p>
         </article>
         { activity.urlPicture !== null ?
         <CloudinaryContext cloudName="dptcisxbs">
