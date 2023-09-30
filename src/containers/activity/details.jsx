@@ -15,8 +15,8 @@ import {Link, Navigate} from "react-router-dom"
 
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGears, faArrowRotateLeft, faLocationDot, faCoins} from "@fortawesome/free-solid-svg-icons";
-import { faFaceGrinWink, faClock, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import { faArrowRotateLeft, faLocationDot, faCoins} from "@fortawesome/free-solid-svg-icons";
+import { faClock, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 
 const Details = () => {

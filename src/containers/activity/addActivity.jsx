@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Navigate} from "react-router-dom"
+import * as yup from 'yup';
 import { getAllCategories } from "../../api/category"
 import { saveOneActivity, getCoords } from "../../api/activity"
 import { useSelector } from 'react-redux';
 import { selectUser} from "../../slices/userSlice"
-import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 
 const AddActivity = () => {
   const [categories, setCategories] = useState([])
@@ -17,17 +17,49 @@ const AddActivity = () => {
   const [city, setCity] = useState("")
   const [duration, setDuration] = useState("")
   const [urlPicture, setUrlPicture] = useState(null)
-  const [msgError, setMsgError] = useState(null)
-  const [ msgSuccess, setMsgSuccess] = useState(null)
+  const [errorPhoto, setErrorPhoto] = useState(null)
+  const [successPhoto, setSuccessPhoto] = useState(null)
   const [errorForm, setErrorForm] = useState(null)
+  const [errorAddressNotFound, setErrorAddressNotFound] = useState(null)
   const [idNewActivity, setIdNewActivity] = useState(null)
   const [redirect, setRedirect] = useState(null)
   const user = useSelector(selectUser)
 
+  const schema = yup.object().shape({
+    categoryId: yup.string().required('Veuillez choisir une catégorie.'),
+    authorIsProvider: yup.string().required('Veuillez choisir une option.'),
+    title: yup.string()
+      .max(80, "Le titre ne doit pas dépasser 80 caractères.")
+      .required("Le titre est requis"),
+    description: yup.string()
+      .max(200, "La description ne doit pas dépasser 200 caractères.")
+      .required("La description est requise"),
+    address: yup.string()
+      .max(120, "L'adresse ne doit pas dépasser 120 caractères.")
+      .required("L'adresse est requise"),
+    zip: yup.string()
+      .matches(/^[0-9]{5}$/, 'Le code postal doit comporter 5 chiffres.')
+      .required('Le code postal est requis.'),
+    city: yup.string()
+      .max(120, "La ville ne doit pas dépasser 120 caractères.")
+      .required("La ville est requise"),
+    duration: yup.string().required("Veuillez choisir une durée.")
+  });
+
+  const [errorCategory, setErrorCategory] = useState(null)
+  const [errorProvider, setErrorProvider] = useState(null)
+  const [errorTitle, setErrorTitle] = useState(null)
+  const [errorDescription, setErrorDescription] = useState(null)
+  const [errorAddress, setErrorAddress] = useState(null)
+  const [errorZip, setErrorZip] = useState(null)
+  const [errorCity, setErrorCity] = useState(null)
+  const [errorDuration, setErrorDuration] = useState(null)
+
+
   useEffect(() => {
     setErrorForm(null)
-    setMsgError(null)
-    setMsgSuccess(null)
+    setErrorPhoto(null)
+    setSuccessPhoto(null)
     getAllCategories()
     .then((res)=>{
       if (res.status === 200){
@@ -40,53 +72,112 @@ const AddActivity = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorForm(null)
-    // console.log("submit form!")
-    getCoords(address, city)
-    .then((res) =>{
-      if (res.features.length <= 0){
-        setErrorForm("Nous n'avons pas trouvé l'adresse renseignée.")
-      } else {
-        let lat = res.features[0].geometry.coordinates[1]
-        let lng = res.features[0].geometry.coordinates[0]
+    setErrorPhoto(null)
+    setSuccessPhoto(null)
+    setErrorCategory(null)
+    setErrorProvider(null)
+    setErrorTitle(null)
+    setErrorDescription(null)
+    setErrorAddress(null)
+    setErrorZip(null)
+    setErrorCity()
+    setErrorDuration(null)
 
-        let points = parseInt(duration) / 30
+    if (address === "" && zip === "" && city === ""){
+      setErrorAddressNotFound("Vous devez renseigner une adresse.")
+    } else {
+      getCoords(address, city)
+      .then( async(res) =>{
+        if (res.features.length <= 0){
+          setErrorAddressNotFound("Nous n'avons pas trouvé l'adresse renseignée.")
+        } else {
+          let lat = res.features[0].geometry.coordinates[1]
+          let lng = res.features[0].geometry.coordinates[0]
 
-        let data = {
-          "category_id": parseInt(categoryId),
-          "author_id": user.data.id,
-          "authorIsProvider": (authorIsProvider === "true"),
-          "title": title,
-          "description": description,
-          "address": address,
-          "urlPicture": urlPicture,
-          "city": city,
-          "zip": zip,
-          "lat": lat,
-          "lng": lng,
-          "duration": duration,
-          "points": points
-        }
+          let points = parseInt(duration) / 30
 
-        // console.log(data)
+          try {
+            await schema.validate({
+              categoryId,
+              authorIsProvider,
+              title,
+              description,
+              address,
+              zip,
+              city,
+              duration,
+            }, { abortEarly: false });
 
-        saveOneActivity(data)
-        .then((response)=>{
-          if (response.status === 200){
-            setIdNewActivity(response.activity.insertId)
-            setRedirect(true)
-          } else {
-            setErrorForm(response.msg)
+            let data = {
+              "category_id": parseInt(categoryId),
+              "author_id": user.data.id,
+              "authorIsProvider": (authorIsProvider === "true"),
+              "title": title,
+              "description": description,
+              "address": address,
+              "urlPicture": urlPicture,
+              "city": city,
+              "zip": zip,
+              "lat": lat,
+              "lng": lng,
+              "duration": duration,
+              "points": points
+            }
+
+            // console.log(data)
+
+            saveOneActivity(data)
+            .then((response)=>{
+              if (response.status === 200){
+                setIdNewActivity(response.activity.insertId)
+                setRedirect(true)
+              } else {
+                setErrorForm("Une erreur est survenue")
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              setErrorForm("Une erreur est survenue")
+            });
+          } catch (validationErrors) {
+            validationErrors.inner.forEach((error) => {
+              switch (error.path) {
+                case "categoryId":
+                  setErrorCategory(error.message)
+                  break;
+                case "authorIsProvider":
+                  setErrorProvider(error.message)
+                  break;
+                case "title":
+                  setErrorTitle(error.message)
+                  break;
+                case "description":
+                  setErrorDescription(error.message)
+                  break;
+                case "address":
+                  setErrorAddress(error.message)
+                  break;
+                case "zip":
+                  setErrorZip(error.message)
+                  break;
+                case "city":
+                  setErrorCity(error.message)
+                  break;
+                case "duration":
+                  setErrorDuration(error.message)
+                  break;
+              }
+            });
           }
-        })
-        .catch((error => console.log(error)))
-      }
-    })
-    .catch((err) => console.log(err))
+        }
+      })
+      .catch((err) => console.log(err))
+    }
+
 
   }
 
   const handleChange = (e) => {
-    // console.log("change from create new activity form")
     switch (e.currentTarget.name) {
       case "category_id":
         setCategoryId(e.currentTarget.value)
@@ -144,10 +235,10 @@ const AddActivity = () => {
       // console.log("checkUploadResult", resultEvent)
       if (resultEvent.event === "success"){
         setUrlPicture(resultEvent.info.public_id)
-        setMsgSuccess("La photo a bien été chargée.")
+        setSuccessPhoto("La photo a bien été chargée.")
       } else {
-        if (msgSuccess === null){
-          setMsgError("Erreur de chargement de la photo.")
+        if (successPhoto === null){
+          setErrorPhoto("Erreur de chargement de la photo.")
         }
       }
   }
@@ -160,17 +251,19 @@ const AddActivity = () => {
   return (
     <section className="create-update-activity">
       <h1>Créer une nouvelle activité</h1>
-      {errorForm !== null && <p style={{color:"red"}}>{errorForm}</p>}
+      {errorForm !== null && <p className="error">{errorForm}</p>}
 
       { categories.length > 0 &&
         <form onSubmit={(e)=>{handleSubmit(e)}}>
           <label htmlFor="category_id">Catégorie :</label>
-          <select name="category_id" onChange={(e) =>{handleChange(e)}} required>
+          <select name="category_id" onChange={(e) =>{handleChange(e)}} >
             <option value="">Choisissez une catégorie</option>
             { categories.map(category=> {
               return (<option key={category.id} value={category.id}>{category.title} </option>)
             })}
           </select>
+          {errorCategory !== null && <p className="error">{errorCategory}</p>}
+
 
           <fieldset className="provider-or-not">
             <legend>Etes-vous fournisseur de l'activité ?</legend>
@@ -179,26 +272,33 @@ const AddActivity = () => {
             <input type="radio" name="authorIsProvider" value={false}
             checked={authorIsProvider === "false"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="authorIsPorvider">Non</label>
+            {errorProvider !== null && <p className="error">{errorProvider}</p>}
           </fieldset>
 
           <label htmlFor="title">Titre de l'activité</label>
-          <input type="text" name="title" placeholder="Donne cours de pâtisserie" onChange={(e) =>{handleChange(e)}} required/>
+          <input type="text" name="title" placeholder="Donne cours de pâtisserie" onChange={(e) =>{handleChange(e)}} />
+          {errorTitle !== null && <p className="error">{errorTitle}</p>}
 
           <label htmlFor="description">Description</label>
-          <textarea type="text" name="description" placeholder="Je suis très douée en pâtisserie. C'est ma passion. Je souhaite partager mes connaissances." rows="5" cols="33" onChange={(e) =>{handleChange(e)}} required></textarea>
+          <textarea type="text" name="description" placeholder="Je suis très douée en pâtisserie. C'est ma passion. Je souhaite partager mes connaissances." rows="5" cols="33" onChange={(e) =>{handleChange(e)}} ></textarea>
+          {errorDescription !== null && <p className="error">{errorDescription}</p>}
 
           <fieldset className="location">
             <legend>Lieu de rendez-vous</legend>
+            {errorAddressNotFound !== null && <p className="error">{errorAddressNotFound}</p>}
             <label htmlFor="address">Adresse</label>
-            <input type="text" name="address" onChange={(e) =>{handleChange(e)}} required/>
+            <input type="text" name="address" onChange={(e) =>{handleChange(e)}} />
+            {errorAddress !== null && <p className="error">{errorAddress}</p>}
             <label htmlFor="zip">Code postal</label>
-            <input type="text" name="zip" onChange={(e) =>{handleChange(e)}} required/>
+            <input type="text" name="zip" onChange={(e) =>{handleChange(e)}} />
+            {errorZip !== null && <p className="error">{errorZip}</p>}
             <label htmlFor="city">Ville</label>
-            <input type="text" name="city" onChange={(e) =>{handleChange(e)}} required/>
+            <input type="text" name="city" onChange={(e) =>{handleChange(e)}} />
+            {errorCity !== null && <p className="error">{errorCity}</p>}
           </fieldset>
 
           <label htmlFor="duration">Durée de l'activité </label>
-          <select name="duration" onChange={(e) =>{handleChange(e)}} required>
+          <select name="duration" onChange={(e) =>{handleChange(e)}} >
             <option value="">Choisissez une durée</option>
             <option value={30}>30 minutes</option>
             <option value={60}>1 heure</option>
@@ -207,12 +307,13 @@ const AddActivity = () => {
             <option value={150}>2 heures et 30 minutes</option>
             <option value={180}>3 heures</option>
           </select>
+          {errorDuration !== null && <p className="error">{errorDuration}</p>}
 
           <button onClick={(e) => {showWidget(e)}} >
             Ajouter une photo
           </button>
-          {msgSuccess === null && msgError !== null && <p style={{color:"red"}}>{msgError}</p>}
-          {msgSuccess !== null && <p style={{color:"green"}}>{msgSuccess}</p>}
+          {successPhoto === null && errorPhoto !== null && <p className="error">{errorPhoto}</p>}
+          {successPhoto !== null && <p style={{color:"green"}}>{successPhoto}</p>}
           <button className="validate" type="submit">Valider</button>
         </form>
       }

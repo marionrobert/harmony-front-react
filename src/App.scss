@@ -69,7 +69,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   text-align: center;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif;
   background-color: whitesmoke;
 }
 
@@ -287,13 +287,13 @@ section.home-banner {
 }
 
 section.section-activities {
-  margin: 0 1rem;
+  margin: 1rem 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 
   h1, h2 {
-    padding-top: 1.5rem;
+    margin: 2.5rem 0 1rem;
     font-size: 1.3rem;
     width: 100%;
   }
@@ -338,7 +338,7 @@ section.login-register {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 75%;
+    width: 80%;
 
     > * {
       width: 90%;
@@ -357,6 +357,10 @@ section.login-register {
       margin: 1rem 0;
       width: 65%;
     }
+  }
+
+  a {
+    padding-top: 0.5rem;
   }
 }
 
@@ -464,7 +468,7 @@ section.create-update-activity {
       > label {
         padding: 0.5rem 0;
       }
-    
+
     }
 
     fieldset.provider-or-not {
@@ -553,8 +557,9 @@ article.comment-card {
   }
 
   p.comment-card-content{
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin: 0;
+    opacity: 0.7;
   }
 
 }

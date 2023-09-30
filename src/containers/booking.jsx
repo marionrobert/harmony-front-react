@@ -8,10 +8,11 @@ import { acceptBooking, deleteOneBooking, validateAchievementByBeneficiary, vali
 import {saveOneComment, getOneCommentByBookingId, updateOneComment} from "../api/comment"
 import CommentCard from "../components/comment-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMobile, faPhone, faCoins, faLocationDot, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faCoins, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 import { config } from "../config"
+import * as yup from 'yup';
 
 const Booking = () => {
   const params = useParams()
@@ -33,6 +34,21 @@ const Booking = () => {
   const [errorForm, setErrorForm] = useState(null)
   const [msgForm, setMsgForm] = useState(null)
 
+  const schema = yup.object().shape({
+    title: yup.string()
+      .max(80, "Le titre ne doit pas dépasser 80 caractères.")
+      .required("Le titre est requis."),
+    content: yup.string()
+      .max(200, "Le contenu ne doit pas dépasser 200 caractères.")
+      .required("Le contenu est requis."),
+    score: yup.number()
+      .typeError('Veuillez sélectionner un nombre entre 1 et 5.')
+      .required('Veuillez sélectionner un nombre entre 1 et 5')
+  });
+
+  const [errorTitle, setErrorTitle] = useState(null)
+  const [errorContent, setErrorContent] = useState(null)
+  const [errorScore, setErrorScore] = useState(null)
 
 
   useEffect(()=>{
@@ -145,38 +161,65 @@ const Booking = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setMsgForm(null)
     setErrorForm(null)
-    let data = {
-      "title": title,
-      "content": content,
-      "score": parseInt(score),
-      "author_id": user.data.id,
-      "activity_id": booking.activity_id,
-      "booking_id": booking.booking_id
-    }
-    saveOneComment(data)
-    .then((res) => {
-      if (res.status === 200){
-        console.log(res)
-        getOneCommentByBookingId(params.id)
-        .then((response) => {
-          if (response.status === 200){
-            setComment(response.comment)
-            setTitle(response.comment.title)
-            setContent(response.comment.content)
-            setScore(response.comment.score)
-          }
-        })
-        .catch((error) => console.log(error))
-        setMsgForm("Votre commentaire a bien été créé.")
-      } else {
-        setErrorForm(`${res.msg}`)
+    setErrorTitle(null)
+    setErrorContent(null)
+    setErrorScore(null)
+
+    try {
+      await schema.validate({
+        title,
+        content,
+        score
+      }, { abortEarly: false });
+
+      let data = {
+        "title": title,
+        "content": content,
+        "score": parseInt(score),
+        "author_id": user.data.id,
+        "activity_id": booking.activity_id,
+        "booking_id": booking.booking_id
       }
-    })
-    .catch(()=>{setErrorForm("Une erreur est survenue.")})
+
+      saveOneComment(data)
+      .then((res) => {
+        if (res.status === 200){
+          console.log(res)
+          getOneCommentByBookingId(params.id)
+          .then((response) => {
+            if (response.status === 200){
+              setComment(response.comment)
+              setTitle(response.comment.title)
+              setContent(response.comment.content)
+              setScore(response.comment.score)
+            }
+          })
+          .catch((error) => console.log(error))
+          setMsgForm("Votre commentaire a bien été créé.")
+        } else {
+          setErrorForm(`${res.msg}`)
+        }
+      })
+      .catch(()=>{setErrorForm("Une erreur est survenue.")})
+    } catch (validationErrors) {
+      validationErrors.inner.forEach((error) => {
+        switch (error.path) {
+          case "title":
+            setErrorTitle(error.message)
+            break;
+          case "content":
+            setErrorContent(error.message)
+            break;
+          case "score":
+            setErrorScore(error.message)
+            break;
+        }
+      });
+    }
   }
 
   const handleChange = (e) => {
@@ -194,26 +237,50 @@ const Booking = () => {
     }
   }
 
-  const updateComment = (e) => {
+  const updateComment = async(e) => {
     e.preventDefault(e)
-    console.log("update")
-    setMsgForm(null)
-    setErrorForm(null)
-    let data = {
-      "title": title,
-      "content": content,
-      "score": parseInt(score)
-    }
+    // console.log("update")
+    setErrorTitle(null)
+    setErrorContent(null)
+    setErrorScore(null)
 
-    updateOneComment(data, comment.id)
-    .then((res)=> {
-      if (res.status === 200){
-        setMsgForm("Votre commentaire a bien été modifié.")
-      } else {
-        setErrorForm(`${res.msg}`)
+    try {
+      await schema.validate({
+        title,
+        content,
+        score
+      }, { abortEarly: false });
+
+      let data = {
+        "title": title,
+        "content": content,
+        "score": parseInt(score)
       }
-    })
-    .catch(()=>{setErrorForm("Une erreur est survenue.")})
+
+      updateOneComment(data, comment.id)
+      .then((res)=> {
+        if (res.status === 200){
+          setMsgForm("Votre commentaire a bien été modifié.")
+        } else {
+          setErrorForm(`${res.msg}`)
+        }
+      })
+      .catch(()=>{setErrorForm("Une erreur est survenue.")})
+    } catch (validationErrors) {
+      validationErrors.inner.forEach((error) => {
+        switch (error.path) {
+          case "title":
+            setErrorTitle(error.message)
+            break;
+          case "content":
+            setErrorContent(error.message)
+            break;
+          case "score":
+            setErrorScore(error.message)
+            break;
+        }
+      });
+    }
   }
 
   if (redirect){
@@ -374,11 +441,13 @@ const Booking = () => {
                 <p>Votre commentaire a été invalidé par l'administration. Vous pouvez le modifier.</p> }
               <form onSubmit={(e) => {updateComment(e)}}>
                 <label htmlFor="title" >Titre de votre commentaire</label>
-                <input type="text" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title} required></input>
+                <input type="text" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title}></input>
+                {errorTitle !== null && <p className="error">{errorTitle}</p>}
                 <label htmlFor="content">Décrivez votre expérience</label>
-                <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} defaultValue={content} required></textarea>
+                <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} defaultValue={content}></textarea>
+                {errorContent !== null && <p className="error">{errorContent}</p>}
                 <label htmlFor="score">Quelle note donneriez-vous ?</label>
-                <select name="score" onChange={(e) =>{handleChange(e)}} defaultValue={parseInt(score)} required>
+                <select name="score" onChange={(e) =>{handleChange(e)}} defaultValue={score !== "" ? parseInt(score) : score}>
                   <option value="">Choisissez une note</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -386,6 +455,7 @@ const Booking = () => {
                   <option value={4}>4</option>
                   <option value={5}>5</option>
                 </select>
+                {errorScore !== null && <p className="error">{errorScore}</p>}
                 <button>Modifier</button>
               { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}
               { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
@@ -399,11 +469,13 @@ const Booking = () => {
             <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
             <form onSubmit={(e) => {handleSubmit(e)}}>
               <label htmlFor="title" >Titre de votre commentaire :</label>
-              <input type="text" name="title" onChange={(e) =>{handleChange(e)}} required></input>
+              <input type="text" name="title" onChange={(e) =>{handleChange(e)}} ></input>
+              {errorTitle !== null && <p className="error">{errorTitle}</p>}
               <label htmlFor="content">Décrivez cette expérience :</label>
-              <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} required></textarea>
+              <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} ></textarea>
+              {errorContent !== null && <p className="error">{errorContent}</p>}
               <label htmlFor="score">Quelle note donneriez-vous ?</label>
-              <select name="score" onChange={(e) =>{handleChange(e)}} required>
+              <select name="score" onChange={(e) =>{handleChange(e)}} >
                 <option value="">Choisissez une note</option>
                 <option value={1}>1</option>
                 <option value={2}>2</option>
@@ -411,6 +483,7 @@ const Booking = () => {
                 <option value={4}>4</option>
                 <option value={5}>5</option>
               </select>
+              {errorScore !== null && <p className="error">{errorScore}</p>}
               <button>Valider</button>
             </form>
             { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}

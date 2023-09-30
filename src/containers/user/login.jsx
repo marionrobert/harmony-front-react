@@ -75,6 +75,7 @@ const Login = () => {
         <button type="submit" disabled={disabled}>Se connecter</button>
       </form>
       <Link to="/forgot">Mot de passe oublié ?</Link>
+      <Link to="/register">Vous n'avez pas de compte ? Créez-en un!</Link>
     </section>
   )
 }
