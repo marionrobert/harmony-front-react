@@ -183,7 +183,7 @@ const Profile = () => {
           }
         </div>
         <article className='profile-user-data'>
-          <p>Mes points: {user.data.points}</p>
+          <p>Mes points : {user.data.points}</p>
           <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {user.data.phone}</p>
           <div className='user-actions'>
             <span><Link  onClick={(e) => { showWidget(e) }}><FontAwesomeIcon icon={faCamera}/> {user.data.avatar === null ? "Ajouter une " : "Modifier ma "}photo</Link></span>

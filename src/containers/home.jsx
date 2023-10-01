@@ -50,7 +50,7 @@ const Home = () => {
 
       { comments.length > 0 &&
       <section className="section-comments">
-        <h2>Ils ont essayé, ils ont adoré !</h2>
+        <h2>Ils.Elles adorent Harmony !</h2>
         {comments.slice(-5).map(comment => {
           return <CommentCard key={comment.id} comment={comment} />
         })}
