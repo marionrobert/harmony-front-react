@@ -528,7 +528,7 @@ article.comment-card {
   div.comment-card-data {
     text-align: left;
     padding-left: 1rem;
-    width: 50%;
+    width: 60%;
   }
 
   h3.comment-card-username{
@@ -554,12 +554,14 @@ article.comment-card {
   h3.comment-card-title{
     padding: 0.5rem 0 0.1rem;
     font-size: 0.9rem;
+    width: 100%;
   }
 
   p.comment-card-content{
     font-size: 0.8rem;
     margin: 0;
     opacity: 0.7;
+    width: 100%;
   }
 
 }
@@ -1364,6 +1366,22 @@ section.booking {
       input[type="radio"]:checked {
         accent-color:  black;
       }
+    }
+  }
+
+  article.booking-comment {
+    padding-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    h2 {
+      width: 100%;
+      padding: 0;
+    }
+
+    article.comment-card {
+      width: 300px;
     }
   }
 }

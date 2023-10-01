@@ -428,7 +428,10 @@ const Booking = () => {
         }
 
         { bookingStatus === "terminée" && comment !== null && comment.status === "validé" &&
-          <CommentCard key={comment.id} comment={comment} />
+            <article className="booking-comment">
+              <h2>Découvrez le commentaire associé à cette réservation.</h2>
+              <CommentCard key={comment.id} comment={comment} />
+            </article>
         }
 
         { bookingStatus === "terminée" && comment !== null && comment.status !== "validé" && user.data.id === booking.booker_id &&
