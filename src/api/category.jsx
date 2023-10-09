@@ -1,9 +1,10 @@
 import axios from "axios"
 import {config} from '../config'
-const token = window.localStorage.getItem("harmony-token")
+// const token = window.localStorage.getItem("harmony-token")
 
 
 export const getAllCategories = () => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/category/all`,  {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllCategories -->", res)
@@ -15,9 +16,10 @@ export const getAllCategories = () => {
 }
 
 export const getOneCategory = (id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/category/one/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getOneCategory -->", res)
+    // console.log("res de requête axios getOneCategory -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -26,9 +28,10 @@ export const getOneCategory = (id) => {
 }
 
 export const getOneCategoryByTitle = (data) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.posth(`${config.api_url}/api/v1/category/one/title`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getOneCategoryByTitle -->", res)
+    // console.log("res de requête axios getOneCategoryByTitle -->", res)
     return res.data
   })
   .catch((err)=>{
@@ -37,6 +40,7 @@ export const getOneCategoryByTitle = (data) => {
 }
 
 export const saveOneCategory = (data) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.post(`${config.api_url}/api/v1/category/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios saveOneCategory -->", res)
@@ -48,6 +52,7 @@ export const saveOneCategory = (data) => {
 }
 
 export const updateOneCategory = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/category/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios updateOneCategory -->", res)
@@ -59,7 +64,7 @@ export const updateOneCategory = (data, id) => {
 }
 
 export const deleteOneCategory = (id) => {
-  console.log("coucouuuuu")
+  const token = window.localStorage.getItem("harmony-token")
   return axios.delete(`${config.api_url}/api/v1/category/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios deleteOneCategory -->", res)

@@ -203,25 +203,24 @@ header {
     position: absolute;
     top: 60px;
     right: -100%;
-    height: 150px;
-    width: 100%;
+    height: 175px;
     padding: 1.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100vw;
 
-    button{
+    a{
+      display: block;
       width: 60%;
-      margin: 1rem 0;
+      margin: 1rem auto;
       background-color: rgb(94, 82, 56);
       border: none;
       border-radius: 2px;
       padding: 0.5rem;
-      a {
-        color: white;
-        font-weight: bold;
-      }
+      color: white;
     }
 
     .fa-xmark {
-      color: "red";
+      color: indianred;
       position: absolute;
       top: 10px;
       right: 10px;
@@ -263,21 +262,21 @@ section.home-banner {
   p {
     font-size: 1.3rem;
     font-weight: bold;
+    margin-bottom: 2rem;
   }
 
-  button.banner-btn {
-    /* width: 180px; */
+  a.banner-btn {
+    width: 200px;
+    text-align: end;
     padding: 0.7rem;
     border-radius: 10px;
     border: 0.5px solid rgb(0, 0, 0, 0);
-    margin-top: 2rem;
     background-color: rgba(246, 237, 222, 0.85);;
     box-shadow: 0 0 15px rgba(255,255,255,0.3);
 
-    a {
-      font-size: 1.1rem;
-      color: rgb(94, 82, 56);
-    }
+    font-size: 1.1rem;
+    color: rgb(94, 82, 56);
+
   }
 
   button.banner-btn:hover{
@@ -286,28 +285,69 @@ section.home-banner {
 
 }
 
+section.introduction {
+  margin: 2rem;
+
+  h2 {
+    padding: 1.5rem 0 1rem;
+    font-size: 1.4rem;
+  }
+
+  div {
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+  p {
+    margin: 1rem 0;
+    text-align: justify;
+  }
+  }
+}
+
 section.section-activities {
-  margin: 1rem 2rem;
+  margin: 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 
   h1, h2 {
     margin: 2.5rem 0 1rem;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     width: 100%;
   }
+
+  div.btn-all-activities {
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+
+    a{
+      width: 250px;
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      margin: 1rem 0 0.2rem;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+  }
+
 }
 
 section.section-comments {
-  margin: 0 1rem;
+  margin: 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 
   h2 {
     padding-top: 1.5rem;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     width: 100%;
   }
 }
@@ -967,6 +1007,7 @@ section.basket {
   }
 
   button {
+    margin-top: 1rem;
     background-color: rgb(194, 169, 102);
     color: white;
     border: none;
@@ -990,10 +1031,14 @@ section.basket {
       width: 90%;
       font-size: 0.9rem;
     }
-    button {
-      a {
-        color: white;
-      }
+    a {
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+      width: 200px;
     }
 
   }
@@ -1005,6 +1050,7 @@ section.basket {
     font-size: 0.75rem;
     margin-top: 1rem;
     position: relative;
+    height: 80px;
 
     img {
       width: 80px;
@@ -1015,7 +1061,7 @@ section.basket {
     .basket-item-data{
       text-align: left;
       width: 70%;
-      padding: 5px;
+      padding: 6px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -1068,13 +1114,13 @@ section.basket {
 
 // ******** ADMIN DASHBOARD ********** //
 section.admin {
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
 
   hr {
-    margin: 1% 25%;
+    margin: 5% 25%;
     color: rgb(194, 169, 102);
     border-style: none;
     border-bottom-style: dotted;
@@ -1090,7 +1136,7 @@ section.admin {
 
   h1 {
     font-size: 1.3rem;
-    margin: 2rem 0 1rem;
+    margin: 3rem 0 2rem;
     width: 100%;
   }
 
@@ -1113,47 +1159,28 @@ section.admin {
     width: 100%;
   }
 
-  article.admin-categories {
-    display: flex;;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
-    div.create-new-category {
-      width: 100%;
-      height: 100px;
-      border:  1px solid rgb(194, 169, 102);
+  article.create-new-category {
+    height: 100px;
+    border:  1px solid rgb(194, 169, 102);
+    border-radius: 2px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > * {
+      padding: 0.3rem;
+    }
+    button {
+      background-color: rgb(194, 169, 102);
+      color: white;
+      border: none;
       border-radius: 2px;
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 2rem;
-      > * {
-        padding: 0.3rem;
-      }
-      button {
-        background-color: rgb(194, 169, 102);
-        color: white;
-        border: none;
-        border-radius: 2px;
-        padding: 0.3rem 0.5rem;
-        font-size: 0.8rem;
-        margin: 0 0.5rem;
-      }
-    }
-
-    div.manage-categories {
-      width: 100%;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+      margin: 0 0.5rem;
     }
   }
 
-
-  article.manage-categories {
-    input {
-      width: 400px;
-      color: "red";
-    }
-  }
 }
 
 // ******** ADMIN MODERATE ACTIVITY AND COMMENT ********** //
@@ -1406,6 +1433,51 @@ footer {
 /* ADAPTATION TABLETTES */
 @media screen and (min-width: 721px){
 
+  header {
+    div.connexion-menu {
+      background-color: white;
+      position: absolute;
+      top: 60px;
+      right: -100%;
+      height: 200px;
+      width: 300px;
+      padding: 2rem 0;
+
+      button{
+        width: 60%;
+        margin: 1rem 0;
+        background-color: rgb(94, 82, 56);
+        border: none;
+        border-radius: 2px;
+        padding: 0.5rem;
+        a {
+          color: white;
+          font-weight: bold;
+        }
+      }
+
+      .fa-xmark {
+        color: indianred;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+    }
+  }
+
+  /* home */
+  section.introduction {
+    div {
+      p {
+        width: 48%;
+      }
+    }
+  }
+
   section.activity-details {
     align-items: center;
 
@@ -1454,6 +1526,7 @@ footer {
   section.basket {
     li.basket-item {
       font-size: 0.8rem;
+      height: 100px;
 
       img {
         width: 100px;
@@ -1542,6 +1615,18 @@ footer {
 
 
 @media screen and (min-width: 1024px){
+
+  /* home */
+  section.introduction {
+    margin: 2rem 5rem;
+
+    div {
+      p {
+        width: 45%;
+      }
+    }
+  }
+
   section.activity-details {
     align-items: center;
     justify-content: center;
@@ -1585,21 +1670,34 @@ footer {
   }
 
   section.admin {
+    padding: 1.5rem 6rem;
     article {
-      width: 45%;
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1.1rem;
+      }
+      width: 40%;
       margin: 1rem;
     }
 
-    article.admin-categories {
-      width: 100%;
+    hr {
+      margin: 3% 30%;
+    }
 
-      div.create-new-category, div.manage-categories {
-        width: 45%;
-      }
+    h1 {
+      font-size: 1.6rem;
+      margin: 4rem 0 3rem;
+    }
 
-      div.create-new-category{
-        margin-top: 2rem;
-      }
+    article.create-new-category {
+      height: 100px;
+      border:  1px solid rgb(194, 169, 102);
+      border-radius: 2px;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 3.25rem;
     }
   }
 

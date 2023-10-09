@@ -1,6 +1,6 @@
 import axios from "axios"
 import {config} from "../config"
-const token = window.localStorage.getItem('harmony-token')
+// const token = window.localStorage.getItem("harmony-token")
 
 export const saveUser = (data) => {
   return axios.post(`${config.api_url}/api/v1/user/register`, data)
@@ -36,6 +36,7 @@ export const forgotPassword = (data) => {
 }
 
 export const updateUser = (data, key_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/user/update/${key_id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios updateUser -->", res)
@@ -47,6 +48,7 @@ export const updateUser = (data, key_id) => {
 }
 
 export const updateAvatar = (data, key_id) =>{
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/user/update-avatar/${key_id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios updateAvatar -->", res)
@@ -58,6 +60,7 @@ export const updateAvatar = (data, key_id) =>{
 }
 
 export const getOneUser = (key_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/user/one/${key_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getOneUser -->", res)

@@ -53,9 +53,6 @@ const Basket = () => {
         setNewBookingId(res.booking.insertId)
         removeActivityFromBasket(currentBasket.basket, activity)
         setRedirect(true)
-        // à voir plus tard
-        // let activityCard = document.querySelector(`#activity-${activity.id}`)
-        // activityCard.style.filter = "blur(1px)"
       } else {
         let errorParagraph = document.querySelector(`#activity-${activity.id} p.error-booking`)
         errorParagraph.innerHTML = `${res.msg}`
@@ -75,46 +72,48 @@ const Basket = () => {
       { currentBasket.basket.length === 0 ?
       <div className="no-items">
         <p>Vous n'avez pas encore ajouté d'activités à votre panier ... n'attendez pas plus longtemps pour réserver! <FontAwesomeIcon icon={faFaceSmileBeam}/></p>
-        <button><Link to="/activities">Découvrez les activités</Link></button>
+        <Link to="/activities">Découvrez les activités</Link>
       </div>
 
       :
 
-      <ul className="basket-all-items">
-        { error !== null && <p style={{color:"red"}}>{error}</p>}
+      <div>
+        { error !== null && <p style={{color:"indianred"}}>{error}</p>}
         <button onClick={()=>{deleteBasket()}}>Supprimer tout le panier</button>
-          {currentBasket.basket.map((activity=>{
-            return (
-              <li  key={activity.id} className='basket-item' id={`activity-${activity.id}`} >
-                  { activity.urlPicture !== null ?
-                    <CloudinaryContext cloudName="dptcisxbs">
-                        <Image publicId={activity.urlPicture} alt={`Image de l'activité ${activity.title}`}>
-                          <Transformation quality="auto" fetchFormat="auto" />
-                        </Image>
-                    </CloudinaryContext> :
-                    <img src={`${config.pict_url}/no-image.png`} alt="Pas d'image disponible"/>
-                  }
+        <ul className="basket-all-items">
+            {currentBasket.basket.map((activity=>{
+              return (
+                <li  key={activity.id} className='basket-item' id={`activity-${activity.id}`} >
+                    { activity.urlPicture !== null ?
+                      <CloudinaryContext cloudName="dptcisxbs">
+                          <Image publicId={activity.urlPicture} alt={`Image de l'activité ${activity.title}`}>
+                            <Transformation quality="auto" fetchFormat="auto" />
+                          </Image>
+                      </CloudinaryContext> :
+                      <img src={`${config.pict_url}/no-image.png`} alt="Pas d'image disponible"/>
+                    }
 
-                  <div className="basket-item-data">
-                    <div>
-                      <h3><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></h3>
-                      <p className="basket-description-activity" >{activity.description.substring(0, 100)}...</p>
-                      <p>{activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>
+                    <div className="basket-item-data">
+                      <div>
+                        <h3><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></h3>
+                        <p className="basket-description-activity" >{activity.description.substring(0, 100)}...</p>
+                        <p>{activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>
+                      </div>
+                      <button onClick={()=>{validateOne(activity)}}>Je valide la réservation</button>
                     </div>
-                    <button onClick={()=>{validateOne(activity)}}>Je valide la réservation</button>
-                  </div>
 
-                  <p className='deleteItem'>
-                    <FontAwesomeIcon icon={ faXmark}  onClick={()=>{removeActivityFromBasket(currentBasket.basket, activity)}}/>
-                  </p>
+                    <p className='deleteItem'>
+                      <FontAwesomeIcon icon={ faXmark}  onClick={()=>{removeActivityFromBasket(currentBasket.basket, activity)}}/>
+                    </p>
 
-                  <p className="error-booking"></p>
-              </li>
-            )
-          }))
-          }
+                    <p className="error-booking"></p>
+                </li>
+              )
+            }))
+            }
 
         </ul>
+      </div>
 
 
 

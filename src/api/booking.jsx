@@ -1,9 +1,10 @@
 import axios from "axios";
 import { config } from "../config";
-const token = window.localStorage.getItem("harmony-token")
+// const token = window.localStorage.getItem("harmony-token")
 
 
 export const getAllBookings = () => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/booking/all`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllBookings -->", res)
@@ -15,6 +16,7 @@ export const getAllBookings = () => {
 }
 
 export const getAllBookingsByBookerId = (booker_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/booking/all/${booker_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllBookingsByBookerId -->", res)
@@ -26,6 +28,7 @@ export const getAllBookingsByBookerId = (booker_id) => {
 }
 
 export const getAllBookingsByAuthorId = (author_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/booking/all/activities/${author_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllBookingsByAuthorId -->", res)
@@ -37,6 +40,7 @@ export const getAllBookingsByAuthorId = (author_id) => {
 }
 
 export const getOneBooking = (id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/booking/one/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getOneBooking -->", res)
@@ -49,6 +53,7 @@ export const getOneBooking = (id) => {
 
 
 export const saveOneBooking = (data) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.post(`${config.api_url}/api/v1/booking/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios saveOneBooking -->", res)
@@ -60,6 +65,7 @@ export const saveOneBooking = (data) => {
 }
 
 export const acceptBooking = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/booking/accept-booking/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios acceptBooking -->", res)
@@ -71,6 +77,7 @@ export const acceptBooking = (data, id) => {
 }
 
 export const deleteOneBooking = (id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.delete(`${config.api_url}/api/v1/booking/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios deleteOneBooking -->", res)
@@ -82,6 +89,7 @@ export const deleteOneBooking = (id) => {
 }
 
 export const validateAchievementByBeneficiary = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/beneficiary/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios validateAchievementByBeneficiary -->", res)
@@ -93,6 +101,7 @@ export const validateAchievementByBeneficiary = (data, id) => {
 }
 
 export const validateAchievementByProvider = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/booking/validate-achievement/provider/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios validateAchievementByProvider -->", res)

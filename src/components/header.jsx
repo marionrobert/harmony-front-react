@@ -59,8 +59,8 @@ const Header = () => {
       </nav>
       <div className='connexion-menu' onMouseLeave={closeConnexionMenu}>
         <FontAwesomeIcon icon={faXmark} onClick={closeConnexionMenu}/>
-        <button><Link to='/login' onClick={closeConnexionMenu}  className="connexion-menu-link">Se connecter</Link></button>
-        <button><Link to='/register' onClick={closeConnexionMenu} className="connexion-menu-link">Créer un compte</Link></button>
+        <Link to='/login' onClick={closeConnexionMenu}  className="connexion-menu-link">Se connecter</Link>
+        <Link to='/register' onClick={closeConnexionMenu} className="connexion-menu-link">Créer un compte</Link>
       </div>
     </header>
   )

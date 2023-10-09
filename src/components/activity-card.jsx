@@ -37,13 +37,13 @@ const ActivityCard = (props) => {
         { author !== null && author.avatar !== null ?
           <CloudinaryContext cloudName="dptcisxbs" className="activity-card-avatar">
             <div>
-              <Image className="activity-card-avatar" publicId={author.avatar} >
+              <Image className="activity-card-avatar" publicId={author.avatar} alt="Photo de l'utilisateur proposant l'activité">
                 <Transformation quality="auto" fetchFormat="auto" />
               </Image>
             </div>
           </CloudinaryContext>
           :
-          <img src={`${config.pict_url}/user.png`} className="activity-card-avatar"/>
+          <img src={`${config.pict_url}/user.png`} className="activity-card-avatar" alt="Icône d'utilisateur par défault"/>
         }
         <div className="activity-card-data">
           { activity.title.length > 50 ? <h3>{activity.title.substring(0, 50)}...</h3> : <h3>{activity.title}</h3> }
