@@ -255,10 +255,10 @@ const Profile = () => {
                 tabIndex={"0"}
                 aria-labelledby='tab-1'
               >
-                {activities.some(activity => activity.status === "en ligne") ? (
+                {activities.some(activity => activity.status === "online") ? (
                   <ul>
                     {activities.map(activity => {
-                      if (activity.status === "en ligne") {
+                      if (activity.status === "online") {
                         return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                       } else {
                         return null
@@ -274,10 +274,10 @@ const Profile = () => {
                 tabIndex={"0"}
                 aria-labelledby='tab-2'
               >
-                {activities.some(activity => activity.status === "hors ligne") ? (
+                {activities.some(activity => activity.status === "offline") ? (
                   <ul>
                     {activities.map(activity => {
-                      if (activity.status === "hors ligne") {
+                      if (activity.status === "offline") {
                         return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                       } else {
                         return null
@@ -293,12 +293,12 @@ const Profile = () => {
                 tabIndex={"0"}
                 aria-labelledby='tab-3'
               >
-                {activities.some((activity) => (activity.status === "en attente de validation" || activity.status === "invalidé")) ? (
+                {activities.some((activity) => (activity.status === "waiting_for_validation" || activity.status === "invalidated")) ? (
                   <ul>
                     {activities.map(activity => {
-                      if (activity.status === "en attente de validation") {
+                      if (activity.status === "waiting_for_validation") {
                         return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
-                      } else if (activity.status === "invalidé") {
+                      } else if (activity.status === "invalidated") {
                         return (<li key={activity.id}><Link style={{ color: "indianred" }} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                       } else {
                         return null
@@ -354,10 +354,10 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-1"
               >
-                {comments.some(comment => comment.status === "validé") ? (
+                {comments.some(comment => comment.status === "validated") ? (
                   <ul>
                     {comments.map(comment => {
-                      if (comment.status === "validé") {
+                      if (comment.status === "validated") {
                         return (<li key={comment.id}><Link to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else {
                         return null
@@ -373,12 +373,12 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-2"
               >
-                {comments.some((comment) => (comment.status === "en attente de validation" || comment.status === "invalidé")) ? (
+                {comments.some((comment) => (comment.status === "waiting_for_validation" || comment.status === "invalidated")) ? (
                   <ul>
                     {comments.map(comment => {
-                      if (comment.status === "en attente de validation") {
+                      if (comment.status === "waiting_for_validation") {
                         return (<li key={comment.id}><Link to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
-                      } else if (comment.status === "invalidé") {
+                      } else if (comment.status === "invalidated") {
                         return (<li key={comment.id}><Link style={{ color: "indianred" }} to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else {
                         return null
@@ -449,10 +449,10 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-1"
               >
-                {myBookings.some(booking => booking.status === "en attente de réalisation") ? (
+                {myBookings.some(booking => booking.status === "waiting_for_completion") ? (
                   <ul>
                     {myBookings.map(booking => {
-                      if (booking.status === "en attente de réalisation") {
+                      if (booking.status === "waiting_for_completion") {
                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
@@ -468,10 +468,10 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-2"
               >
-                {myBookings.some(booking => booking.status === "en attente d'acceptation") ? (
+                {myBookings.some(booking => booking.status === "waiting_for_acceptance") ? (
                   <ul>
                     {myBookings.map(booking => {
-                      if (booking.status === "en attente d'acceptation") {
+                      if (booking.status === "waiting_for_acceptance") {
                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
@@ -487,10 +487,10 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-3"
               >
-                {myBookings.some(booking => booking.status === "terminée") ? (
+                {myBookings.some(booking => booking.status === "finished") ? (
                   <ul>
                     {myBookings.map(booking => {
-                      if (booking.status === "terminée") {
+                      if (booking.status === "finished") {
                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
@@ -561,10 +561,10 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-1"
               >
-                {bookingsForMyActivities.some(booking => booking.status === "en attente de réalisation") ? (
+                {bookingsForMyActivities.some(booking => booking.status === "waiting_for_completion") ? (
                   <ul>
                     {bookingsForMyActivities.map(booking => {
-                      if (booking.status === "en attente de réalisation") {
+                      if (booking.status === "waiting_for_completion") {
                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
@@ -580,10 +580,10 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-2"
               >
-                {bookingsForMyActivities.some(booking => booking.status === "en attente d'acceptation") ? (
+                {bookingsForMyActivities.some(booking => booking.status === "waiting_for_acceptance") ? (
                   <ul>
                     {bookingsForMyActivities.map(booking => {
-                      if (booking.status === "en attente d'acceptation") {
+                      if (booking.status === "waiting_for_acceptance") {
                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null
@@ -599,10 +599,10 @@ const Profile = () => {
                 tabIndex="0"
                 aria-labelledby="tab-3"
               >
-                {bookingsForMyActivities.some(booking => booking.status === "terminée") ? (
+                {bookingsForMyActivities.some(booking => booking.status === "finished") ? (
                   <ul>
                     {bookingsForMyActivities.map(booking => {
-                      if (booking.status === "terminée") {
+                      if (booking.status === "finished") {
                         return (<li key={booking.id}><Link to={`/booking/${booking.id}`}>Réservation n°{booking.id} - {booking.activity_title}</Link></li>)
                       } else {
                         return null

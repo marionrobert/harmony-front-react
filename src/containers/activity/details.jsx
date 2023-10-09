@@ -79,7 +79,7 @@ const Details = () => {
   const changeActivityStatus = (e) => {
     e.preventDefault()
     setMsg(null)
-    const newStatus = (activity.status === "en ligne" ? "hors ligne" : "en ligne")
+    const newStatus = (activity.status === "online" ? "offline" : "online")
     updateOnlineOfflineStatus({status: newStatus}, params.id)
     .then((res) => {
       if (res.status === 200){
@@ -106,7 +106,7 @@ const Details = () => {
 
   if ( activity !== null && author !== null && user !== null) {
 
-    if (author.id !== user.data.id && activity.status !== "en ligne"){
+    if (author.id !== user.data.id && activity.status !== "online"){
       return (<Navigate to={`/activities`} />)
     } else {
       return (
@@ -150,7 +150,7 @@ const Details = () => {
                 <p><FontAwesomeIcon icon={faClock}/> Durée : {activity.duration} minutes</p>
                 <p><FontAwesomeIcon icon={faCoins}/> { activity.authorIsProvider === parseInt("1") ? "Coût" : "Gain"} : {activity.points} points</p>
               </div>
-              { activity.status === "en ligne" && activity.author_id !== user.data.id &&
+              { activity.status === "online" && activity.author_id !== user.data.id &&
                 <div className="zone-to-book" >
                   <button onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
                     Je réserve !
@@ -161,7 +161,7 @@ const Details = () => {
             </div>
 
 
-          { activity.status === "en ligne" && comments.length > 0 &&
+          { activity.status === "online" && comments.length > 0 &&
             <article className="article-comments">
               <h2>Ils.Elles ont testé cette activité et témoignent!</h2>
               {comments.slice(-10).map(comment => {
@@ -172,12 +172,12 @@ const Details = () => {
 
           { author.id === user.data.id &&
             <article className="author-zone">
-              <p>Statut de l'annonce: {activity.status}</p>
-              { (activity.status === "en ligne" || activity.status === "hors ligne") &&
+              <p>Statut de l'annonce: {activity.status === "online" ? "en ligne" : activity.status === "offline" ? "hors ligne" : activity.status === "waiting_for_validation" ? "en attente de validation" : "invalidé"}</p>
+              { (activity.status === "online" || activity.status === "offline") &&
               <div className="container">
-                <p>Mettre mon annonce {activity.status === "en ligne" ? "hors ligne" : "en ligne"} : </p>
+                <p>Mettre mon annonce {activity.status === "online" ? "hors ligne" : "en ligne"} : </p>
                 <label className="switch" htmlFor="checkbox">
-                  <input type="checkbox" id="checkbox" checked = {activity.status === "en ligne" ? true : false} onChange={(e) => {changeActivityStatus(e)}}/>
+                  <input type="checkbox" id="checkbox" checked = {activity.status === "online" ? true : false} onChange={(e) => {changeActivityStatus(e)}}/>
                   <div className="slider round"></div>
                 </label>
                 <p style={{color: "red"}}>{msg}</p>
