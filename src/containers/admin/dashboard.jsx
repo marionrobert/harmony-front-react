@@ -224,18 +224,8 @@ const Admin = () => {
 
       <hr />
 
-      <article className="admin-categories">
-        <div className="create-new-category">
-          <h2>Créer une nouvelle catégorie</h2>
-          { errorCreateCategory !== null && <p>{errorCreateCategory}</p>}
-          <form onSubmit={(e)=>{createCategory(e)}}>
-            <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} placeholder={"Titre de la catégorie"} />
-            <button>Valider</button>
-          </form>
-        </div>
-
-        { categories.length !== 0 ?
-        <div className="manage-categories">
+      { categories.length !== 0 ?
+        <article className="manage-categories">
           <h2>Gestion des catégories</h2>
           { error !== null && <p>{error}</p>}
             <table >
@@ -259,15 +249,22 @@ const Admin = () => {
                 })}
               </tbody>
             </table>
-        </div>
-          :
-        <div>
+        </article>
+        :
+        <article>
           <h2>Gestion des catégories</h2>
           <p>Aucune catégorie trouvée, veuillez recharger la page.</p>
-        </div>
-        }
-      </article>
+        </article>
+      }
 
+      <article className="create-new-category">
+        <h2>Créer une nouvelle catégorie</h2>
+          { errorCreateCategory !== null && <p>{errorCreateCategory}</p>}
+          <form onSubmit={(e)=>{createCategory(e)}}>
+            <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} placeholder={"Titre de la catégorie"} />
+            <button>Valider</button>
+          </form>
+      </article>
 
     </section>
   )

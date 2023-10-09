@@ -155,22 +155,22 @@ const Register = () => {
 
       <form onSubmit={(e)=>{handleSubmit(e)}} id="form-register">
         <label htmlFor="firstName">Votre prénom</label>
-        <input type="text" name="firstName" onChange={handleChange} />
+        <input type="text" name="firstName" id="firstName" onChange={handleChange} />
         {errorFirstName !== null && <p className="error">{errorFirstName}</p>}
         <label htmlFor="lastName">Votre nom</label>
-        <input type="text" name="lastName" onChange={handleChange} />
+        <input type="text" name="lastName" id="lastName" onChange={handleChange} />
         {errorLastName !== null && <p className="error">{errorLastName}</p>}
         <label htmlFor="email">Votre adresse email</label>
-        <input type="text" name="email" onChange={handleChange} />
+        <input type="text" name="email" id="email" onChange={handleChange} />
         {errorEmail !== null && <p className="error">{errorEmail}</p>}
         <label htmlFor="password">Mot de passe</label>
-        <input type="password" name="password" onChange={handleChange} />
+        <input type="password" name="password" id="password" onChange={handleChange} />
         {errorPassword !== null && <p className="error">{errorPassword}</p>}
         <label htmlFor="confirmedPassword">Confirmation du mot de passe</label>
-        <input type="password" name="confirmedPassword" onChange={handleChange} />
+        <input type="password" name="confirmedPassword" id="confirmedPassword" onChange={handleChange} />
         {errorConfirmedPassword !== null && <p className="error">{errorConfirmedPassword}</p>}
         <label htmlFor="phone">Votre numéro de téléphone</label>
-        <input type="text" name="phone" onChange={handleChange} />
+        <input type="text" name="phone" id="phone" onChange={handleChange} />
         {errorPhone !== null && <p className="error">{errorPhone}</p>}
         <button type="submit">Valider</button>
       </form>

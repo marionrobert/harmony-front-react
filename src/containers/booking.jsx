@@ -114,9 +114,28 @@ const Booking = () => {
   }
 
   const declineBooking = (e) => {
+    console.log("coucou")
     e.preventDefault()
     let input = document.querySelector(`input#answer-no`)
+    console.log(input)
     input.checked = true;
+    console.log("toto")
+    console.log(booking.booking_id)
+    deleteOneBooking(booking.booking_id)
+    .then((res)=>{
+      console.log(res)
+      if (res.status === 200){
+        setRedirect(true)
+      } else {
+        setErrorForm(res.msg)
+      }
+    })
+    .catch(() => {setErrorForm("Une erreur est survenue")})
+  }
+
+
+  const cancelledBooking = (e) => {
+    e.preventDefault()
     deleteOneBooking(booking.booking_id)
     .then((res)=>{
       if (res.status === 200){
@@ -127,6 +146,8 @@ const Booking = () => {
     })
     .catch(() => {setErrorForm("Une erreur est survenue")})
   }
+
+
 
   const confirm = (e) => {
     e.preventDefault()
@@ -355,6 +376,7 @@ const Booking = () => {
         { bookingStatus === "en attente d'acceptation" &&
           <article className="waiting">
             <h3>La réservation est {bookingStatus}</h3>
+
             {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
               <fieldset>
                 <legend>Souhaitez-vous accepter la réservation?</legend>
@@ -366,7 +388,7 @@ const Booking = () => {
               </fieldset>
             }
             {parseInt(user.data.id) === parseInt(booking.booker_id) &&
-              <button onClick={(e) =>{declineBooking(e)}}>Annuler ma demande de réservation</button>
+              <button onClick={(e) =>{cancelledBooking(e)}}>Annuler ma demande de réservation</button>
             }
           </article>
         }

@@ -1,6 +1,6 @@
 import axios from "axios"
 import {config} from "../config"
-const token = window.localStorage.getItem("harmony-token")
+// const token = window.localStorage.getItem("harmony-token")
 
 export const getAllActivities = () => {
   return axios.get(`${config.api_url}/api/v1/activity/all`)
@@ -25,6 +25,7 @@ export const getAllOnlineActivities = () =>{
 }
 
 export const getAllWaitingActivities = () => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/activity/all/waiting`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllWaitingActivities -->", res)
@@ -36,6 +37,7 @@ export const getAllWaitingActivities = () => {
 }
 
 export const getAllActivitiesByAuthor = (author_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/activity/all/author/${author_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllActivitiesByAuthor -->", res)
@@ -58,6 +60,7 @@ export const getAllActivitiesByAuthorIsProvider = () => {
 }
 
 export const getOneActivity = (id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/activity/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getOneActivity -->", res)
@@ -69,6 +72,7 @@ export const getOneActivity = (id) => {
 }
 
 export const saveOneActivity = (data) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.post(`${config.api_url}/api/v1/activity/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios saveOneActivity -->", res)
@@ -91,6 +95,7 @@ export const getCoords = (address, city)=>{
 }
 
 export const updateOneActivity = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/activity/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios updateOneActivity -->", res)
@@ -102,6 +107,7 @@ export const updateOneActivity = (data, id) => {
 }
 
 export const updateOnlineOfflineStatus = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/activity/update/status/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios updateOnlineOfflineStatus -->", res)
@@ -113,6 +119,7 @@ export const updateOnlineOfflineStatus = (data, id) => {
 }
 
 export const moderateOneActivity = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/activity/moderate/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios moderateOneActivity -->", res)
@@ -124,6 +131,7 @@ export const moderateOneActivity = (data, id) => {
 }
 
 export const deleteOneActivity = (id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.delete(`${config.api_url}/api/v1/activity/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios deleteOneActivity -->", res)
@@ -135,6 +143,7 @@ export const deleteOneActivity = (id) => {
 }
 
 export const getAllActivitiesWithFilters = (data) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.post(`${config.api_url}/api/v1/activtity/all/filter`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllActivitiesWithFilters -->", res)
@@ -146,6 +155,7 @@ export const getAllActivitiesWithFilters = (data) => {
 }
 
 export const updatePicture = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/activity/update-picture/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updatePicture -->", res)

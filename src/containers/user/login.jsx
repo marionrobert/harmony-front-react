@@ -69,9 +69,9 @@ const Login = () => {
       {error !== null && <p className="error">{error}</p>}
       <form onSubmit={(e)=>{handleSubmit(e)}}>
         <label htmlFor="email">Votre adresse email</label>
-        <input type="text" name="email" onChange={handleChange} required/>
+        <input type="text" name="email" id="email" onChange={handleChange} required/>
         <label htmlFor="password">Mot de passe</label>
-        <input type="password" name="password" onChange={handleChange} required/>
+        <input type="password" name="password" id="password" onChange={handleChange} required/>
         <button type="submit" disabled={disabled}>Se connecter</button>
       </form>
       <Link to="/forgot">Mot de passe oublié ?</Link>

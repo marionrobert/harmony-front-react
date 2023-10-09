@@ -1,9 +1,10 @@
 import axios from "axios";
 import { config } from "../config";
-const token = window.localStorage.getItem("harmony-token")
+// const token = window.localStorage.getItem("harmony-token")
 
 
 export const getAllComments = () => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/comment/all`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios getAllComments -->", res)
@@ -15,6 +16,7 @@ export const getAllComments = () => {
 }
 
 export const getAllWaitingComments = () => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/comment/all/waiting`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllWaitingComments -->", res)
@@ -26,6 +28,7 @@ export const getAllWaitingComments = () => {
 }
 
 export const getOneCommentById = (id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/comment/one/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getOneCommentById -->", res)
@@ -37,6 +40,7 @@ export const getOneCommentById = (id) => {
 }
 
 export const getOneCommentByBookingId = (booking_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/comment/one/booking/${booking_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getOneCommentByBookingId -->", res)
@@ -48,6 +52,7 @@ export const getOneCommentByBookingId = (booking_id) => {
 }
 
 export const getAllCommentsByActivityId = (activity_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/comment/all/activity/${activity_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllCommentsByActivityId -->", res)
@@ -70,6 +75,7 @@ export const getAllHighScoreComments = () => {
 }
 
 export const saveOneComment = (data) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.post(`${config.api_url}/api/v1/comment/save`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios saveOneComment -->", res)
@@ -81,6 +87,7 @@ export const saveOneComment = (data) => {
 }
 
 export const updateOneComment = (data, id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/comment/update/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios updateOneComment -->", res)
@@ -92,6 +99,7 @@ export const updateOneComment = (data, id) => {
 }
 
 export const deleteOneComment = (id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.delete(`${config.api_url}/api/v1/comment/delete/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios deleteOneComment -->", res)
@@ -103,6 +111,7 @@ export const deleteOneComment = (id) => {
 }
 
 export const moderateOneComment = (id, data) =>{
+  const token = window.localStorage.getItem("harmony-token")
   return axios.put(`${config.api_url}/api/v1/comment/moderate/${id}`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
     console.log("res de requête axios updateOneComment -->", res)
@@ -114,6 +123,7 @@ export const moderateOneComment = (id, data) =>{
 }
 
 export const getAllCommentsByAuthorId = (author_id) => {
+  const token = window.localStorage.getItem("harmony-token")
   return axios.get(`${config.api_url}/api/v1/comment/all/author/${author_id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios getAllCommentsByAuthorId -->", res)
