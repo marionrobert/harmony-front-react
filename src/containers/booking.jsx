@@ -101,11 +101,11 @@ const Booking = () => {
     e.preventDefault()
     let input = document.querySelector(`input#answer-yes`)
     input.checked = true;
-    acceptBooking({"status": "en attente de réalisation"}, booking.booking_id)
+    acceptBooking({"status": "waiting_for_completion"}, booking.booking_id)
     .then((res)=>{
       if (res.status === 200){
         setBooking(res.bookingUpdated)
-        setBookingStatus("en attente de réalisation")
+        setBookingStatus("waiting_for_completion")
       } else {
         setErrorForm(res.msg)
       }
@@ -114,16 +114,12 @@ const Booking = () => {
   }
 
   const declineBooking = (e) => {
-    console.log("coucou")
     e.preventDefault()
     let input = document.querySelector(`input#answer-no`)
-    console.log(input)
     input.checked = true;
-    console.log("toto")
-    console.log(booking.booking_id)
     deleteOneBooking(booking.booking_id)
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       if (res.status === 200){
         setRedirect(true)
       } else {
@@ -151,10 +147,9 @@ const Booking = () => {
 
   const confirm = (e) => {
     e.preventDefault()
-    // console.log("wants to confirm")
     setSwitchChecked(true)
     if (user.data.id === booking.provider_id) {
-      validateAchievementByProvider({"status": "terminée"}, booking.booking_id)
+      validateAchievementByProvider({"status": "finished"}, booking.booking_id)
       .then((res) => {
         if (res.status === 200){
           setProviderValidation(1)
@@ -167,7 +162,7 @@ const Booking = () => {
       })
       .catch(err => setErrorForm("Une erreur est survenue."))
     } else {
-      validateAchievementByBeneficiary({"status": "terminée"}, booking.booking_id)
+      validateAchievementByBeneficiary({"status": "finished"}, booking.booking_id)
       .then((res) => {
         if (res.status === 200){
           setBeneficiaryValidation(1)
@@ -209,7 +204,7 @@ const Booking = () => {
       saveOneComment(data)
       .then((res) => {
         if (res.status === 200){
-          console.log(res)
+          // console.log(res)
           getOneCommentByBookingId(params.id)
           .then((response) => {
             if (response.status === 200){
@@ -338,7 +333,7 @@ const Booking = () => {
                 <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
               }
               <p>{provider.firstName} {provider.lastName.substring(0, 1)}.</p>
-              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faPhone}/> {provider.phone}</p>}
+              {bookingStatus === "waiting_for_completion" && <p><FontAwesomeIcon icon={faPhone}/> {provider.phone}</p>}
             </div>
             :
             <div>
@@ -360,7 +355,7 @@ const Booking = () => {
                 <img src={`${config.pict_url}/user.png`} className="profile-avatar" alt="Icône d'utilisateur" />
               }
               <p>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</p>
-              {bookingStatus === "en attente de réalisation" && <p><FontAwesomeIcon icon={faPhone}/> {beneficiary.phone}</p>}
+              {bookingStatus === "waiting_for_completion" && <p><FontAwesomeIcon icon={faPhone}/> {beneficiary.phone}</p>}
             </div>
             :
             <div>
@@ -373,9 +368,9 @@ const Booking = () => {
 
         <hr/>
 
-        { bookingStatus === "en attente d'acceptation" &&
+        { bookingStatus === "waiting_for_acceptance" &&
           <article className="waiting">
-            <h3>La réservation est {bookingStatus}</h3>
+            <h3>La réservation est en attente d'acceptation</h3>
 
             {parseInt(user.data.id) !== parseInt(booking.booker_id) &&
               <fieldset>
@@ -393,14 +388,14 @@ const Booking = () => {
           </article>
         }
 
-        { bookingStatus === "en attente de réalisation" &&
+        { bookingStatus === "waiting_for_completion" &&
           <article className="confirmer">
             <h2>Avez-vous déjà réalisé l'activité ?</h2>
             {/* provider */}
             { user.data.id === booking.provider_id ?
               <div>
                 { providerValidation === 1 ?
-                <p>Vous avez confirmé la réalisation de l'activité.</p>
+                <p>Vous avez confirmé la réalisation de l'activité. <FontAwesomeIcon icon={faThumbsUp} /></p>
                 :
                 <div>
                     <p>Souhaitez-vous confirmer la réalisation de l'activité ?</p>
@@ -415,7 +410,7 @@ const Booking = () => {
             :
             <div>
               { providerValidation === 1 ?
-                  <p><FontAwesomeIcon icon={faThumbsUp} /> { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } a confirmé la réalisation de l'activité.</p>
+                  <p> { provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } a confirmé la réalisation de l'activité. <FontAwesomeIcon icon={faThumbsUp} /></p>
                   :
                   <p>{ provider !== null ? <span>{provider.firstName} {provider.lastName.substring(0, 1)}.</span> : <span>Inconnu</span> } n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
@@ -425,7 +420,7 @@ const Booking = () => {
             { user.data.id === booking.beneficiary_id ?
               <div>
                 { beneficiaryValidation === 1 ?
-                <p>Vous avez confirmé la réalisation de l'activité.</p>
+                <p>Vous avez confirmé la réalisation de l'activité. <FontAwesomeIcon icon={faThumbsUp} /></p>
                 :
                 <div>
                     <p>Souhaitez-vous confirmer la réalisation de l'activité ?</p>
@@ -440,7 +435,7 @@ const Booking = () => {
             :
             <div>
               { beneficiaryValidation === 1 ?
-                  <p><FontAwesomeIcon icon={faThumbsUp} /> { beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} a confirmé la réalisation de l'activité.</p>
+                  <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} a confirmé la réalisation de l'activité. <FontAwesomeIcon icon={faThumbsUp} /></p>
                   :
                   <p>{ beneficiary !== null ? <span>{beneficiary.firstName} {beneficiary.lastName.substring(0, 1)}.</span> : <span>Inconnu</span>} n'a pas encore confirmé la réalisation de l'activité.</p>}
             </div>
@@ -449,18 +444,18 @@ const Booking = () => {
           </article>
         }
 
-        { bookingStatus === "terminée" && comment !== null && comment.status === "validé" &&
+        { bookingStatus === "finished" && comment !== null && comment.status === "validated" &&
             <article className="booking-comment">
               <h2>Découvrez le commentaire associé à cette réservation.</h2>
               <CommentCard key={comment.id} comment={comment} />
             </article>
         }
 
-        { bookingStatus === "terminée" && comment !== null && comment.status !== "validé" && user.data.id === booking.booker_id &&
+        { bookingStatus === "finished" && comment !== null && comment.status !== "validated" && user.data.id === booking.booker_id &&
             <article className="finished">
               <h2>L'activité est maintenant terminée.</h2>
               <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
-              { comment.status === "en attente de validation" ?
+              { comment.status === "waiting_for_validation" ?
                 <p className="message-comment">Votre commentaire est en attente de validation. Vous pouvez encore le modifier.</p>
                 :
                 <p>Votre commentaire a été invalidé par l'administration. Vous pouvez le modifier.</p> }
@@ -488,7 +483,7 @@ const Booking = () => {
             </article>
         }
 
-        { bookingStatus === "terminée" && comment === null && user.data.id === booking.booker_id &&
+        { bookingStatus === "finished" && comment === null && user.data.id === booking.booker_id &&
           <article className="finished">
             <h2>L'activité est maintenant terminée.</h2>
             <h2>Vous avez passé un bon moment? Faîtes passer le message!</h2>
@@ -516,7 +511,7 @@ const Booking = () => {
           </article>
         }
 
-        { bookingStatus === "terminée" && (comment === null || (comment !== null && comment.status !== "validé")) && user.data.id !== booking.booker_id &&
+        { bookingStatus === "finished" && (comment === null || (comment !== null && comment.status !== "validated")) && user.data.id !== booking.booker_id &&
           <article>
             <h2>L'activité est maintenant terminée.</h2>
             { provider !== null & beneficiary !== null &&

@@ -12,7 +12,7 @@ const ModerateActivity = () => {
   const dispatch = useDispatch()
   const params = useParams()
   const [activity, setActivity] = useState(null)
-  const [status, setStatus] = useState("invalidé")
+  const [status, setStatus] = useState("invalidated")
   const [explanation, setExplanation] = useState("")
   const [redirect, setRedirect] = useState(null)
   const [errorForm, setErrorForm] = useState(null)
@@ -38,7 +38,7 @@ const ModerateActivity = () => {
     if (status === "") {
       setErrorStatus("Veuillez choisir une option.")
     } else {
-      if (status === "invalidé" && explanation === "") {
+      if (status === "invalidated" && explanation === "") {
         setErrorExplanation("Si vous ne validez pas le commentaire, l'expliquation est requise.")
       } else {
         let data = {
@@ -99,9 +99,9 @@ const ModerateActivity = () => {
           {errorForm !== null && <p className="error">{errorForm}</p>}
           <fieldset>
             <legend>Souhaitez-vous valider la publication de l'activité ?</legend>
-            <input name="status" type="radio" value="en ligne" checked={status === "en ligne"} onChange={(e) =>{handleChange(e)}} />
+            <input name="status" type="radio" value="online" checked={status === "online"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Oui</label>
-            <input name="status" type="radio" value="invalidé" checked={status === "invalidé"} onChange={(e) =>{handleChange(e)}} />
+            <input name="status" type="radio" value="invalidated" checked={status === "invalidated"} onChange={(e) =>{handleChange(e)}} />
             <label htmlFor="status">Non</label>
             {errorStatus !== null && <p className="error">{errorStatus}</p>}
           </fieldset>
@@ -109,7 +109,7 @@ const ModerateActivity = () => {
             <span>
               <label htmlFor="explanation">Indiquez à l'utilisateur ce qui est à modifier pour que l'annonce soit publiée.</label>
             </span>
-            <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "en ligne" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
+            <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "online" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
             {errorExplanation !== null && <p className="error">{errorExplanation}</p>}
           </div>
           <button type="submit">Envoyer</button>
