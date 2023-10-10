@@ -148,7 +148,7 @@ const Register = () => {
   }
 
   return (
-    <section className="login-register">
+    <section className="login-register-edit">
       <h1>Créer votre compte Harmony</h1>
       { error !== null && <p className="error">{error}</p>}
       { success !== null && <p>{success}</p>}

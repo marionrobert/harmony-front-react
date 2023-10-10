@@ -63,7 +63,7 @@ const Login = () => {
   }
 
   return (
-    <section className="login-register">
+    <section className="login-register-edit">
       {redirect && <Navigate to="/" />}
       <h1>Se connecter</h1>
       {error !== null && <p className="error">{error}</p>}
