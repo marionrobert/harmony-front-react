@@ -72,7 +72,7 @@ const Login = () => {
         <input type="text" name="email" id="email" onChange={handleChange} required/>
         <label htmlFor="password">Mot de passe</label>
         <input type="password" name="password" id="password" onChange={handleChange} required/>
-        <button type="submit" disabled={disabled}>Se connecter</button>
+        <button aria-label="Se connecter" type="submit" disabled={disabled}>Se connecter</button>
       </form>
       <Link to="/forgot">Mot de passe oublié ?</Link>
       <Link to="/register">Vous n'avez pas de compte ? Créez-en un!</Link>

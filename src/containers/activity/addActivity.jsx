@@ -309,12 +309,12 @@ const AddActivity = () => {
           </select>
           {errorDuration !== null && <p className="error">{errorDuration}</p>}
 
-          <button onClick={(e) => {showWidget(e)}} >
+          <button aria-label="Ajouter une photo" onClick={(e) => {showWidget(e)}} >
             Ajouter une photo
           </button>
           {successPhoto === null && errorPhoto !== null && <p className="error">{errorPhoto}</p>}
           {successPhoto !== null && <p style={{color:"green"}}>{successPhoto}</p>}
-          <button className="validate" type="submit">Valider</button>
+          <button aria-label="Valider la création de l'activité" className="validate" type="submit">Valider</button>
         </form>
       }
     </section>

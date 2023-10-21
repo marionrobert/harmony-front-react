@@ -165,7 +165,7 @@ const Admin = () => {
                     </td>
                     <td>{moment(activity.updatingTimestamps).locale("fr").format("DD/MM/YYYY")}</td>
                     <td>
-                      <Link to={`/activity/moderate/${activity.id}`}><FontAwesomeIcon icon={faEye}/></Link>
+                      <Link to={`/activity/moderate/${activity.id}`} aria-label="Cliquer pour consulter l'activité à modérer" ><FontAwesomeIcon icon={faEye}/></Link>
                     </td>
 
                   </tr>
@@ -207,7 +207,7 @@ const Admin = () => {
                     </td>
                     <td>{moment(comment.creationTimestamp).locale("fr").format("DD/MM/YYYY")}</td>
                     <td>
-                      <Link to={`/comment/moderate/${comment.id}`}><FontAwesomeIcon icon={faEye}/></Link>
+                      <Link to={`/comment/moderate/${comment.id}`} aira-label="Cliquer pour consulter le commentaire à modérer"><FontAwesomeIcon icon={faEye}/></Link>
                     </td>
                   </tr>
                 )
@@ -240,10 +240,10 @@ const Admin = () => {
                         </form>
                       </td>
                       <td>
-                        <FontAwesomeIcon icon={faPenToSquare} className={`fa-screwdriver-category_${category.id}`} onClick={() => {displayModifyZone(category.id, category.title)}}/>
-                        <FontAwesomeIcon icon={faSquareCheck} className={`fa-check-category_${category.id}`} style={{"display": "none"}} onClick={(e) => {handleSubmit(e, category.id )}}/>
+                        <FontAwesomeIcon icon={faPenToSquare} aria-label='Cliquer pour modifier la catégorie' className={`fa-screwdriver-category_${category.id}`} onClick={() => {displayModifyZone(category.id, category.title)}}/>
+                        <FontAwesomeIcon icon={faSquareCheck} aria-label='Cliquer pour valider la modification de la catégorie' className={`fa-check-category_${category.id}`} style={{"display": "none"}} onClick={(e) => {handleSubmit(e, category.id )}}/>
                       </td>
-                      <td><FontAwesomeIcon icon={faTrashCan} onClick={() => {deleteCategory(category.id)}}/></td>
+                      <td><FontAwesomeIcon icon={faTrashCan} aria-label="Cliquer pour supprimer la catégorie" onClick={() => {deleteCategory(category.id)}}/></td>
                     </tr>
                   )
                 })}
@@ -262,7 +262,7 @@ const Admin = () => {
           { errorCreateCategory !== null && <p>{errorCreateCategory}</p>}
           <form onSubmit={(e)=>{createCategory(e)}}>
             <input name="newCategory" onChange={(e) => setNewCategory(e.currentTarget.value)} placeholder={"Titre de la catégorie"} />
-            <button>Valider</button>
+            <button aria-label="Valider la création de la nouvelle catégorie" >Valider</button>
           </form>
       </article>
 

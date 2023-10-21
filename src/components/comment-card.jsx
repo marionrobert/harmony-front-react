@@ -2,7 +2,7 @@ import { config } from "../config"
 import { getOneUserById } from "../api/user"
 import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faStar as fullStar} from "@fortawesome/free-solid-svg-icons"
+import { faStar as fullStar } from "@fortawesome/free-solid-svg-icons"
 import { faStar } from "@fortawesome/free-regular-svg-icons"
 import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 

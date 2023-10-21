@@ -113,15 +113,15 @@ const EditUser = () => {
 
       <form onSubmit={(e) => {handleSubmit(e)}}>
         <label htmlFor="firstName">Votre prénom</label>
-        <input name="firstName" defaultValue={firstName} required onChange={handleChange}></input>
+        <input name="firstName" id="firstName" defaultValue={firstName} required onChange={handleChange}></input>
         {errorFirstName !== null && <p className="error">{errorFirstName}</p>}
-        <label htmlFor="lastName">Votre nom</label>
-        <input name="lastName" defaultValue={lastName} required onChange={handleChange}></input>
+        <label htmlFor="lastName" >Votre nom</label>
+        <input name="lastName" id="lastName" defaultValue={lastName} required onChange={handleChange}></input>
         {errorLastName !== null && <p className="error">{errorLastName}</p>}
-        <label htmlFor="phone">Votre numéro de téléphone</label>
-        <input name="phone" defaultValue={phone} required onChange={handleChange}></input>
+        <label htmlFor="phone" >Votre numéro de téléphone</label>
+        <input name="phone" id="phone" defaultValue={phone} required onChange={handleChange}></input>
         {errorPhone !== null && <p className="error">{errorPhone}</p>}
-        <button>Enregistrer</button>
+        <button aria-label="Valider la modification de mes informations personnelles" >Enregistrer</button>
       </form>
       { error !== null && <p style={{"color": "indianred"}}>{error}</p>}
     </section>)

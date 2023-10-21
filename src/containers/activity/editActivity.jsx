@@ -339,20 +339,20 @@ const EditActivity = () => {
                 </Image>
               </div>
             </CloudinaryContext>
-            <button onClick={(e) => {showWidget(e)}} >
+            <button aria-label="Modifier la photo" onClick={(e) => {showWidget(e)}} >
               Modifier la photo
             </button>
           </div>
             :
           <div>
-            <button onClick={(e) => {showWidget(e)}} >
+            <button aria-label="Ajouter une photo" onClick={(e) => {showWidget(e)}} >
               Ajouter une photo
             </button>
           </div>
         }
         {successPhoto === null && errorPhoto !== null && <p className="error">{errorPhoto}</p>}
         {successPhoto !== null && <p style={{color:"green"}}>{successPhoto}</p>}
-        <button className="validate" type="submit">Valider</button>
+        <button aria-label="Modifier l'activité" className="validate" type="submit">Valider</button>
       </form>
       }
 

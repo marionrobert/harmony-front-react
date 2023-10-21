@@ -1,37 +1,13 @@
-// #root {
-//   max-width: 1280px;
-//   margin: 0 auto;
-//   padding: 2rem;
-//   text-align: center;
-// }
+@font-face {
+  font-family: 'Pacifico';
+  src: url('fonts/Pacifico-Regular.ttf') format('truetype');
+}
 
-// .logo {
-//   height: 6em;
-//   padding: 1.5em;
-//   will-change: filter;
-//   transition: filter 300ms;
-// }
-// .logo:hover {
-//   filter: drop-shadow(0 0 2em #646cffaa);
-// }
-// .logo.react:hover {
-//   filter: drop-shadow(0 0 2em #61dafbaa);
-// }
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/Roboto-Regular.ttf') format('truetype');
+}
 
-// @keyframes logo-spin {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
-
-// @media (prefers-reduced-motion: no-preference) {
-//   a:nth-of-type(2) .logo {
-//     animation: logo-spin infinite 20s linear;
-//   }
-// }
 
 
 // normalize css
@@ -69,7 +45,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   text-align: center;
-  font-family: Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', system-ui, Avenir, Helvetica, Arial, sans-serif;
   background-color: whitesmoke;
 }
 
@@ -126,6 +102,10 @@ h1, h2 {
 
 input, textarea, select {
   border:  1px solid rgb(194, 169, 102);
+}
+
+p.page-loading {
+  padding: 2rem 0;
 }
 
 
@@ -288,24 +268,32 @@ section.home-banner {
 }
 
 section.introduction {
-  margin: 2rem;
-
-  h2 {
-    padding: 1.5rem 0 1rem;
-    font-size: 1.4rem;
-  }
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
   div {
-    margin: 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 1rem;
 
-  p {
-    margin: 1rem 0;
-    text-align: justify;
+    h2 {
+      padding: 1rem 0;
+      font-size: 1.3rem;
+    }
+
+    p {
+      margin: 1rem 0;
+      text-align: justify;
+      font-size: 0.9rem;
+    }
+
+    iframe {
+      height: 169px;
+      width: 300px;
+    }
   }
-  }
+
 }
 
 section.section-activities {
@@ -328,7 +316,7 @@ section.section-activities {
     a{
       width: 250px;
       background-color: rgb(194, 169, 102);
-      color: white;
+      color: black;
       border: none;
       border-radius: 2px;
       margin: 1rem 0 0.2rem;
@@ -392,7 +380,7 @@ section.login-register-edit {
 
     button {
       background-color: rgb(194, 169, 102);
-      color: white;
+      color: black;
       border: none;
       border-radius: 2px;
       padding: 0.5rem;
@@ -440,7 +428,7 @@ section.forgot {
 
     button {
       background-color: rgb(194, 169, 102);
-      color: white;
+      color: black;
       border: none;
       border-radius: 2px;
       padding: 0.5rem;
@@ -529,7 +517,7 @@ section.create-update-activity {
 
     button {
       background-color: rgb(194, 169, 102);
-      color: white;
+      color: black;
       border: none;
       border-radius: 2px;
       padding: 0.5rem;
@@ -590,7 +578,7 @@ article.comment-card {
   p.comment-card-score{
     font-size: 0.8rem;
     font-weight: bold;
-    color:  rgb(194, 169, 102);
+    color:  rgba(94, 82, 56, 0.9);
   }
 
   h3.comment-card-title{
@@ -638,7 +626,7 @@ article.activity-card {
     text-align: left;
   }
 
-  h3, p.activity-card-points {
+  h3 {
     padding-top: 1rem;
     font-size: 0.9rem;
     font-weight: bold;
@@ -662,7 +650,7 @@ article.activity-card {
     span {
       position: absolute;
       top: 35%;
-      font-size: 0.6rem;
+      font-size: 0.7rem;
       color: rgba(0,0,0,0.8);
     }
   }
@@ -681,7 +669,7 @@ article.activity-card {
   a.activity-card-btn{
     width: 100%;
     background-color: rgb(194, 169, 102);
-    color: white;
+    color: black;
     border: none;
     border-radius: 2px;
     margin: 1rem 0 0.2rem;
@@ -714,7 +702,7 @@ section.activity-details {
 
   button {
     background-color: rgb(194, 169, 102);
-    color: white;
+    color: black;
     border: none;
     border-radius: 2px;
     padding: 0.3rem 0.5rem;
@@ -896,7 +884,7 @@ section.profile {
     button.active-tab {
       border-bottom: 2px solid;
       border-bottom-color: rgb(194, 169, 102);
-      color: rgb(194, 169, 102);
+      color: black;
       font-weight: bold;
     }
 
@@ -959,6 +947,10 @@ section.profile {
   display:none;
 }
 
+.switch p {
+  display: none;
+}
+
 .slider {
   background-color: #ccc;
   bottom: 0;
@@ -1011,7 +1003,7 @@ section.basket {
   button {
     margin-top: 1rem;
     background-color: rgb(194, 169, 102);
-    color: white;
+    color: black;
     border: none;
     border-radius: 2px;
     padding: 0.3rem 0.5rem;
@@ -1035,7 +1027,7 @@ section.basket {
     }
     a {
       background-color: rgb(194, 169, 102);
-      color: white;
+      color: black;
       border: none;
       border-radius: 2px;
       padding: 0.3rem 0.5rem;
@@ -1090,7 +1082,7 @@ section.basket {
       position: absolute;
       right: 10px;
       top: 5px;
-      z-index: 2;
+      z-index: 3;
       cursor: pointer;
     }
 
@@ -1100,15 +1092,14 @@ section.basket {
       top: 0;
       left: 0;
       font-size: 1rem;
-      font-weight: bold;
-      color: rgb(219, 55, 55);
-      text-shadow: 0 1px 1px white;
+      color: rgb(237, 40, 40);
+      text-shadow: 0 1px 1px rgb(237, 40, 40);
       width: 100%;
       height: 100%;
-      padding: 1.5rem 4rem;
-      z-index: 1;
-      background-color: rgba(128, 128, 128, 0.6);
-      backdrop-filter: blur(2px)
+      padding: 2rem 4rem;
+      z-index: 2;
+      background-color: rgba(128, 128, 128, 0.1);
+      backdrop-filter: blur(3px)
     }
   }
 }
@@ -1174,7 +1165,7 @@ section.admin {
     }
     button {
       background-color: rgb(194, 169, 102);
-      color: white;
+      color: black;
       border: none;
       border-radius: 2px;
       padding: 0.3rem 0.5rem;
@@ -1253,7 +1244,7 @@ section.moderate {
 
   button {
     background-color: rgb(194, 169, 102);
-    color: white;
+    color: black;
     border: none;
     border-radius: 2px;
     padding: 0.3rem 0.5rem;
@@ -1307,7 +1298,7 @@ section.booking {
 
     button {
       background-color: rgb(194, 169, 102);
-      color: white;
+      color: black;
       border: none;
       border-radius: 2px;
       padding: 0.3rem 0.5rem;
@@ -1453,7 +1444,7 @@ footer {
         border-radius: 2px;
         padding: 0.5rem;
         a {
-          color: white;
+          color: black;
           font-weight: bold;
         }
       }
@@ -1474,8 +1465,20 @@ footer {
   /* home */
   section.introduction {
     div {
+      width: 80%;
+
+      iframe {
+        padding-top: 1rem;
+        height: 240px;
+        width: 400px;;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
       p {
-        width: 48%;
+        font-size: 0.9rem;
       }
     }
   }
@@ -1619,15 +1622,31 @@ footer {
 @media screen and (min-width: 1024px){
 
   /* home */
+
   section.introduction {
-    margin: 2rem 5rem;
+    justify-content: space-around;
 
     div {
-      p {
-        width: 45%;
-      }
+      width: 30%;
+      margin: 2rem 3rem;
+      // h2 {
+      //   padding: 1.5rem 0 1rem;
+      //   font-size: 1.3rem;
+      // }
+
+      // p {
+      //   margin: 1rem 0;
+      //   text-align: justify;
+      //   font-size: 0.9rem;
+      // }
+    }
+
+    iframe {
+      height: 225px;
+      width: 372px;
     }
   }
+
 
   section.activity-details {
     align-items: center;
@@ -1742,10 +1761,12 @@ footer {
 
       button {
         width: 35%;
+        margin: 1rem;
       }
 
       button.validate {
-        width: 40%;
+        width: 35%;
+        margin: 1rem;
       }
     }
   }

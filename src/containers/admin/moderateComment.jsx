@@ -97,7 +97,7 @@ const ModerateComment = () => {
             <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "validated" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
             {errorExplanation !== null && <p className="error">{errorExplanation}</p>}
           </div>
-          <button type="submit">Envoyer</button>
+          <button aria-label="Envoyer les raisons à l'utilisateur" type="submit">Envoyer</button>
         </form>
       </section>
     )

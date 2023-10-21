@@ -8,7 +8,7 @@ import { getAllBookingsByAuthorId, getAllBookingsByBookerId } from '../../api/bo
 import { updateAvatar, getOneUser } from '../../api/user'
 import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRightFromBracket, faSquarePlus, faMobile, faPhone, faImages, faCamera} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faSquarePlus, faMobile, faPhone, faCamera} from "@fortawesome/free-solid-svg-icons";
 import {faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
@@ -190,7 +190,7 @@ const Profile = () => {
             <span><Link to="/profile/edit"><FontAwesomeIcon icon={faPenToSquare}/> Modifier mes informations</Link></span>
             <span><Link to="/activity/create"><FontAwesomeIcon icon={faSquarePlus} /> Créer une activité</Link></span>
           </div>
-          {msgSuccess === null && msgError !== null && <p style={{ color: "indianred" }}>{msgError}</p>}
+          {msgSuccess === null && msgError !== null && <p style={{ color: "red", fontWeight: "bold" }}>{msgError}</p>}
           {msgSuccess !== null && <p style={{ color: "green" }}>{msgSuccess}</p>}
         </article>
 
@@ -214,6 +214,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="true"
                   tabIndex={"0"}
+                  aria-label="Cliquer pour voir vos activités en ligne"
                 >
                   En ligne
                 </button>
@@ -228,6 +229,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="false"
                   tabIndex={"-1"}
+                  aria-label="Cliquer pour voir vos activités hors ligne"
                 >
                   Hors ligne
                 </button>
@@ -242,6 +244,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="false"
                   tabIndex={"-1"}
+                  aria-label="Cliquer pour voir vos activités en attente de validation"
                 >
                   En attente de validation
                 </button>
@@ -299,7 +302,7 @@ const Profile = () => {
                       if (activity.status === "waiting_for_validation") {
                         return (<li key={activity.id}><Link to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                       } else if (activity.status === "invalidated") {
-                        return (<li key={activity.id}><Link style={{ color: "indianred" }} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
+                        return (<li key={activity.id}><Link style={{ color: "red", fontWeight: "bold" }} to={`/activity/details/${activity.id}`}>{activity.title}</Link></li>)
                       } else {
                         return null
                       }
@@ -330,6 +333,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="true"
                   tabIndex="0"
+                  aria-label="Cliquer pour voir vos commentaires validés"
                 >
                   Validés
                 </button>
@@ -343,6 +347,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
+                  aria-label="Cliquer pour voir vos commentaires en attente de validation"
                 >
                   En attente de validation
                   </button>
@@ -379,7 +384,7 @@ const Profile = () => {
                       if (comment.status === "waiting_for_validation") {
                         return (<li key={comment.id}><Link to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else if (comment.status === "invalidated") {
-                        return (<li key={comment.id}><Link style={{ color: "indianred" }} to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
+                        return (<li key={comment.id}><Link style={{color: "red", fontWeight: "bold"}} to={`/booking/${comment.booking_id}`}>{comment.title}</Link></li>)
                       } else {
                         return null
                       }
@@ -412,6 +417,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="true"
                   tabIndex="0"
+                  aria-label="Cliquer pour voir vos réservations en attente de réalisation"
                 >
                   En attente de réalisation
                 </button>
@@ -425,6 +431,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
+                  aria-label="Cliquer pour voir vos réservations en attente d'acceptation"
                 >
                   En attente d'acceptation
                 </button>
@@ -438,6 +445,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
+                  aria-label="Cliquer pour voir vos réservations terminées"
                 >
                   Terminées
                 </button>
@@ -524,6 +532,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="true"
                   tabIndex="0"
+                  aria-label="Cliquer pour voir les réservations sur vos activités en attente de réalisation"
                 >
                   En attente de réalisation
                 </button>
@@ -537,6 +546,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
+                  aria-label="Cliquer pour voir les réservations sur vos activités en attente d'acceptation"
                 >
                   En attente d'acceptation
                 </button>
@@ -550,6 +560,7 @@ const Profile = () => {
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
+                  aria-label="Cliquer pour voir les réservations sur vos activités terminées"
                 >
                   Terminées
                 </button>
