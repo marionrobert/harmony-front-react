@@ -48,18 +48,18 @@ const Header = () => {
 
         <div id="other-links">
           { user.isLogged ?
-            <Link id="user" to={user.data.role === "user" ? '/profile' : "/admin"}>
+            <Link id="user" aria-label="Icône utilisateur connecté: cliquer pour accéder à votre profil utilisateur ou administrateur" to={user.data.role === "user" ? '/profile' : "/admin"}>
               <FontAwesomeIcon icon={ user.data.role === "user" ? faUserCheck : faUserGear}/>
             </Link>
             :
-            <Link id="user" onClick={(e) => {displayConnexionMenu(e)}}><FontAwesomeIcon icon={ faUser}/></Link>
+            <Link id="user" aria-label="Icône utilisateur non connecté: cliquer pour faire apparaître le menu de connexion" onClick={(e) => {displayConnexionMenu(e)}}><FontAwesomeIcon icon={ faUser}/></Link>
           }
-          <Link id="basket" to="/basket" className="nav-link link-to-basket"><FontAwesomeIcon icon={faBagShopping}/>{ nbItems > 0 && <span className='nbItems'>{nbItems}</span>}</Link>
+          <Link id="basket" to="/basket" aria-label="Cliquer pour accéder à votre panier" className="nav-link link-to-basket"><FontAwesomeIcon icon={faBagShopping}/>{ nbItems > 0 && <span className='nbItems'>{nbItems}</span>}</Link>
         </div>
       </nav>
       <div className='connexion-menu' onMouseLeave={closeConnexionMenu}>
-        <FontAwesomeIcon icon={faXmark} onClick={closeConnexionMenu}/>
-        <Link to='/login' onClick={closeConnexionMenu}  className="connexion-menu-link">Se connecter</Link>
+        <FontAwesomeIcon aria-label="Fermer le menu de connexion" icon={faXmark} onClick={closeConnexionMenu}/>
+        <Link to='/login' onClick={closeConnexionMenu} className="connexion-menu-link">Se connecter</Link>
         <Link to='/register' onClick={closeConnexionMenu} className="connexion-menu-link">Créer un compte</Link>
       </div>
     </header>

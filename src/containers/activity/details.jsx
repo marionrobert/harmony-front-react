@@ -152,8 +152,8 @@ const Details = () => {
               </div>
               { activity.status === "online" && activity.author_id !== user.data.id &&
                 <div className="zone-to-book" >
-                  <button onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
-                    Je réserve !
+                  <button aria-label="Je réserve l'activité" onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
+                    Je réserve
                   </button>
                   <p style={{color: "indianred"}}>{msgBasket}</p>
                 </div>
@@ -175,10 +175,10 @@ const Details = () => {
               <p>Statut de l'annonce: {activity.status === "online" ? "en ligne" : activity.status === "offline" ? "hors ligne" : activity.status === "waiting_for_validation" ? "en attente de validation" : "invalidé"}</p>
               { (activity.status === "online" || activity.status === "offline") &&
               <div className="container">
-                <p>Mettre mon annonce {activity.status === "online" ? "hors ligne" : "en ligne"} : </p>
                 <label className="switch" htmlFor="checkbox">
-                  <input type="checkbox" id="checkbox" checked = {activity.status === "online" ? true : false} onChange={(e) => {changeActivityStatus(e)}}/>
+                  <input aria-label="Déplacer le curseur pour passer votre activité en ligne ou hors ligne" type="checkbox" id="checkbox" checked = {activity.status === "online" ? true : false} onChange={(e) => {changeActivityStatus(e)}}/>
                   <div className="slider round"></div>
+                  <p>Mettre mon annonce {activity.status === "online" ? "hors ligne" : "en ligne"} :</p>
                 </label>
                 <p style={{color: "red"}}>{msg}</p>
               </div>
@@ -192,7 +192,7 @@ const Details = () => {
     }
   } else {
     return(<>
-      <p>Une erreur est survenue...</p>
+      <p className="page-loading">La page est en train de charger...</p>
       <div className="go-back">
         <Link to="/activities">Retour vers les activités <FontAwesomeIcon icon={faArrowRotateLeft}/></Link>
       </div>

@@ -36,10 +36,17 @@ const Home = () => {
 
 
       <section className="introduction">
-        <h2>Notre vision</h2>
-        <div>
-          <p>Harmony est né d'un constat simple. Les personnes bénéficiant d'une protection internationale de la France ont vocation à s'installer durablement en France du fait de leur situation. Or, ces dernières éprouvent souvent des difficultés à s'intégrer dans leur pays d'adoption. Chez Harmony, nous sommes convaincus que l'intégration des personnes protégées peut être facilitée à l'échelle de la ville. Malheureusement, on peut constater un manque d’interactions sociales entre les habitants de longue date et les personnes protégées nouvellement arrivées. Cette absence d’échanges est la conséquence d’une méconnaissance de l’autre et d’idées préconçues et codnuit à un sentiment d’exclusion. </p>
-          <p>Face à ce constat, Harmony souhaite favoriser l’inclusion des personnes protégées en développant les échanges et la solidarité entre les habitants d'une même ville. Cette solidarité naîtra de l’échange de coups de main entre voisins. Sur notre site, vous pouvez proposer une activité et réserver une activité pour donner et.ou recevoir un coup de main de la part de vos voisins. En réalisant un coup de main pour quelqu'un, vous gagnez des points que vous pourrez utiliser à votre tour pour obtenir de l'aide auprès d'autres utilisateurs. Toutes les activités sont à réaliser ensemble. Celui.celle qui poste une annonce ou qui réserve une activité s'engage à la réaliser avec son.sa voisin.e. L'objectif d'Harmony est de favoriser les interactions sociales et la solidarité entre les habitants de la ville et non de faire réaliser des travaux gratuitement.</p>
+        <div className="part-1">
+          <h2>Notre vision</h2>
+          <p>Harmony est né d'un constat simple. Les personnes bénéficiant d'une protection internationale ont vocation à s'installer durablement en France du fait de leur situation mais elles éprouvent souvent des difficultés à s'intégrer. Nous sommes convaincus que leur intégration peut être facilitée à l'échelle de la ville. Malheureusement, on constate en général un manque d’interactions sociales entre les habitants de longue date et les personnes protégées nouvellement arrivées. Cela est la conséquence directe d’une méconnaissance de l’autre et d’idées préconçues. Le but de notre projet est de favoriser l’inclusion des personnes protégées en développant les échanges et la solidarité entre les habitants d'une même ville. Cette solidarité naîtra de l’échange de coups de main entre voisins. Sur notre site, vous pouvez proposer et/ou réserver une activité pour donner et/ou recevoir un coup de main de la part de vos voisins. En réalisant un coup de main pour quelqu'un, vous gagnez des points que vous pourrez ensuite utiliser pour obtenir de l'aide auprès d'autres utilisateurs.</p>
+
+        </div>
+        <div className="part-2">
+          <h2>Projet porté par la ville d'Angers</h2>
+          <iframe
+            src="https://www.youtube.com/embed/ilTr9Fg-Aa4?autoplay=1&mute=1"
+            title="Vidéo de présentation de la ville d'Angers"
+          />
         </div>
       </section>
 

@@ -104,7 +104,6 @@ const Booking = () => {
     acceptBooking({"status": "waiting_for_completion"}, booking.booking_id)
     .then((res)=>{
       if (res.status === 200){
-        setBooking(res.bookingUpdated)
         setBookingStatus("waiting_for_completion")
       } else {
         setErrorForm(res.msg)
@@ -129,7 +128,6 @@ const Booking = () => {
     .catch(() => {setErrorForm("Une erreur est survenue")})
   }
 
-
   const cancelledBooking = (e) => {
     e.preventDefault()
     deleteOneBooking(booking.booking_id)
@@ -142,8 +140,6 @@ const Booking = () => {
     })
     .catch(() => {setErrorForm("Une erreur est survenue")})
   }
-
-
 
   const confirm = (e) => {
     e.preventDefault()
@@ -383,7 +379,7 @@ const Booking = () => {
               </fieldset>
             }
             {parseInt(user.data.id) === parseInt(booking.booker_id) &&
-              <button onClick={(e) =>{cancelledBooking(e)}}>Annuler ma demande de réservation</button>
+              <button aria-label="Annuler ma demande de réservation" onClick={(e) =>{cancelledBooking(e)}}>Annuler ma demande de réservation</button>
             }
           </article>
         }
@@ -476,7 +472,7 @@ const Booking = () => {
                   <option value={5}>5</option>
                 </select>
                 {errorScore !== null && <p className="error">{errorScore}</p>}
-                <button>Modifier</button>
+                <button  aria-label="Modifier" >Modifier</button>
               { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}
               { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}
               </form>
@@ -504,7 +500,7 @@ const Booking = () => {
                 <option value={5}>5</option>
               </select>
               {errorScore !== null && <p className="error">{errorScore}</p>}
-              <button>Valider</button>
+              <button aria-label="Valider">Valider</button>
             </form>
             { msgForm !== null && <p style={{color:"SeaGreen"}}>{msgForm}</p>}
             { errorForm !== null && <p style={{color:"IndianRed"}}>{errorForm}</p>}

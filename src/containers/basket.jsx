@@ -79,7 +79,7 @@ const Basket = () => {
 
       <div>
         { error !== null && <p style={{color:"indianred"}}>{error}</p>}
-        <button onClick={()=>{deleteBasket()}}>Supprimer tout le panier</button>
+        <button aria-label="Supprimer tout le panier" onClick={()=>{deleteBasket()}}>Supprimer tout le panier</button>
         <ul className="basket-all-items">
             {currentBasket.basket.map((activity=>{
               return (
@@ -99,11 +99,11 @@ const Basket = () => {
                         <p className="basket-description-activity" >{activity.description.substring(0, 100)}...</p>
                         <p>{activity.authorIsProvider ? "Coût" : "Gain"} de l'activité: {activity.points} points</p>
                       </div>
-                      <button onClick={()=>{validateOne(activity)}}>Je valide la réservation</button>
+                      <button aria-label="Je valide la réservation" onClick={()=>{validateOne(activity)}}>Je valide la réservation</button>
                     </div>
 
                     <p className='deleteItem'>
-                      <FontAwesomeIcon icon={ faXmark}  onClick={()=>{removeActivityFromBasket(currentBasket.basket, activity)}}/>
+                      <FontAwesomeIcon icon={ faXmark} aria-label="Cliquer pour supprimer cette activité de votre panier"  onClick={()=>{removeActivityFromBasket(currentBasket.basket, activity)}}/>
                     </p>
 
                     <p className="error-booking"></p>

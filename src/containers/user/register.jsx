@@ -12,10 +12,10 @@ const Register = () => {
 
   const schema = yup.object().shape({
     firstName: yup.string()
-      .max(50, "Le prénom ne doit pas dépasser 60 caractères.")
+      .max(60, "Le prénom ne doit pas dépasser 60 caractères.")
       .required('Le prénom est requis.'),
     lastName: yup.string()
-      .max(50, "Le nom ne doit pas dépasser 60 caractères.")
+      .max(60, "Le nom ne doit pas dépasser 60 caractères.")
       .required('Le nom est requis.'),
     email: yup.string()
       .email('Veuillez entrer une adresse email valide (exemple@domaine.com).')
@@ -148,10 +148,10 @@ const Register = () => {
   }
 
   return (
-    <section className="login-register">
+    <section className="login-register-edit">
       <h1>Créer votre compte Harmony</h1>
       { error !== null && <p className="error">{error}</p>}
-      { success !== null && <p>{success}</p>}
+      { success !== null && <p className="success">{success}</p>}
 
       <form onSubmit={(e)=>{handleSubmit(e)}} id="form-register">
         <label htmlFor="firstName">Votre prénom</label>
@@ -172,7 +172,7 @@ const Register = () => {
         <label htmlFor="phone">Votre numéro de téléphone</label>
         <input type="text" name="phone" id="phone" onChange={handleChange} />
         {errorPhone !== null && <p className="error">{errorPhone}</p>}
-        <button type="submit">Valider</button>
+        <button aria-label="Cliquer pour valider la création de votre compte Harmony" type="submit">Valider</button>
       </form>
     </section>
   )

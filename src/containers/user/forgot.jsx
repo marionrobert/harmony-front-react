@@ -1,6 +1,7 @@
 import { forgotPassword } from "../../api/user";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import * as yup from 'yup';
 
 const Forgot = () => {
   const [email, setEmail] = useState("")
@@ -48,7 +49,7 @@ const Forgot = () => {
       <form onSubmit={onSubmitForm}>
         <label>Entrez-votre adresse mail pour recevoir un lien de modification de votre mot de passe.</label>
         <input type="text" name="email" onChange={(e) => {setEmail(e.currentTarget.value);}}/>
-        <button type="submit" disabled={disabled}>Envoyer</button>
+        <button aria-label="Cliquer pour recevoir un lien de modification de mot de passe" type="submit" disabled={disabled}>Envoyer</button>
       </form>
 
       {error !== null && <p className="error">{error}</p>}
