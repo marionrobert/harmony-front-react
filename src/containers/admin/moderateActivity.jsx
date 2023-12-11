@@ -99,17 +99,17 @@ const ModerateActivity = () => {
           {errorForm !== null && <p className="error">{errorForm}</p>}
           <fieldset>
             <legend>Souhaitez-vous valider la publication de l'activité ?</legend>
-            <input name="status" type="radio" value="online" checked={status === "online"} onChange={(e) =>{handleChange(e)}} />
-            <label htmlFor="status">Oui</label>
-            <input name="status" type="radio" value="invalidated" checked={status === "invalidated"} onChange={(e) =>{handleChange(e)}} />
-            <label htmlFor="status">Non</label>
+            <input name="status" id="status-yes" type="radio" value="online" checked={status === "online"} onChange={(e) =>{handleChange(e)}} />
+            <label htmlFor="status-yes">Oui</label>
+            <input name="status" id="status-no" type="radio" value="invalidated" checked={status === "invalidated"} onChange={(e) =>{handleChange(e)}} />
+            <label htmlFor="status-no">Non</label>
             {errorStatus !== null && <p className="error">{errorStatus}</p>}
           </fieldset>
           <div>
             <span>
               <label htmlFor="explanation">Indiquez à l'utilisateur ce qui est à modifier pour que l'annonce soit publiée.</label>
             </span>
-            <textarea type="text" name="explanation" rows="5" cols="33" disabled={status === "online" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
+            <textarea name="explanation" id="explanation" rows="5" cols="33" disabled={status === "online" ? true : false} onChange={(e) => {handleChange(e)}}></textarea>
             {errorExplanation !== null && <p className="error">{errorExplanation}</p>}
           </div>
           <button aria-label="Envoyer les raisons à l'utilisateur" type="submit">Envoyer</button>
