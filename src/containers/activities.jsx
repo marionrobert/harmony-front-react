@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { selectActivities } from "../slices/activitySlice";
-import { selectBasket, updateBasket } from "../slices/basketSlice";
 import ActivityCard from "../components/activity-card"
 
 const Activities = () => {
