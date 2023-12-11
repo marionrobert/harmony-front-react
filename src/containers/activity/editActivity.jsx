@@ -35,18 +35,24 @@ const EditActivity = () => {
     authorIsProvider: yup.string().required('Veuillez choisir une option.'),
     title: yup.string()
       .max(80, "Le titre ne doit pas dépasser 80 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?-]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("Le titre est requis"),
     description: yup.string()
       .max(200, "La description ne doit pas dépasser 200 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?-]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("La description est requise"),
     address: yup.string()
       .max(120, "L'adresse ne doit pas dépasser 120 caractères.")
       .required("L'adresse est requise"),
     zip: yup.string()
       .matches(/^[0-9]{5}$/, 'Le code postal doit comporter 5 chiffres.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le code postal est requis.'),
     city: yup.string()
       .max(120, "La ville ne doit pas dépasser 120 caractères.")
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("La ville est requise"),
     duration: yup.string().required("Veuillez choisir une durée.")
   });
@@ -266,7 +272,7 @@ const EditActivity = () => {
   }
 
   if (redirect){
-    return <Navigate to={`/profile`} />
+    return <Navigate to={`/activity/details/${activity.id}`} />
   }
 
   return (

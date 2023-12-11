@@ -29,6 +29,7 @@ const Details = () => {
   const user = useSelector(selectUser)
   const [msg, setMsg] = useState(null)
   const [msgBasket, setMsgBasket] = useState("")
+  const [redirect, setRedirect]  = useState(null)
 
 
   useEffect(() => {
@@ -53,6 +54,9 @@ const Details = () => {
           }
         })
         .catch(error=>console.log(error))
+      }
+      else {
+        setRedirect(true)
       }
     })
     .catch((err)=>{
@@ -104,6 +108,10 @@ const Details = () => {
     .catch(err => console.log(err))
   }
 
+  if (redirect){
+    return <Navigate to={`/activities`}/>
+  }
+
   if ( activity !== null && author !== null && user !== null) {
 
     if (author.id !== user.data.id && activity.status !== "online"){
@@ -150,10 +158,10 @@ const Details = () => {
                 <p><FontAwesomeIcon icon={faClock}/> Durée : {activity.duration} minutes</p>
                 <p><FontAwesomeIcon icon={faCoins}/> { activity.authorIsProvider === parseInt("1") ? "Coût" : "Gain"} : {activity.points} points</p>
               </div>
-              { activity.status === "online" && activity.author_id !== user.data.id &&
+              { activity.status === "online" && activity.author_id !== user.data.id && user.data.role !== "admin" &&
                 <div className="zone-to-book" >
-                  <button aria-label="Je réserve l'activité" onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
-                    Je réserve
+                  <button aria-label="Cliquer pour ajouter au panier" onClick={(e)=>{addToBasket(e, currentBasket.basket, activity)}}>
+                    Ajouter au panier
                   </button>
                   <p style={{color: "indianred"}}>{msgBasket}</p>
                 </div>
@@ -172,7 +180,7 @@ const Details = () => {
 
           { author.id === user.data.id &&
             <article className="author-zone">
-              <p>Statut de l'annonce: {activity.status === "online" ? "en ligne" : activity.status === "offline" ? "hors ligne" : activity.status === "waiting_for_validation" ? "en attente de validation" : "invalidé"}</p>
+              <h3>Statut de l'annonce: {activity.status === "online" ? "en ligne" : activity.status === "offline" ? "hors ligne" : activity.status === "waiting_for_validation" ? "en attente de validation" : "invalidé"}</h3>
               { (activity.status === "online" || activity.status === "offline") &&
               <div className="container">
                 <label className="switch" htmlFor="checkbox">
@@ -190,7 +198,8 @@ const Details = () => {
         </>
       )
     }
-  } else {
+  }
+  else {
     return(<>
       <p className="page-loading">La page est en train de charger...</p>
       <div className="go-back">
