@@ -17,12 +17,18 @@ const EditUser = () => {
   const schema = yup.object().shape({
     firstName: yup.string()
       .max(50, "Le prénom ne doit pas dépasser 60 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le prénom est requis.'),
     lastName: yup.string()
       .max(50, "Le nom ne doit pas dépasser 60 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le nom est requis.'),
     phone: yup.string()
       .matches(/^[0-9]{10}$/, 'Le numéro de téléphone doit avoir 10 chiffres.')
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?-]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le numéro de téléphone est requis.')
   });
 

@@ -13,15 +13,23 @@ const Register = () => {
   const schema = yup.object().shape({
     firstName: yup.string()
       .max(60, "Le prénom ne doit pas dépasser 60 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le prénom est requis.'),
     lastName: yup.string()
       .max(60, "Le nom ne doit pas dépasser 60 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le nom est requis.'),
     email: yup.string()
+      .max(90, "L'email ne doit pas dépasser 90 caractères.")
       .email('Veuillez entrer une adresse email valide (exemple@domaine.com).')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('L\'email est requis.'),
     password: yup.string()
+      .max(120, "Le mot de passe ne doit pas dépasser 120 caractères.")
       .min(8, 'Le mot de passe doit contenir au moins 8 caractères.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/,
         'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.'
@@ -32,6 +40,7 @@ const Register = () => {
       .required('La confirmation du mot de passe est requise.'),
     phone: yup.string()
       .matches(/^[0-9]{10}$/, 'Le numéro de téléphone doit avoir 10 chiffres.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le numéro de téléphone est requis.')
   });
 
