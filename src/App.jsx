@@ -50,21 +50,21 @@ function App() {
           <Route exact path="/booking/:id" element={<RequireDataAuth child={Booking} auth={true} admin={false} />} />
 
           {/* LOGIN, LOGOUT, REGISTER, FORGOT, PROFILE, ADMIN */}
-          <Route path="/register" element={<Register/>}/>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/logout" element={<RequireDataAuth child={Logout} auth={true} admin={false} />} />
-          <Route path="/forgot" element={<Forgot/>}/>
-          <Route path="/profile" element={<RequireDataAuth child={Profile} auth={true} admin={false}/>}/>
-          <Route path="/profile/edit" element={<RequireDataAuth child={EditUser} auth={true} admin={false}/>}/>
+          <Route exact path="/register" element={<Register/>}/>
+          <Route exact path="/login" element={<Login/>} />
+          <Route exact path="/logout" element={<RequireDataAuth child={Logout} auth={true} admin={false} />} />
+          <Route exact path="/forgot" element={<Forgot/>}/>
+          <Route exact path="/profile" element={<RequireDataAuth child={Profile} auth={true} admin={false}/>}/>
+          <Route exact path="/profile/edit" element={<RequireDataAuth child={EditUser} auth={true} admin={false}/>}/>
 
 
           {/* ADMIN: DASHBOARD, MODERATE ACTIVITY, MODERATE COMMENT */}
-          <Route path="/admin" element={<RequireDataAuth child={Admin} auth={true} admin={true}/>}/>
-          <Route path="/activity/moderate/:id" element={<RequireDataAuth child={ModerateActivity} auth={true} admin={true}/>}/>
-          <Route path="/comment/moderate/:id" element={<RequireDataAuth child={ModerateComment} auth={true} admin={true}/>}/>
+          <Route exact path="/admin" element={<RequireDataAuth child={Admin} auth={true} admin={true}/>}/>
+          <Route exact path="/activity/moderate/:id" element={<RequireDataAuth child={ModerateActivity} auth={true} admin={true}/>}/>
+          <Route exact path="/comment/moderate/:id" element={<RequireDataAuth child={ModerateComment} auth={true} admin={true}/>}/>
 
           <Route exact path="/home" element={<Navigate to="/"/>} />
-          <Route path="*" element={<Navigate to="/"/>} />
+          <Route path="*" element={<Navigate to="/home"/>} />
         </Routes>
       </main>
       <Footer />

@@ -207,7 +207,7 @@ const Admin = () => {
                     </td>
                     <td>{moment(comment.creationTimestamp).locale("fr").format("DD/MM/YYYY")}</td>
                     <td>
-                      <Link to={`/comment/moderate/${comment.id}`} aira-label="Cliquer pour consulter le commentaire à modérer"><FontAwesomeIcon icon={faEye}/></Link>
+                      <Link to={`/comment/moderate/${comment.id}`}><FontAwesomeIcon icon={faEye} aria-label="Cliquer pour consulter le commentaire à modérer"/></Link>
                     </td>
                   </tr>
                 )

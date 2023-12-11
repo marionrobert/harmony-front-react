@@ -8,7 +8,7 @@ import { acceptBooking, deleteOneBooking, validateAchievementByBeneficiary, vali
 import {saveOneComment, getOneCommentByBookingId, updateOneComment} from "../api/comment"
 import CommentCard from "../components/comment-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPhone, faCoins, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faCoins, faLocationDot, faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 import { config } from "../config"
@@ -37,9 +37,13 @@ const Booking = () => {
   const schema = yup.object().shape({
     title: yup.string()
       .max(80, "Le titre ne doit pas dépasser 80 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç'.:,!?]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("Le titre est requis."),
     content: yup.string()
       .max(200, "Le contenu ne doit pas dépasser 200 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç'.:,!?]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("Le contenu est requis."),
     score: yup.number()
       .typeError('Veuillez sélectionner un nombre entre 1 et 5.')
@@ -62,6 +66,9 @@ const Booking = () => {
         setBookingStatus(res.booking.booking_status)
         setBeneficiaryValidation(res.booking.beneficiaryValidation)
         setProviderValidation(res.booking.providerValidation)
+        if (user.data.id !== res.booking.provider_id && user.data.id !== res.booking.beneficiary_id ) {
+          setRedirect(true)
+        }
 
         getOneUserById(res.booking.provider_id)
         .then((response)=>{
@@ -91,6 +98,9 @@ const Booking = () => {
         })
         .catch((error) => console.log(error))
 
+      }
+      else {
+        setRedirect(true)
       }
     })
     .catch(err => console.log(err))
@@ -457,13 +467,13 @@ const Booking = () => {
                 <p>Votre commentaire a été invalidé par l'administration. Vous pouvez le modifier.</p> }
               <form onSubmit={(e) => {updateComment(e)}}>
                 <label htmlFor="title" >Titre de votre commentaire</label>
-                <input type="text" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title}></input>
+                <input type="text" id="title" name="title" onChange={(e) =>{handleChange(e)}} defaultValue={title}></input>
                 {errorTitle !== null && <p className="error">{errorTitle}</p>}
                 <label htmlFor="content">Décrivez votre expérience</label>
-                <textarea name="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} defaultValue={content}></textarea>
+                <textarea name="content" id="content" rows="5" cols="33" onChange={(e) =>{handleChange(e)}} defaultValue={content}></textarea>
                 {errorContent !== null && <p className="error">{errorContent}</p>}
                 <label htmlFor="score">Quelle note donneriez-vous ?</label>
-                <select name="score" onChange={(e) =>{handleChange(e)}} defaultValue={score !== "" ? parseInt(score) : score}>
+                <select name="score" id="score" onChange={(e) =>{handleChange(e)}} defaultValue={score !== "" ? parseInt(score) : score}>
                   <option value="">Choisissez une note</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -520,7 +530,6 @@ const Booking = () => {
       </section>
     )
   }
-
 }
 
 export default Booking;

@@ -30,18 +30,25 @@ const AddActivity = () => {
     authorIsProvider: yup.string().required('Veuillez choisir une option.'),
     title: yup.string()
       .max(80, "Le titre ne doit pas dépasser 80 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?-]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("Le titre est requis"),
     description: yup.string()
       .max(200, "La description ne doit pas dépasser 200 caractères.")
+      .matches(/^[a-zA-Z0-9\séèêîïàâôûç':.,!?-]*$/, 'Le champ ne peut pas contenir de caractères spéciaux.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("La description est requise"),
     address: yup.string()
       .max(120, "L'adresse ne doit pas dépasser 120 caractères.")
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("L'adresse est requise"),
     zip: yup.string()
       .matches(/^[0-9]{5}$/, 'Le code postal doit comporter 5 chiffres.')
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required('Le code postal est requis.'),
     city: yup.string()
       .max(120, "La ville ne doit pas dépasser 120 caractères.")
+      .test('no-script', 'Vous ne pouvez pas intégrer de script.', value => !value.toLowerCase().includes('script'))
       .required("La ville est requise"),
     duration: yup.string().required("Veuillez choisir une durée.")
   });
@@ -72,6 +79,7 @@ const AddActivity = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorForm(null)
+    setErrorAddressNotFound(null)
     setErrorPhoto(null)
     setSuccessPhoto(null)
     setErrorCategory(null)
@@ -82,6 +90,8 @@ const AddActivity = () => {
     setErrorZip(null)
     setErrorCity()
     setErrorDuration(null)
+
+
 
     if (address === "" && zip === "" && city === ""){
       setErrorAddressNotFound("Vous devez renseigner une adresse.")
@@ -213,8 +223,8 @@ const AddActivity = () => {
     let widget = window.cloudinary.createUploadWidget(
         {
             cloudName: "dptcisxbs", //nom du repository cloud
-            uploadPreset: "harmonyActivitiesCloudinary", //on branche au preset qui va envoyer vers le dossier saas
-            maxImageWidth: 800, //on peut paramètrer la taille max de l'image
+            uploadPreset: "harmonyActivitiesCloudinary", //on branche au preset qui va envoyer vers le dossier harmony/activities
+            maxImageWidth: 800, //taille max de l'image
             cropping: false //recadrage
         },
         (error, result) => {

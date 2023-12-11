@@ -25,45 +25,71 @@ const Profile = () => {
 
 
   function tabsAnimation(e, tabContainerId){
+    //récupération de tous les éléments tab (boutons) dans le contenant concerné (tabContainerId)
     const tabs = [...document.querySelectorAll(`#${tabContainerId} .tab`)]
+    //récupération de tous les éléments tab-content (contneu, panneau à afficher) dans le contenant concerné (tabContainerId)
     const tabContents = [...document.querySelectorAll(`#${tabContainerId} .tab-content`)]
 
+    // le bouton et le contneu précédemment "actifs/affichés" sont désactivés
+    // récupération de l'index du tab actuel actif
     let indexToRemove = tabs.findIndex(tab => tab.classList.contains("active-tab"))
+    //accessibilité: on indique que l'onglet actuel n'est plus sélectionné
     tabs[indexToRemove].setAttribute("aria-selected", "false")
+    // acessibilité: l'onglet ne doit plus recevoir le focus par le navigateur
     tabs[indexToRemove].setAttribute("tabindex", "-1")
+    // l'onglet actuel et son contenu lié ne doivent plus être affichés
     tabs[indexToRemove].classList.remove("active-tab");
     tabContents[indexToRemove].classList.remove("active-tab-content");
 
+    // le bouton et son contenu nouvellement sélectionnés doivent être affichés
+    // récupération de l'index du tab concerné, qui doit devenir actif
     const indexToShow = tabs.indexOf(e.target)
+    //accessibilité: on indique que le nouvel onglet est sélectionné
     tabs[indexToShow].setAttribute("tabindex", "0")
+    // acessibilité: le nouvel onglet reçoit le focus du navigateur
     tabs[indexToShow].setAttribute("aria-selected", "true")
+    // le nouvel onglet et son contenu sont affichés
     tabs[indexToShow].classList.add("active-tab")
     tabContents[indexToShow].classList.add("active-tab-content")
   }
 
+ // au chargement/par défaut, le focus est sur l'onglet/bouton/tag 0
   let tabFocus = 0
 
+  // création d'une navigation avec les flèches gauche/droite du clavier
   function arrowNavigation(e, tabContainerId){
+    // récupération des onglets/boutons existant dans le contenant (tabContainerId)
     const tabs = [...document.querySelectorAll(`#${tabContainerId} .tab`)]
 
+    // la touche enfoncée est la flèche droite ou gauche
     if(e.keyCode === 39 || e.keyCode === 37) {
+      // on retire le focus de l'onglet précédemment sélectionné
       tabs[tabFocus].setAttribute("tabindex", -1)
 
+      // l'utilisateur va à droite
       if(e.keyCode === 39) {
+        // on incrémente de 1 le tabFocus
         tabFocus++;
 
+        // si on est tout à droite
         if(tabFocus >= tabs.length) {
+          //on retourne tout à gauche
           tabFocus = 0;
         }
-      } else if (e.keyCode === 37) {
+      } else if (e.keyCode === 37) { // l'utilisateur va à gauche
+       // on désincrémente de 1 l'index
         tabFocus--;
 
+        // si on est tout à gauche
         if(tabFocus < 0) {
+          // on retourne tout à droite
           tabFocus = tabs.length -1;
         }
       }
 
+      // on attribue le tabindex au nouvel onglet
       tabs[tabFocus].setAttribute("tabindex", 0)
+      // et on lui donne le focus
       tabs[tabFocus].focus()
     }
 
@@ -183,7 +209,7 @@ const Profile = () => {
           }
         </div>
         <article className='profile-user-data'>
-          <p>Mes points : {user.data.points}</p>
+          <h6>Mes points : {user.data.points}</h6>
           <p><FontAwesomeIcon icon={faMobile}/> <FontAwesomeIcon icon={faPhone}/> : {user.data.phone}</p>
           <div className='user-actions'>
             <span><Link  onClick={(e) => { showWidget(e) }}><FontAwesomeIcon icon={faCamera}/> {user.data.avatar === null ? "Ajouter une " : "Modifier ma "}photo</Link></span>
@@ -209,8 +235,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-1")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-1")}}
                   role="tab"
-                  aria-controls="panel-1"
-                  id="tab-1"
+                  aria-controls="tabs-1-panel-1"
+                  id="tabs-1-tab-1"
                   type="button"
                   aria-selected="true"
                   tabIndex={"0"}
@@ -224,8 +250,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-1")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-1")}}
                   role="tab"
-                  aria-controls="panel-2"
-                  id="tab-2"
+                  aria-controls="tabs-1-panel-2"
+                  id="tabs-1-tab-2"
                   type="button"
                   aria-selected="false"
                   tabIndex={"-1"}
@@ -239,8 +265,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-1")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-1")}}
                   role="tab"
-                  aria-controls="panel-3"
-                  id="tab-3"
+                  aria-controls="tabs-1-panel-3"
+                  id="tabs-1-tab-3"
                   type="button"
                   aria-selected="false"
                   tabIndex={"-1"}
@@ -253,10 +279,10 @@ const Profile = () => {
 
               <div
                 className="tab-content active-tab-content"
-                id="panel-1"
+                id="tabs-1-panel-1"
                 role="tabpanel"
                 tabIndex={"0"}
-                aria-labelledby='tab-1'
+                aria-labelledby='tabs-1-tab-1'
               >
                 {activities.some(activity => activity.status === "online") ? (
                   <ul>
@@ -272,10 +298,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content"
-                id="panel-2"
+                id="tabs-1-panel-2"
                 role="tabpanel"
                 tabIndex={"0"}
-                aria-labelledby='tab-2'
+                aria-labelledby='tabs-1-tab-2'
               >
                 {activities.some(activity => activity.status === "offline") ? (
                   <ul>
@@ -291,10 +317,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content"
-                id="panel-3"
+                id="tabs-1-panel-3"
                 role="tabpanel"
                 tabIndex={"0"}
-                aria-labelledby='tab-3'
+                aria-labelledby='tabs-1-tab-3'
               >
                 {activities.some((activity) => (activity.status === "waiting_for_validation" || activity.status === "invalidated")) ? (
                   <ul>
@@ -328,8 +354,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-2")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-2")}}
                   role="tab"
-                  aria-controls="panel-1"
-                  id="tab-1"
+                  aria-controls="tabs-2-panel-1"
+                  id="tabs-2-tab-1"
                   type="button"
                   aria-selected="true"
                   tabIndex="0"
@@ -342,8 +368,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-2")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-2")}}
                   role="tab"
-                  aria-controls="panel-2"
-                  id="tab-2"
+                  aria-controls="tabs-2-panel-2"
+                  id="tabs-2-tab-2"
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
@@ -354,10 +380,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content active-tab-content"
-                id="panel-1"
+                id="tabs-2-panel-1"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-1"
+                aria-labelledby="tabs-2-tab-1"
               >
                 {comments.some(comment => comment.status === "validated") ? (
                   <ul>
@@ -373,10 +399,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content"
-                id="panel-2"
+                id="tabs-2-panel-2"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-2"
+                aria-labelledby="tabs-2-tab-2"
               >
                 {comments.some((comment) => (comment.status === "waiting_for_validation" || comment.status === "invalidated")) ? (
                   <ul>
@@ -412,8 +438,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-3")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-3")}}
                   role="tab"
-                  aria-controls="panel-1"
-                  id="tab-1"
+                  aria-controls="tabs-3-panel-1"
+                  id="tabs-3-tab-1"
                   type="button"
                   aria-selected="true"
                   tabIndex="0"
@@ -426,8 +452,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-3")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-3")}}
                   role="tab"
-                  aria-controls="panel-2"
-                  id="tab-2"
+                  aria-controls="tabs-3-panel-2"
+                  id="tabs-3-tab-2"
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
@@ -440,8 +466,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-3")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-3")}}
                   role="tab"
-                  aria-controls="panel-3"
-                  id="tab-3"
+                  aria-controls="tabs-3-panel-3"
+                  id="tabs-3-tab-3"
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
@@ -452,10 +478,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content active-tab-content"
-                id="panel-1"
+                id="tabs-3-panel-1"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-1"
+                aria-labelledby="tabs-3-tab-1"
               >
                 {myBookings.some(booking => booking.status === "waiting_for_completion") ? (
                   <ul>
@@ -471,10 +497,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content"
-                id="panel-2"
+                id="tabs-3-panel-2"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-2"
+                aria-labelledby="tabs-3-tab-2"
               >
                 {myBookings.some(booking => booking.status === "waiting_for_acceptance") ? (
                   <ul>
@@ -490,10 +516,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content"
-                id="panel-3"
+                id="tabs-3-panel-3"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-3"
+                aria-labelledby="tabs-3-tab-3"
               >
                 {myBookings.some(booking => booking.status === "finished") ? (
                   <ul>
@@ -527,8 +553,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-4")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-4")}}
                   role="tab"
-                  aria-controls="panel-1"
-                  id="tab-1"
+                  aria-controls="tabs-4-panel-1"
+                  id="tabs-4-tab-1"
                   type="button"
                   aria-selected="true"
                   tabIndex="0"
@@ -541,8 +567,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-4")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-4")}}
                   role="tab"
-                  aria-controls="panel-2"
-                  id="tab-2"
+                  aria-controls="tabs-4-panel-2"
+                  id="tabs-4-tab-2"
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
@@ -555,8 +581,8 @@ const Profile = () => {
                   onClick={(e)=>{tabsAnimation(e, "tabs-4")}}
                   onKeyDown={(e)=>{arrowNavigation(e, "tabs-4")}}
                   role="tab"
-                  aria-controls="panel-3"
-                  id="tab-3"
+                  aria-controls="tabs-4-panel-3"
+                  id="tabs-4-tab-3"
                   type="button"
                   aria-selected="false"
                   tabIndex="-1"
@@ -567,10 +593,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content active-tab-content"
-                id="panel-1"
+                id="tabs-4-panel-1"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-1"
+                aria-labelledby="tabs-4-tab-1"
               >
                 {bookingsForMyActivities.some(booking => booking.status === "waiting_for_completion") ? (
                   <ul>
@@ -586,10 +612,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content"
-                id="panel-2"
+                id="tabs-4-panel-2"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-2"
+                aria-labelledby="tabs-4-tab-2"
               >
                 {bookingsForMyActivities.some(booking => booking.status === "waiting_for_acceptance") ? (
                   <ul>
@@ -605,10 +631,10 @@ const Profile = () => {
               </div>
               <div
                 className="tab-content"
-                id="panel-3"
+                id="tabs-4-panel-3"
                 role="tabpanel"
                 tabIndex="0"
-                aria-labelledby="tab-3"
+                aria-labelledby="tabs-4-tab-3"
               >
                 {bookingsForMyActivities.some(booking => booking.status === "finished") ? (
                   <ul>
