@@ -330,6 +330,37 @@ section.section-activities {
 
   }
 
+  form.filter-activities {
+    width: 100%;
+  }
+
+  .range-slider {
+    width: 200px;
+    height: 12px;
+    border-radius: 12px;
+    background: #c5c5c9;
+  }
+
+
+.range-slider .range-slider__range {
+  background: $my-gold;
+  transition: height 0.3s;
+}
+
+.range-slider .range-slider__thumb {
+  background: $my-gold;
+  transition: transform 0.3s;
+}
+
+.range-slider .range-slider__thumb[data-active] {
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+.range-slider .range-slider__range[data-active] {
+  height: 16px;
+}
+
+
 }
 
 section.section-comments {
@@ -1634,18 +1665,8 @@ footer {
     justify-content: space-around;
 
     div {
-      width: 30%;
+      width: 40%;
       margin: 2rem 3rem;
-      // h2 {
-      //   padding: 1.5rem 0 1rem;
-      //   font-size: 1.3rem;
-      // }
-
-      // p {
-      //   margin: 1rem 0;
-      //   text-align: justify;
-      //   font-size: 0.9rem;
-      // }
     }
 
     iframe {

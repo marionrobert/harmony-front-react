@@ -12,7 +12,7 @@ import { getAllHighScoreComments } from "./../api/comment"
 
 const Home = () => {
   const allActivities = useSelector(selectActivities)
-  const [comments, setComments ]= useState([])
+  const [comments, setComments ]= useState([]);
 
   useEffect(() => {
     getAllHighScoreComments()
