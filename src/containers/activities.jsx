@@ -54,13 +54,11 @@ const Activities = () => {
   }, [])
 
   const handleChange = (e) => {
-    console.log("kikoo")
     switch (e.currentTarget.name) {
       case "distance":
         setDistance(e.currentTarget.value)
         break;
-      case "cauthorIsProvider":
-        console.log("coucou")
+      case "authorIsProvider":
         setAuthorIsProvider(e.currentTarget.value)
         break;
     }
@@ -115,16 +113,16 @@ const Activities = () => {
   const avortSearch = (e) => {
     e.preventDefault()
     setFilteredActivities([])
+    setResultMessage(null)
   }
 
 
   return (
     <>
-      {console.log(authorIsProvider)}
       {/* {console.log(agreeForLocation, latitude, longitude)} */}
       { activities.activities.length > 0 &&
 
-        <section className="section-activities">
+        <section className="all-activities">
 
           <h1>Toutes les activités disponibles</h1>
 
@@ -148,10 +146,10 @@ const Activities = () => {
             <div>
               <fieldset>
                 <legend>Je veux:</legend>
-                <input type="radio"/>
-                <label htmlFor="authorIsProvider" value={false}>donner un coup de main</label>
-                <input type="radio" id="authorIsProvider" name="authorIsProvider"/>
-                <label htmlFor="authorIsProvider" value={true}>recevoir un coup de main</label>
+                <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={false}/>
+                <label htmlFor="authorIsProvider" >donner un coup de main</label>
+                <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={true}/>
+                <label htmlFor="authorIsProvider" >recevoir un coup de main</label>
               </fieldset>
             </div>
 
@@ -168,10 +166,10 @@ const Activities = () => {
               <p>{distance} km</p>
             </div>
 
-            <button aria-label="Rechercher">Rechercher</button>
+            <button aria-label="Rechercher" className="button">Rechercher</button>
+            <button aria-label="Supprimer les filtres" className="button" onClick={(e)=>{avortSearch(e)}}>Supprimer les filtres</button>
           </form>
 
-          <button onClick={(e)=>{avortSearch(e)}}>Supprimer les filtres</button>
 
           {resultMessage !== null && <p>{resultMessage}</p>}
 

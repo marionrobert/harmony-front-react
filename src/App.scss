@@ -111,14 +111,22 @@ p.page-loading {
 }
 
 
-
-
-
-// ******** HEADER ********* //
+.button {
+  background-color: $my-gold;
+  color: black;
+  border: none;
+  border-radius: 2px;
+  padding: 0.5rem;
+  margin: 1rem;
+}
 
 h1, h2 {
   font-family: 'Pacifico', cursive;
 }
+
+
+
+// ******** HEADER ********* //
 
 header {
   background-color: rgb(246, 237, 222);
@@ -330,37 +338,6 @@ section.section-activities {
 
   }
 
-  form.filter-activities {
-    width: 100%;
-  }
-
-  .range-slider {
-    width: 200px;
-    height: 12px;
-    border-radius: 12px;
-    background: #c5c5c9;
-  }
-
-
-.range-slider .range-slider__range {
-  background: $my-gold;
-  transition: height 0.3s;
-}
-
-.range-slider .range-slider__thumb {
-  background: $my-gold;
-  transition: transform 0.3s;
-}
-
-.range-slider .range-slider__thumb[data-active] {
-  transform: translate(-50%, -50%) scale(1.2);
-}
-
-.range-slider .range-slider__range[data-active] {
-  height: 16px;
-}
-
-
 }
 
 section.section-comments {
@@ -471,6 +448,63 @@ section.forgot {
     }
   }
 }
+
+
+// ******** ALL ACTIVITIES ********* //
+section.all-activities {
+  margin: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  h1, h2 {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.4rem;
+    width: 100%;
+  }
+
+  form.filter-activities {
+    width: 100%;
+  }
+
+  .range-slider {
+    width: 200px;
+    height: 12px;
+    border-radius: 12px;
+    background: #c5c5c9;
+  }
+
+
+  .range-slider .range-slider__range {
+    background: $my-gold;
+    transition: height 0.3s;
+  }
+
+  .range-slider .range-slider__thumb {
+    background: $my-gold;
+    transition: transform 0.3s;
+  }
+
+  .range-slider .range-slider__thumb[data-active] {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  .range-slider .range-slider__range[data-active] {
+    height: 16px;
+  }
+
+  input[type="range"]#distance {
+    accent-color: $my-gold;
+    border: none;
+  }
+
+  input[type="radio"]#authorIsProvider, input[type="checkbox"] {
+    accent-color: black;
+  }
+
+}
+
+
 
 // ******** CREATE ACTIVITY FORM ********* //
 section.create-update-activity {
