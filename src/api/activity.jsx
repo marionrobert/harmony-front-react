@@ -143,10 +143,12 @@ export const deleteOneActivity = (id) => {
 }
 
 export const getAllActivitiesWithFilters = (data) => {
+  console.log("data in api activity -->", data)
   const token = window.localStorage.getItem("harmony-token")
+  console.log("token", token)
   return axios.post(`${config.api_url}/api/v1/activtity/all/filter`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
-    console.log("res de requête axios getAllActivitiesWithFilters -->", res)
+    // console.log("res de requête axios getAllActivitiesWithFilters -->", res)
     return res.data
   })
   .catch((err)=>{

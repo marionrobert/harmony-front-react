@@ -3,6 +3,7 @@ import { selectActivities } from "../slices/activitySlice";
 import ActivityCard from "../components/activity-card"
 import { useEffect, useState } from "react";
 import { getAllCategories } from "../api/category";
+import { getAllActivitiesWithFilters } from "../api/activity";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
@@ -13,9 +14,15 @@ const Activities = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [agreeForLocation, setAgreeForLocation] = useState(false);
+  const [authorIsProvider, setAuthorIsProvider] = useState(false)
   const [rangeHours, setRangeHours] = useState([1, 2]);
+  const [distance, setDistance] = useState(10)
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const [resultMessage, setResultMessage] = useState(null)
+  const [filteredActivities, setFilteredActivities] = useState([])
 
   useEffect(() => {
+    setResultMessage(null)
     getAllCategories()
     .then((res)=>{
       if (res.status === 200){
@@ -46,9 +53,74 @@ const Activities = () => {
     }
   }, [])
 
+  const handleChange = (e) => {
+    console.log("kikoo")
+    switch (e.currentTarget.name) {
+      case "distance":
+        setDistance(e.currentTarget.value)
+        break;
+      case "cauthorIsProvider":
+        console.log("coucou")
+        setAuthorIsProvider(e.currentTarget.value)
+        break;
+    }
+  }
+
+  const handleChangeCheckedBox = (e) => {
+    const { value, checked } = e.target;
+    console.log(value)
+    // Si la case est cochée, ajouter la valeur à la liste des catégories sélectionnées
+    // Sinon, retirer la valeur de la liste
+    if (checked) {
+      setSelectedCategories([...selectedCategories, parseInt(value)]);
+    } else {
+      setSelectedCategories(selectedCategories.filter(category => category !== parseInt(value)));
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setResultMessage(null)
+    let data = {
+      "categories": selectedCategories,
+      "duration": {
+          "min_duration": rangeHours[0]*60,
+          "max_duration": rangeHours[1]*60
+      },
+      "distance": distance,
+      "lat": "48.68333",
+      "lng": "2.38333",
+      "authorIsProvider": authorIsProvider
+    }
+    console.log(data)
+
+    getAllActivitiesWithFilters(data)
+    .then((res)=>{
+      console.log(res)
+      if (res.status === 200) {
+        setResultMessage(res.msg)
+        setFilteredActivities(res.activities)
+      } else if (res.status === 204){
+        setResultMessage(res.msg)
+      } else {
+        setResultMessage("Une erreur est survenue. Veuillez réessayer plus tard.")
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+      setResultMessage("Une erreur est survenue. Veuillez réessayer plus tard.")
+    })
+  }
+
+  const avortSearch = (e) => {
+    e.preventDefault()
+    setFilteredActivities([])
+  }
+
 
   return (
     <>
+      {console.log(authorIsProvider)}
       {/* {console.log(agreeForLocation, latitude, longitude)} */}
       { activities.activities.length > 0 &&
 
@@ -56,43 +128,62 @@ const Activities = () => {
 
           <h1>Toutes les activités disponibles</h1>
 
-          <form className="filter-activities">
+          <form className="filter-activities" onSubmit={(e) => {handleSubmit(e)}}>
 
-            <label>Choisissez une catégorie: </label>
-            {categories.length > 0 &&
-            <select>
+          {categories.length > 0 &&
+            <div>
+              <label>Catégories: </label>
               {categories.map(category => {
-              return <option key={category.id} value={category.title}>{category.title}</option>
+                return (
+                  <>
+                    <input key={category.id} type="checkbox" value={category.id} onChange={(e)=>{handleChangeCheckedBox(e)}}/>
+                    <label>{category.title}</label>
+                  </>
+
+                  )
               })}
-            </select>
-            }
+            </div>
+          }
 
-            <fieldset>
-              <legend>Vous souhaitez :</legend>
-              <input type="radio"/>
-              <label htmlFor="authorIsProvider" value={false}>donner un coup de main</label>
-              <input type="radio" id="authorIsProvider" name="authorIsProvider"/>
-              <label htmlFor="authorIsProvider" value={true}>recevoir un coup de main</label>
-            </fieldset>
+            <div>
+              <fieldset>
+                <legend>Je veux:</legend>
+                <input type="radio"/>
+                <label htmlFor="authorIsProvider" value={false}>donner un coup de main</label>
+                <input type="radio" id="authorIsProvider" name="authorIsProvider"/>
+                <label htmlFor="authorIsProvider" value={true}>recevoir un coup de main</label>
+              </fieldset>
+            </div>
 
-            <label htmlFor="points">Nombre de points :</label>
-            <input type="range" id="points" name="points" min="1" max="6" step="1"/>
+            <div>
+              <p>Durée de l'activité</p>
+              <span>{rangeHours[0]} h</span>
+              <RangeSlider className="margin-lg" value={rangeHours} onInput={setRangeHours} min={0.5} max={3} step={0.5}/>
+              <span>{rangeHours[1]} h</span>
+            </div>
 
-            <p>Durée de l'activité</p>
-            <span>{rangeHours[0]} h</span>
-            <RangeSlider className="margin-lg" value={rangeHours} onInput={setRangeHours} min={0.5} max={3} step={0.5}/>
-            <span>{rangeHours[1]} h</span>
+            <div>
+              <label htmlFor="distance">Dans un rayon de:</label>
+              <input type="range" min="5" max="30" step="5" id="distance" name="distance" defaultValue={distance} onChange={(e)=>{handleChange(e)}}/>
+              <p>{distance} km</p>
+            </div>
 
-
+            <button aria-label="Rechercher">Rechercher</button>
           </form>
 
+          <button onClick={(e)=>{avortSearch(e)}}>Supprimer les filtres</button>
 
+          {resultMessage !== null && <p>{resultMessage}</p>}
 
-
-
-          {activities.activities.map(activity => {
-            return <ActivityCard key={activity.id} activity={activity} />
-          })}
+          { filteredActivities.length > 0 ?
+            filteredActivities.map(activity => {
+              return <ActivityCard key={activity.id} activity={activity} />
+            })
+          :
+            activities.activities.map(activity => {
+              return <ActivityCard key={activity.id} activity={activity} />
+            })
+          }
         </section>
       }
     </>
