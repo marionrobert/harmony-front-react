@@ -463,43 +463,113 @@ section.all-activities {
     width: 100%;
   }
 
+  h3 {
+    font-weight: bold;
+    margin-top: 1rem;;
+  }
+
   form.filter-activities {
     width: 100%;
-  }
+    border: 1px solid $my-gold;
+    margin: 1rem 0;
+    padding: 1rem;
+    text-align: left;
+    position: relative;
+    display: none;
 
-  .range-slider {
-    width: 200px;
-    height: 12px;
-    border-radius: 12px;
-    background: #c5c5c9;
-  }
+    .fa-xmark {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
 
+    div.categories, div.author-is-provider, div.time, div.distance {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      margin: 0.5rem 0 2rem;
 
-  .range-slider .range-slider__range {
-    background: $my-gold;
-    transition: height 0.3s;
-  }
+      p {
+        width: 100%;
+        font-weight: bold;
+        padding-bottom: 0.5rem;
+      }
+    }
 
-  .range-slider .range-slider__thumb {
-    background: $my-gold;
-    transition: transform 0.3s;
-  }
+    div.categories {
+      span {
+        width: 100%;
+        padding-bottom: 0.3em;
+      }
+    }
 
-  .range-slider .range-slider__thumb[data-active] {
-    transform: translate(-50%, -50%) scale(1.2);
-  }
+    div.time {
+      justify-content: space-between;
 
-  .range-slider .range-slider__range[data-active] {
-    height: 16px;
-  }
+      p {
+        padding-bottom: 1rem;
+      }
 
-  input[type="range"]#distance {
-    accent-color: $my-gold;
-    border: none;
-  }
+      span {
+        font-weight: bold;;
+      }
+      .range-slider {
+        width: 200px;
+        height: 12px;
+        border-radius: 12px;
+        background: #c5c5c9;
+      }
 
-  input[type="radio"]#authorIsProvider, input[type="checkbox"] {
-    accent-color: black;
+      .range-slider .range-slider__range {
+        background: $my-gold;
+        transition: height 0.3s;
+      }
+
+      .range-slider .range-slider__thumb {
+        background: $my-gold;
+        transition: transform 0.3s;
+      }
+
+      .range-slider .range-slider__thumb[data-active] {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+
+      .range-slider .range-slider__range[data-active] {
+        height: 16px;
+      }
+
+    }
+
+    div.distance {
+      justify-content: space-around;
+
+      span {
+        font-weight: bold;
+      }
+
+      input[type="range"]#distance {
+        accent-color: $my-gold;
+        border: none;
+      }
+
+    }
+
+    input[type="radio"]#authorIsProvider, input[type="checkbox"] {
+      accent-color: black;
+    }
+
+    div.buttons {
+      display: flex;
+      justify-content: space-evenly;
+
+      button {
+        width: 50%;
+        margin: 0 0.5rem;
+      }
+    }
+
   }
 
 }

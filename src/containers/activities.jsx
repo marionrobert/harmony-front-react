@@ -6,6 +6,8 @@ import { getAllCategories } from "../api/category";
 import { getAllActivitiesWithFilters } from "../api/activity";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faXmark} from '@fortawesome/free-solid-svg-icons'
 
 
 const Activities = () => {
@@ -90,11 +92,11 @@ const Activities = () => {
       "lng": "2.38333",
       "authorIsProvider": authorIsProvider
     }
-    console.log(data)
+    // console.log(data)
 
     getAllActivitiesWithFilters(data)
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       if (res.status === 200) {
         setResultMessage(res.msg)
         setFilteredActivities(res.activities)
@@ -108,12 +110,28 @@ const Activities = () => {
       console.log(err)
       setResultMessage("Une erreur est survenue. Veuillez réessayer plus tard.")
     })
+
+    hideFilters();
   }
 
   const avortSearch = (e) => {
     e.preventDefault()
+    let allCheckedBoxes = document.querySelectorAll('input[type="checkbox"]');
+    allCheckedBoxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
     setFilteredActivities([])
     setResultMessage(null)
+  }
+
+  const hideFilters = () => {
+    let form = document.querySelector("form.filter-activities")
+    form.style.display="none";
+  }
+
+  const displayFilters = () => {
+    let form = document.querySelector("form.filter-activities")
+    form.style.display="block";
   }
 
 
@@ -126,52 +144,61 @@ const Activities = () => {
 
           <h1>Toutes les activités disponibles</h1>
 
+          <p onClick={(e) => {displayFilters()}}>{ filteredActivities.length > 0 ? "Modifier les filtres" : "Filtrer les annonces"}</p>
+
           <form className="filter-activities" onSubmit={(e) => {handleSubmit(e)}}>
 
+          <FontAwesomeIcon icon={faXmark} aria-label="Fermer la fenêttre des filtres" onClick={(e)=> {hideFilters()}}/>
+
           {categories.length > 0 &&
-            <div>
-              <label>Catégories: </label>
+            <div className="categories">
+              <p>Catégories: </p>
               {categories.map(category => {
                 return (
-                  <>
-                    <input key={category.id} type="checkbox" value={category.id} onChange={(e)=>{handleChangeCheckedBox(e)}}/>
-                    <label>{category.title}</label>
-                  </>
+                  <span key={category.id} >
+                    <input type="checkbox" value={category.id} onChange={(e)=>{handleChangeCheckedBox(e)}}/>
+                    <label> {category.title}</label>
+                  </span>
 
                   )
               })}
             </div>
           }
 
-            <div>
-              <fieldset>
-                <legend>Je veux:</legend>
+            <div className="author-is-provider">
+              <p>Je veux :</p>
+              <span>
                 <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={false}/>
                 <label htmlFor="authorIsProvider" >donner un coup de main</label>
+              </span>
+              <span>
                 <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={true}/>
                 <label htmlFor="authorIsProvider" >recevoir un coup de main</label>
-              </fieldset>
+              </span>
             </div>
 
-            <div>
-              <p>Durée de l'activité</p>
+            <div className="time">
+              <p>Durée de l'activité :</p>
               <span>{rangeHours[0]} h</span>
               <RangeSlider className="margin-lg" value={rangeHours} onInput={setRangeHours} min={0.5} max={3} step={0.5}/>
               <span>{rangeHours[1]} h</span>
             </div>
 
-            <div>
-              <label htmlFor="distance">Dans un rayon de:</label>
+            <div className="distance">
+              <p>Dans un rayon de :</p>
               <input type="range" min="5" max="30" step="5" id="distance" name="distance" defaultValue={distance} onChange={(e)=>{handleChange(e)}}/>
-              <p>{distance} km</p>
+              <span>{distance} km</span>
             </div>
 
-            <button aria-label="Rechercher" className="button">Rechercher</button>
-            <button aria-label="Supprimer les filtres" className="button" onClick={(e)=>{avortSearch(e)}}>Supprimer les filtres</button>
+            <div className="buttons">
+              <button aria-label="Rechercher" className="button">Rechercher</button>
+              <button aria-label="Supprimer les filtres" className="button" onClick={(e)=>{avortSearch(e)}}>Supprimer les filtres</button>
+            </div>
           </form>
 
 
-          {resultMessage !== null && <p>{resultMessage}</p>}
+
+          {resultMessage !== null && <h3 className="result-message">{resultMessage}</h3>}
 
           { filteredActivities.length > 0 ?
             filteredActivities.map(activity => {
