@@ -7,7 +7,7 @@ import { getAllActivitiesWithFilters } from "../api/activity";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faXmark} from '@fortawesome/free-solid-svg-icons'
+import {faXmark, faFilter} from '@fortawesome/free-solid-svg-icons'
 
 
 const Activities = () => {
@@ -16,9 +16,9 @@ const Activities = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [agreeForLocation, setAgreeForLocation] = useState(false);
-  const [authorIsProvider, setAuthorIsProvider] = useState(false)
-  const [rangeHours, setRangeHours] = useState([1, 2]);
-  const [distance, setDistance] = useState(10)
+  const [authorIsProvider, setAuthorIsProvider] = useState("false")
+  const [rangeHours, setRangeHours] = useState([0.5, 3]);
+  const [distance, setDistance] = useState(50)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [resultMessage, setResultMessage] = useState(null)
   const [filteredActivities, setFilteredActivities] = useState([])
@@ -44,7 +44,7 @@ const Activities = () => {
         setLongitude(position.coords.longitude);
       }, (error) => {
         if (error.code === error.PERMISSION_DENIED) {
-          console.error('booouh L\'accès à la géolocalisation a été refusé par l\'utilisateur.');
+          // console.error('L\'accès à la géolocalisation a été refusé par l\'utilisateur.');
           setAgreeForLocation(false)// Gérer le cas où l'accès à la géolocalisation est refusé par l'utilisateur
         } else {
           console.error('Erreur de géolocalisation : ', error);
@@ -68,7 +68,7 @@ const Activities = () => {
 
   const handleChangeCheckedBox = (e) => {
     const { value, checked } = e.target;
-    console.log(value)
+    // console.log(value)
     // Si la case est cochée, ajouter la valeur à la liste des catégories sélectionnées
     // Sinon, retirer la valeur de la liste
     if (checked) {
@@ -81,16 +81,32 @@ const Activities = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setResultMessage(null)
-    let data = {
-      "categories": selectedCategories,
-      "duration": {
-          "min_duration": rangeHours[0]*60,
-          "max_duration": rangeHours[1]*60
-      },
-      "distance": distance,
-      "lat": "48.68333",
-      "lng": "2.38333",
-      "authorIsProvider": authorIsProvider
+    let data;
+
+    if (agreeForLocation) {
+      data = {
+        "categories": selectedCategories,
+        "duration": {
+            "min_duration": rangeHours[0]*60,
+            "max_duration": rangeHours[1]*60
+        },
+        "distance": distance,
+        "lat": "48.68333",
+        "lng": "2.38333",
+        // "lat": latitude,
+        // "lng": longitude,
+        "authorIsProvider": authorIsProvider
+      }
+    } else {
+      data = {
+        "categories": selectedCategories,
+        "duration": {
+            "min_duration": rangeHours[0]*60,
+            "max_duration": rangeHours[1]*60
+        },
+        "authorIsProvider": authorIsProvider
+      }
+      alert("Si vous souhaitez voir les activités proches de chez vous, veuillez activer le partage de votre position et rafraîchir cette page. \uD83D\uDE42")
     }
     // console.log(data)
 
@@ -98,7 +114,11 @@ const Activities = () => {
     .then((res)=>{
       // console.log(res)
       if (res.status === 200) {
-        setResultMessage(res.msg)
+        if (res.activities.length === 1){
+          setResultMessage("1 activité correspond à votre recherche.")
+        } else {
+          setResultMessage(`${res.activities.length} activités correspondent à votre recherche.`)
+        }
         setFilteredActivities(res.activities)
       } else if (res.status === 204){
         setResultMessage(res.msg)
@@ -120,8 +140,9 @@ const Activities = () => {
     allCheckedBoxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
-    setFilteredActivities([])
-    setResultMessage(null)
+    setFilteredActivities([]);
+    setResultMessage(null);
+    hideFilters();
   }
 
   const hideFilters = () => {
@@ -144,7 +165,7 @@ const Activities = () => {
 
           <h1>Toutes les activités disponibles</h1>
 
-          <p onClick={(e) => {displayFilters()}}>{ filteredActivities.length > 0 ? "Modifier les filtres" : "Filtrer les annonces"}</p>
+          <p onClick={(e) => {displayFilters()}}>{ filteredActivities.length > 0 ? "Filtres" : "Filtrer"} <FontAwesomeIcon icon={faFilter}/></p>
 
           <form className="filter-activities" onSubmit={(e) => {handleSubmit(e)}}>
 
@@ -168,7 +189,7 @@ const Activities = () => {
             <div className="author-is-provider">
               <p>Je veux :</p>
               <span>
-                <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={false}/>
+                <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={false} checked={authorIsProvider === "false"}/>
                 <label htmlFor="authorIsProvider" >donner un coup de main</label>
               </span>
               <span>
@@ -186,7 +207,7 @@ const Activities = () => {
 
             <div className="distance">
               <p>Dans un rayon de :</p>
-              <input type="range" min="5" max="30" step="5" id="distance" name="distance" defaultValue={distance} onChange={(e)=>{handleChange(e)}}/>
+              <input type="range" min="5" max="50" step="5" id="distance" name="distance" defaultValue={distance} onChange={(e)=>{handleChange(e)}}/>
               <span>{distance} km</span>
             </div>
 
@@ -198,7 +219,7 @@ const Activities = () => {
 
 
 
-          {resultMessage !== null && <h3 className="result-message">{resultMessage}</h3>}
+          <h3 className="result-message">{resultMessage !== null ? resultMessage : `${activities.activities.length} activités à découvrir !` }</h3>
 
           { filteredActivities.length > 0 ?
             filteredActivities.map(activity => {

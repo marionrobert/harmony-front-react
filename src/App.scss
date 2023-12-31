@@ -465,7 +465,14 @@ section.all-activities {
 
   h3 {
     font-weight: bold;
-    margin-top: 1rem;;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  > p {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: right;
   }
 
   form.filter-activities {
@@ -506,17 +513,19 @@ section.all-activities {
     }
 
     div.time {
-      justify-content: space-between;
 
       p {
         padding-bottom: 1rem;
       }
 
       span {
-        font-weight: bold;;
+        font-weight: bold;
+        width: 50px;
+        padding: 0 0.3rem;
+        text-align: center;
       }
       .range-slider {
-        width: 200px;
+        width: 175px;
         height: 12px;
         border-radius: 12px;
         background: #c5c5c9;
@@ -1757,6 +1766,18 @@ footer {
         width: 80%;
       }
     }
+  }
+
+  section.all-activities {
+
+    form.filter-activities {
+      div.time {
+        span {
+          // padding: 0 0.5rem;
+        }
+      }
+    }
+
   }
 }
 
