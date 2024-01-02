@@ -482,10 +482,9 @@ section.all-activities {
     padding: 1rem;
     text-align: left;
     position: relative;
-    display: flex;
-    // flex-direction: column;
     flex-wrap: wrap;
     display: none;
+    font-size: 0.9rem;
 
     .fa-xmark {
       position: absolute;
@@ -578,6 +577,7 @@ section.all-activities {
       button {
         width: 50%;
         margin: 0 0.5rem;
+        font-size: 0.8rem;
       }
     }
 
@@ -1789,9 +1789,10 @@ footer {
 
       div.buttons {
         margin-top: 2rem;
+        justify-content: right;
 
         button {
-          width: 30%;
+          width: 140px;;
           margin: 0 0.5rem;
         }
       }
@@ -1941,25 +1942,4 @@ footer {
       }
     }
   }
-
-  // ******** ALL ACTIVITIES ********* //
-  // section.all-activities {
-
-  //   form.filter-activities  {
-  //     div.categories, div.author-is-provider, div.time, div.distance {
-  //       width: 25%;
-  //     }
-  //     div.author-is-provider, div.time, div.distance {
-  //       flex-direction: column;
-  //     }
-
-  //     div.buttons {
-  //       button {
-  //         width: 175px;
-  //         margin: 0 0.5rem;
-  //       }
-  //     }
-  //   }
-  // }
-
 }
