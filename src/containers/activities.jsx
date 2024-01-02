@@ -91,10 +91,8 @@ const Activities = () => {
             "max_duration": rangeHours[1]*60
         },
         "distance": distance,
-        "lat": "48.68333",
-        "lng": "2.38333",
-        // "lat": latitude,
-        // "lng": longitude,
+        "lat": latitude,
+        "lng": longitude,
         "authorIsProvider": authorIsProvider
       }
     } else {
