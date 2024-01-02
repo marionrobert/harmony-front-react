@@ -152,7 +152,7 @@ const Activities = () => {
 
   const displayFilters = () => {
     let form = document.querySelector("form.filter-activities")
-    form.style.display="block";
+    form.style.display="flex";
   }
 
 
@@ -186,30 +186,33 @@ const Activities = () => {
             </div>
           }
 
-            <div className="author-is-provider">
-              <p>Je veux :</p>
-              <span>
-                <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={false} checked={authorIsProvider === "false"}/>
-                <label htmlFor="authorIsProvider" >donner un coup de main</label>
-              </span>
-              <span>
-                <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={true}/>
-                <label htmlFor="authorIsProvider" >recevoir un coup de main</label>
-              </span>
+            <div className="other-filters">
+              <div className="author-is-provider">
+                <p>Je veux :</p>
+                <span>
+                  <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={false} checked={authorIsProvider === "false"}/>
+                  <label htmlFor="authorIsProvider" >donner un coup de main</label>
+                </span>
+                <span>
+                  <input type="radio" id="authorIsProvider" name="authorIsProvider" onChange={(e)=>{handleChange(e)}} value={true}/>
+                  <label htmlFor="authorIsProvider" >recevoir un coup de main</label>
+                </span>
+              </div>
+
+              <div className="time">
+                <p>Durée de l'activité :</p>
+                <span>{rangeHours[0]} h</span>
+                <RangeSlider className="margin-lg" value={rangeHours} onInput={setRangeHours} min={0.5} max={3} step={0.5}/>
+                <span>{rangeHours[1]} h</span>
+              </div>
+
+              <div className="distance">
+                <p>Dans un rayon de :</p>
+                <input type="range" min="5" max="50" step="5" id="distance" name="distance" defaultValue={distance} onChange={(e)=>{handleChange(e)}}/>
+                <span>{distance} km</span>
+              </div>
             </div>
 
-            <div className="time">
-              <p>Durée de l'activité :</p>
-              <span>{rangeHours[0]} h</span>
-              <RangeSlider className="margin-lg" value={rangeHours} onInput={setRangeHours} min={0.5} max={3} step={0.5}/>
-              <span>{rangeHours[1]} h</span>
-            </div>
-
-            <div className="distance">
-              <p>Dans un rayon de :</p>
-              <input type="range" min="5" max="50" step="5" id="distance" name="distance" defaultValue={distance} onChange={(e)=>{handleChange(e)}}/>
-              <span>{distance} km</span>
-            </div>
 
             <div className="buttons">
               <button aria-label="Rechercher" className="button">Rechercher</button>

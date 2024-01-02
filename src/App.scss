@@ -482,6 +482,9 @@ section.all-activities {
     padding: 1rem;
     text-align: left;
     position: relative;
+    display: flex;
+    // flex-direction: column;
+    flex-wrap: wrap;
     display: none;
 
     .fa-xmark {
@@ -493,6 +496,7 @@ section.all-activities {
     }
 
     div.categories, div.author-is-provider, div.time, div.distance {
+      width: 100%;
       display: flex;
       flex-wrap: wrap;
       justify-content: left;
@@ -513,7 +517,6 @@ section.all-activities {
     }
 
     div.time {
-
       p {
         padding-bottom: 1rem;
       }
@@ -526,7 +529,7 @@ section.all-activities {
       }
       .range-slider {
         width: 175px;
-        height: 12px;
+        height: 8px;
         border-radius: 12px;
         background: #c5c5c9;
       }
@@ -552,17 +555,15 @@ section.all-activities {
     }
 
     div.distance {
-      justify-content: space-around;
-
       span {
         font-weight: bold;
+        margin-left: 1rem;
       }
 
       input[type="range"]#distance {
         accent-color: $my-gold;
         border: none;
       }
-
     }
 
     input[type="radio"]#authorIsProvider, input[type="checkbox"] {
@@ -570,6 +571,7 @@ section.all-activities {
     }
 
     div.buttons {
+      width: 100%;
       display: flex;
       justify-content: space-evenly;
 
@@ -1768,16 +1770,32 @@ footer {
     }
   }
 
+  // ******** ALL ACTIVITIES ********* //
   section.all-activities {
 
-    form.filter-activities {
-      div.time {
-        span {
-          // padding: 0 0.5rem;
+    form.filter-activities  {
+      div.categories, div.other-filters {
+        width: 50%;
+      }
+
+      div.other-filters {
+        border-left: 1px solid $my-gold;
+        padding-left: 1rem;;
+      }
+
+      div.distance, div.time {
+        padding-top: 1rem;
+      }
+
+      div.buttons {
+        margin-top: 2rem;
+
+        button {
+          width: 30%;
+          margin: 0 0.5rem;
         }
       }
     }
-
   }
 }
 
@@ -1923,5 +1941,25 @@ footer {
       }
     }
   }
+
+  // ******** ALL ACTIVITIES ********* //
+  // section.all-activities {
+
+  //   form.filter-activities  {
+  //     div.categories, div.author-is-provider, div.time, div.distance {
+  //       width: 25%;
+  //     }
+  //     div.author-is-provider, div.time, div.distance {
+  //       flex-direction: column;
+  //     }
+
+  //     div.buttons {
+  //       button {
+  //         width: 175px;
+  //         margin: 0 0.5rem;
+  //       }
+  //     }
+  //   }
+  // }
 
 }
