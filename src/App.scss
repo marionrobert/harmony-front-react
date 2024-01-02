@@ -111,14 +111,22 @@ p.page-loading {
 }
 
 
-
-
-
-// ******** HEADER ********* //
+.button {
+  background-color: $my-gold;
+  color: black;
+  border: none;
+  border-radius: 2px;
+  padding: 0.5rem;
+  margin: 1rem;
+}
 
 h1, h2 {
   font-family: 'Pacifico', cursive;
 }
+
+
+
+// ******** HEADER ********* //
 
 header {
   background-color: rgb(246, 237, 222);
@@ -440,6 +448,144 @@ section.forgot {
     }
   }
 }
+
+
+// ******** ALL ACTIVITIES ********* //
+section.all-activities {
+  margin: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  h1, h2 {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.4rem;
+    width: 100%;
+  }
+
+  h3 {
+    font-weight: bold;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  > p {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: right;
+  }
+
+  form.filter-activities {
+    width: 100%;
+    border: 1px solid $my-gold;
+    margin: 1rem 0;
+    padding: 1rem;
+    text-align: left;
+    position: relative;
+    flex-wrap: wrap;
+    display: none;
+    font-size: 0.9rem;
+
+    .fa-xmark {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    div.categories, div.author-is-provider, div.time, div.distance {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      margin: 0.5rem 0 2rem;
+
+      p {
+        width: 100%;
+        font-weight: bold;
+        padding-bottom: 0.5rem;
+      }
+    }
+
+    div.categories {
+      span {
+        width: 100%;
+        padding-bottom: 0.3em;
+      }
+    }
+
+    div.time {
+      p {
+        padding-bottom: 1rem;
+      }
+
+      span {
+        font-weight: bold;
+        width: 50px;
+        padding: 0 0.3rem;
+        text-align: center;
+      }
+      .range-slider {
+        width: 175px;
+        height: 8px;
+        border-radius: 12px;
+        background: #c5c5c9;
+      }
+
+      .range-slider .range-slider__range {
+        background: $my-gold;
+        transition: height 0.3s;
+      }
+
+      .range-slider .range-slider__thumb {
+        background: $my-gold;
+        transition: transform 0.3s;
+      }
+
+      .range-slider .range-slider__thumb[data-active] {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+
+      .range-slider .range-slider__range[data-active] {
+        height: 16px;
+      }
+
+    }
+
+    div.distance {
+      span {
+        font-weight: bold;
+        margin-left: 1rem;
+      }
+
+      input[type="range"]#distance {
+        accent-color: $my-gold;
+        border: none;
+      }
+    }
+
+    input[type="radio"]#authorIsProvider, input[type="checkbox"] {
+      accent-color: black;
+    }
+
+    div.buttons {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+
+      button {
+        width: 50%;
+        margin: 0 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
+
+  }
+
+}
+
+
 
 // ******** CREATE ACTIVITY FORM ********* //
 section.create-update-activity {
@@ -1623,6 +1769,35 @@ footer {
       }
     }
   }
+
+  // ******** ALL ACTIVITIES ********* //
+  section.all-activities {
+
+    form.filter-activities  {
+      div.categories, div.other-filters {
+        width: 50%;
+      }
+
+      div.other-filters {
+        border-left: 1px solid $my-gold;
+        padding-left: 1rem;;
+      }
+
+      div.distance, div.time {
+        padding-top: 1rem;
+      }
+
+      div.buttons {
+        margin-top: 2rem;
+        justify-content: right;
+
+        button {
+          width: 140px;;
+          margin: 0 0.5rem;
+        }
+      }
+    }
+  }
 }
 
 /* ADAPTATION DESKTOP */
@@ -1634,18 +1809,8 @@ footer {
     justify-content: space-around;
 
     div {
-      width: 30%;
+      width: 40%;
       margin: 2rem 3rem;
-      // h2 {
-      //   padding: 1.5rem 0 1rem;
-      //   font-size: 1.3rem;
-      // }
-
-      // p {
-      //   margin: 1rem 0;
-      //   text-align: justify;
-      //   font-size: 0.9rem;
-      // }
     }
 
     iframe {
@@ -1777,5 +1942,4 @@ footer {
       }
     }
   }
-
 }
