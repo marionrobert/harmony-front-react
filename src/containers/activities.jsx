@@ -153,7 +153,6 @@ const Activities = () => {
     form.style.display="flex";
   }
 
-
   return (
     <>
       {/* {console.log(agreeForLocation, latitude, longitude)} */}

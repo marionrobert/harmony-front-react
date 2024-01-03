@@ -18,6 +18,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRotateLeft, faLocationDot, faCoins} from "@fortawesome/free-solid-svg-icons";
 import { faClock, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
+import L from 'leaflet';
+
 
 const Details = () => {
   const params = useParams()
@@ -30,6 +33,11 @@ const Details = () => {
   const [msg, setMsg] = useState(null)
   const [msgBasket, setMsgBasket] = useState("")
   const [redirect, setRedirect]  = useState(null)
+  let myIcon = L.icon({
+    iconUrl: '../../../public/position.svg',
+    iconSize: [45, 45],
+    popupAnchor: [-3, -20]
+  });
 
 
   useEffect(() => {
@@ -107,6 +115,41 @@ const Details = () => {
     })
     .catch(err => console.log(err))
   }
+
+  // const createMap = (lat, lng, activity) => {
+  //   //on définit le centre géographique et le zoom de la map.
+  //   myMap = L.map('mapid').setView([activity.lat, activity.lng], 15);
+
+  //   //regroupe les markers (calque) et en fait qu'un seul puis on ajoute à la map
+  //   marker = L.layerGroup().addTo(myMap)
+
+  //   //on charge la map et ses propriétés (ne pas oublier la clé d'accés) via l'api mapbox puis on ajoute à la map(voir tileLayer dans leaflet)
+  //   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //       maxZoom: 19,
+  //       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  //   }).addTo(map);
+  //   // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  //   //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  //   //     maxZoom: 18,
+  //   //     id: 'mapbox/streets-v11',
+  //   //     tileSize: 512,
+  //   //     zoomOffset: -1,
+  //   //     accessToken: monToken,
+  //   // }).addTo(mymap);
+
+  //   // //on initialise l'icon de notre position
+  //   // let myIcon = L.icon({
+  //   //     iconUrl: 'img/bluecircle.png',
+  //   //     iconSize: [15, 15],
+  //   //     popupAnchor: [-3, -20]
+  //   // });
+
+  //   // //on crée notre marker de position avec son icon et on ajoute à la map.
+  //   // L.marker([lat, lng], {icon: myIcon}).addTo(mymap)
+  //   //     .bindPopup('Votre position actuelle')
+  //   //     .openPopup();
+
+  // }
 
   if (redirect){
     return <Navigate to={`/activities`}/>
@@ -194,6 +237,16 @@ const Details = () => {
               <Link to={`/activity/update/${activity.id}`}> <FontAwesomeIcon icon={faPenToSquare}/> Modifier mon annonce</Link>
             </article>
             }
+
+            <MapContainer center={[activity.lat, activity.lng]} zoom={15} scrollWheelZoom={false} >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[activity.lat, activity.lng]} icon={myIcon}>
+                <Popup> {activity.address} {activity.zip} {activity.city} </Popup>
+              </Marker>
+            </MapContainer>
           </section>
         </>
       )
