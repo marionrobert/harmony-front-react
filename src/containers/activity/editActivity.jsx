@@ -337,11 +337,11 @@ const EditActivity = () => {
         {errorDuration !== null && <p className="error">{errorDuration}</p>}
 
 
-        { activity.urlPicture !== null ?
+        { urlPicture !== null ?
           <div>
             <CloudinaryContext cloudName="dptcisxbs">
               <div>
-                <Image className="details-image" publicId={activity.urlPicture} alt={`Image de l'activité ${activity.title}`}>
+                <Image className="details-image" publicId={urlPicture} alt={`Image de l'activité ${activity.title}`}>
                   <Transformation quality="auto" fetchFormat="auto" />
                 </Image>
               </div>

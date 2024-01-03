@@ -5,6 +5,7 @@ import { getAllCategories } from "../../api/category"
 import { saveOneActivity, getCoords } from "../../api/activity"
 import { useSelector } from 'react-redux';
 import { selectUser} from "../../slices/userSlice"
+import { Image, Transformation, CloudinaryContext} from "cloudinary-react";
 
 const AddActivity = () => {
   const [categories, setCategories] = useState([])
@@ -325,6 +326,20 @@ const AddActivity = () => {
           </button>
           {successPhoto === null && errorPhoto !== null && <p className="error">{errorPhoto}</p>}
           {successPhoto !== null && <p style={{color:"green"}}>{successPhoto}</p>}
+          { urlPicture !== null &&
+          <div>
+            <CloudinaryContext cloudName="dptcisxbs">
+              <div>
+                <Image className="details-image" publicId={urlPicture} alt={`Image chargée par l'utilisateur.`}>
+                  <Transformation quality="auto" fetchFormat="auto" />
+                </Image>
+              </div>
+            </CloudinaryContext>
+            <button aria-label="Modifier la photo" onClick={(e) => {showWidget(e)}} >
+              Modifier la photo
+            </button>
+          </div>
+        }
           <button aria-label="Valider la création de l'activité" className="validate" type="submit">Valider</button>
         </form>
       }

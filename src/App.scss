@@ -80,7 +80,7 @@ a {
 
 main {
   margin-top: 60px;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 140px);
   padding-bottom: 2rem;
   text-align: center;
 }
@@ -1573,11 +1573,17 @@ footer {
   z-index: 3;
   justify-content: center;
   align-items: center;
-  height: 60px;
+  flex-wrap: wrap;
+  height: 80px;
   width: 100%;
   a, p {
     padding: 0 0.5rem;
     color: rgb(94, 82, 56);
+  }
+
+  p.contact-me {
+    width: 100%;
+    font-size: 0.7rem;;
   }
 }
 
