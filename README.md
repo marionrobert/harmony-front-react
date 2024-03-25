@@ -87,7 +87,7 @@ Le responsive design consiste à créer des sites Web et des applications qui s'
 <br/>
 <div style="display: flex; justify-content: center;">
 <img src="/public/screenshots/activityDetails.png" alt="présentation d'une activité en format mobile" width="300">
-<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="présentation d'une activité en format tablette et ordinateur" width="700">
+<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="présentation d'une activité en format tablette et ordinateur" width="600">
 </div>
 <br/>
 
