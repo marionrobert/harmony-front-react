@@ -74,7 +74,7 @@ Le projet est organisé en plusieurs dossiers et fihciers présents dans le doss
 
 
 A la racine du projet, il existe également:
-- un dossier **public** qui contient uniquement l'image servant de favicon.
+- un dossier **public** qui contient l'image servant de favicon à cette application et les captures d'écran utilisées dans ce README.
 - un fichier **index.html** qui définit la structure de base de la page web de l'application React, incluant des métadonnées telles que le titre, la description, des liens vers des ressources externes comme des feuilles de style et des scripts, ainsi que le conteneur principal où l'application sera rendue.
 - un **fichier vite.config.js** quiconfigure Vite pour prendre en charge React en utilisant le plugin @vitejs/plugin-react. Il exporte une configuration par défaut qui spécifie l'utilisation du plugin React et il contient des commentaires expliquant comment ajuster les paramètres du serveur pour un environnement de développement IDE.
 
