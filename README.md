@@ -94,28 +94,35 @@ Le responsive design consiste à créer des sites Web et des applications qui s'
 <br/>
 
 ## Fonctionnalités et parcours utilisateur
-1. Utilisateur sans rôle spécifique
+
+**Utilisateur sans rôle spécifique:**
+
 Un utilisateur qui n’a pas de compte pourra uniquement :
-  • Accéder à la page d’accueil et découvrir des exemples d’activités proposées.
-  • Se créer un compte
+- Accéder à la page d’accueil et découvrir des exemples d’activités proposées.
+- Se créer un compte
 
 L’utilisateur qui a un compte peut :
-  • Se connecter, consulter son profil et modifier ses informations personnelles
-  • S’il souhaite réserver une activité/annonce, l’utilisateur connecté peut :
-    • Consulter toutes les annonces en ligne et la page de détails de chacune d’entre elles
-    • Filter les annonces en choisissant des critères de sélection:
-    • Réserver une activité
-    • Valider la réalisation d’une activité 1
-    • Commenter une activité qu’il avait réservée et qui a été réalisée
-    • Consulter les activités qu’il a réservées
-  • En tant que créateur d’une annonce, l’utilisateur connecté peut :
-    • Créer une annonce pour proposer une activité en tant que fournisseur (« je propose mon aide ») ou bénéficiaire (« j’ai besoin d’un coup de main »)
-    • Consulter, modifier, supprimer les annonces qu’il a rédigées
-    • Accepter une réservation
-2. Utilisateur avec le rôle d’administrateur
-L’administrateur a un rôle de modérateur : il peut valider ou non la publication des annonces et commentaires créés par les utilisateurs pour éviter que tous propos ou images inappropriés soient présents sur la plateforme.
-L'administrateur peut créer, modifier ou supprimer des catégories.
+- Se connecter, consulter son profil et modifier ses informations personnelles
+- S’il souhaite réserver une activité/annonce, l’utilisateur connecté peut :
+    - Consulter toutes les annonces en ligne et la page de détails de chacune d’entre elles
+    - Filter les annonces en choisissant des critères de sélection:
+        - Réserver une activité
+        - Valider la réalisation d’une activité
+        - Commenter une activité qu’il avait réservée et qui a été réalisée
+        - Consulter les activités qu’il a réservées
+- En tant que créateur d’une annonce, l’utilisateur connecté peut :
+    - Créer une annonce pour proposer une activité en tant que fournisseur (« je propose mon aide ») ou bénéficiaire (« j’ai besoin d’un coup de main »)
+    - Consulter, modifier, supprimer les annonces qu’il a rédigées
+    - Accepter une réservation
+<br/>
 
+**Utilisateur avec le rôle d’administrateur:**
+
+- L’administrateur a un rôle de modérateur : il peut valider ou non la publication des annonces et commentaires créés par les utilisateurs pour éviter que tous propos ou images inappropriés soient présents sur la plateforme.
+- L'administrateur peut créer, modifier ou supprimer des catégories.
+
+<br/>
+<br/>
 
 ## Un apperçu de l'interface
 
