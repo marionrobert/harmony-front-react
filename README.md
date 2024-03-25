@@ -47,10 +47,13 @@ dependencies": {
 <br/>
 
 ### Étapes d'installation :
-1. Clonez le dépôt Git : `git clone https://github.com/marionrobert/harmony-front-react.git`
-2. Assurez-vous d'avoir la stack technologique installée avec les bonnes versions.
-3. Lancer la commande `npm install` pour installer les dépendences.
-(description à venir)
+
+1. Clonez le dépôt Git : `git clone https://github.com/marionrobert/harmony-front-react.git`.
+2. Assurez-vous d'avoir les bonnes versions de la stack technologique installées.
+3. Exécutez la commande `npm install` pour installer les dépendances.
+4. Suivez les étapes d'installation et de configuration du backend, puis lancez le serveur de l'API backend avec la commande `npm run dev`. Toutes les instructions sont disponibles sur le dépôt du backend de l'application [ici](https://github.com/marionrobert/finalProjet-api-back).
+5. Ensuite, lancez le serveur de l'interface utilisateur avec la commande `npm run dev`.
+
 <br/>
 
 ## Contenu des fichiers 📁🗃️
@@ -82,10 +85,12 @@ A la racine du projet, il existe également:
 ## Responsive design et méthode "mobile first"
 Le responsive design consiste à créer des sites Web et des applications qui s'adaptent automatiquement à différentes tailles d'écran et types d'appareils, offrant ainsi une expérience utilisateur optimale sur ordinateurs de bureau, tablettes et smartphones. La méthode mobile first est une approche de conception qui commence par concevoir pour les appareils mobiles, puis étend progressivement la mise en page et les fonctionnalités pour les écrans plus grands, ce qui permet de prioriser l'expérience utilisateur sur les appareils mobiles et de simplifier la conception.
 
-*** Exemple de responsive design sur la page de présentation d'une activité
-<img src="/public/screenshots/activityDetails.png" alt="présentation d'une activité en format mobile" width="200">
-<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="présentation d'une activité en format tablette et ordinateur" width="800">
-
+### Exemple de responsive design sur la page de présentation d'une activité
+<br/>
+<div style="display: flex; justify-content: center;">
+<img src="/public/screenshots/activityDetails.png" alt="présentation d'une activité en format mobile" width="300">
+<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="présentation d'une activité en format tablette et ordinateur" width="700">
+</div>
 <br/>
 
 ## Fonctionnalités et parcours utilisateur
@@ -124,17 +129,16 @@ L'administrateur peut créer, modifier ou supprimer des catégories.
 
 <br/>
 
-### Visionnage des détails d'une activité
-<img src="/public/screenshots/filter-activities.png" alt="visionnage et filtre des activités" width="800">
-
 <br/>
 
 ### Accepter, Confirmer et Commenter une réservation
-<img src="/public/screenshots/acceptBooking.png" alt="accepter une réservation" width="200">
-<img src="/public/screenshots/confirmCompletion.png" alt="confirmer la réalisation de l'activité" width="200">
-<img src="/public/screenshots/commentBooking.png" alt="commenter une réservation terminée" width="400">
-<img src="/public/screenshots/bookingCompleted.png" alt="visualiser une réservation terminée" width="400">
+<div style="display: flex; justify-content: center;">
+    <img src="/public/screenshots/bookingCompleted.png" alt="visualiser une réservation terminée" width="500">
+    <img src="/public/screenshots/acceptBooking.png" alt="accepter une réservation" width="300">
+    <img src="/public/screenshots/confirmCompletion.png" alt="confirmer la réalisation de l'activité" width="300">
+    <img src="/public/screenshots/commentBooking.png" alt="commenter une réservation terminée" width="500">
 
+</div>
 <br/>
 
 ### Dashboard de l'administrateur
@@ -143,9 +147,10 @@ L'administrateur peut créer, modifier ou supprimer des catégories.
 <br/>
 
 ### Modération des activités et commentaires par l'administrateur
-<img src="/public/screenshots/moderateActivity.png" alt="modération de l'activité par l'administateur" width="400">
-<img src="/public/screenshots/moderateComment.png" alt="modération du commentaire par l'administateur" width="400">
-
+<div style="display: flex; justify-content: center;">
+    <img src="/public/screenshots/moderateActivity.png" alt="modération de l'activité par l'administateur" width="600">
+    <img src="/public/screenshots/moderateComment.png" alt="modération du commentaire par l'administateur" width="300">
+</div>
 <br/>
 
 
