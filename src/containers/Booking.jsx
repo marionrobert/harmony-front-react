@@ -6,7 +6,7 @@ import { selectUser } from "../slices/userSlice";
 import {getOneUserById} from "../api/user"
 import { acceptBooking, deleteOneBooking, validateAchievementByBeneficiary, validateAchievementByProvider } from "../api/booking";
 import {saveOneComment, getOneCommentByBookingId, updateOneComment} from "../api/comment"
-import CommentCard from "../components/comment-card";
+import CommentCard from "../components/CommentCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPhone, faCoins, faLocationDot, faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";

@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { selectActivities } from "../slices/activitySlice";
-import ActivityCard from "../components/activity-card"
+import { selectActivities } from "../../slices/activitySlice";
+import ActivityCard from "../../components/ActivityCard"
 import { useEffect, useState } from "react";
-import { getAllCategories } from "../api/category";
-import { getAllActivitiesWithFilters } from "../api/activity";
+import { getAllCategories } from "../../api/category";
+import { getAllActivitiesWithFilters } from "../../api/activity";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
