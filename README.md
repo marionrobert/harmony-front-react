@@ -5,6 +5,7 @@ Harmony est né d'un constat simple. Les personnes bénéficiant d'une protectio
 
 L'application est disponible en français uniquement. Ce dépôt est consacré à la partie frontend du projet.
 
+
 <br/>
 
 ## Contexte de développement 💻
@@ -65,10 +66,10 @@ Le projet est organisé en plusieurs dossiers et fihciers présents dans le doss
 - dossier **fonts** : contient des fichiers de police au format TrueType Font (.ttf), utilisés pour définir les styles de texte dans l'application web.
 - dossier **helpers** : contient le fichier require-data-auth.jsx qui définit un composant React qui agit en tant que Higher-Order Component (HOC) pour contrôler les données et la sécurité des routes. Il gère la récupération des paramètres de la route, l'extraction des états depuis le store Redux, la gestion de la redirection en fonction de l'authentification de l'utilisateur, et effectue des appels API pour vérifier l'authenticité du token d'utilisateur. En fonction de l'état de l'authentification et des rôles de l'utilisateur, il redirige vers les pages appropriées ou affiche le composant enfant avec les paramètres transmis.
 - dossier **slices** : contient plusieurs fichiers associés à la gestion de l'état global de l'application à l'aide de Redux, un gestionnaire d'état pour les applications JavaScript.
-  - **store.jsx** : contient la configuration du magasin Redux de votre application, qui combine tous les "slices" définis dans votre application pour créer un seul et unique "store" gérant l'état global de l'application.
-  - **activitySlice.jsx**: définit un "slice" pour gérer l'état lié aux activités dans votre application. Il contient des actions, des reducers et des sélecteurs pour manipuler et récupérer des données liées aux activités.
-  - **basketSlice.jsx** : définit un "slice" pour gérer l'état du panier dans votre application, stockant les produits ou articles sélectionnés par l'utilisateur. Il inclut des actions pour mettre à jour et nettoyer le panier, ainsi que des fonctions pour calculer le montant total du panier.
-  - **userSlice.jsx** : définit un "slice" pour gérer l'état de l'utilisateur dans votre application, stockant les informations de connexion telles que l'identifiant de l'utilisateur et le token d'authentification. Il contient des actions pour définir l'utilisateur et le déconnecter, ainsi que des sélecteurs pour récupérer les informations de l'utilisateur.
+  - **store.jsx** : contient la configuration du magasin Redux de l'application, qui combine tous les "slices" définis dans l'application pour créer un seul et unique "store" gérant l'état global de l'application.
+  - **activitySlice.jsx**: définit un "slice" pour gérer l'état lié aux activités dans l'application. Il contient des actions, des reducers et des sélecteurs pour manipuler et récupérer des données liées aux activités.
+  - **basketSlice.jsx** : définit un "slice" pour gérer l'état du panier dans l'application, stockant les produits ou articles sélectionnés par l'utilisateur. Il inclut des actions pour mettre à jour et nettoyer le panier, ainsi que des fonctions pour calculer le montant total du panier.
+  - **userSlice.jsx** : définit un "slice" pour gérer l'état de l'utilisateur dans l'application, stockant les informations de connexion telles que l'identifiant de l'utilisateur et le token d'authentification. Il contient des actions pour définir l'utilisateur et le déconnecter, ainsi que des sélecteurs pour récupérer les informations de l'utilisateur.
 - fichier **App.jsx** : définit le composant racine de l'application. Il organise les routes et les composants de l'application en utilisant React Router pour la navigation. Il inclut également les en-têtes et pieds de page de l'application, ainsi que des routes pour différentes fonctionnalités telles que la gestion des activités, les réservations, l'authentification des utilisateurs et les fonctionnalités administratives.
 - fichier **App.scss** : contient le CSS applicable à l'ensemble de l'application. Il suit la méthode "mobile first", ce qui signifie que le CSS pour les formats mobiles est défini en premier, suivi des adaptations pour les formats tablette et ordinateur. Le CSS est structuré par containers et composants.
 - fichier **config.js** : contient un objet config qui stocke les informations nécessaires à l'application, telles que les URL de l'API et les URL des images. Actuellement, il est configuré pour utiliser des URL locales (http://localhost:9000), mais il existe également une configuration en commentaire pour une utilisation avec un environnement de développement IDE (http://marionrobert.ide.3wa.io:9000).
@@ -76,7 +77,7 @@ Le projet est organisé en plusieurs dossiers et fihciers présents dans le doss
 
 
 A la racine du projet, il existe également:
-- un dossier **public** qui contient uniquement l'image servant de favicon.
+- un dossier **public** qui contient l'image servant de favicon à cette application et les captures d'écran utilisées dans ce README.
 - un fichier **index.html** qui définit la structure de base de la page web de l'application React, incluant des métadonnées telles que le titre, la description, des liens vers des ressources externes comme des feuilles de style et des scripts, ainsi que le conteneur principal où l'application sera rendue.
 - un **fichier vite.config.js** quiconfigure Vite pour prendre en charge React en utilisant le plugin @vitejs/plugin-react. Il exporte une configuration par défaut qui spécifie l'utilisation du plugin React et il contient des commentaires expliquant comment ajuster les paramètres du serveur pour un environnement de développement IDE.
 
@@ -89,33 +90,40 @@ Le responsive design consiste à créer des sites Web et des applications qui s'
 <br/>
 <div style="display: flex; justify-content: center;">
 <img src="/public/screenshots/activityDetails.png" alt="présentation d'une activité en format mobile" width="300">
-<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="présentation d'une activité en format tablette et ordinateur" width="700">
+<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="présentation d'une activité en format tablette et ordinateur" width="600">
 </div>
 <br/>
 
 ## Fonctionnalités et parcours utilisateur
-1. Utilisateur sans rôle spécifique
+
+**Utilisateur sans rôle spécifique:**
+
 Un utilisateur qui n’a pas de compte pourra uniquement :
-  • Accéder à la page d’accueil et découvrir des exemples d’activités proposées.
-  • Se créer un compte
+- Accéder à la page d’accueil et découvrir des exemples d’activités proposées.
+- Se créer un compte
 
 L’utilisateur qui a un compte peut :
-  • Se connecter, consulter son profil et modifier ses informations personnelles
-  • S’il souhaite réserver une activité/annonce, l’utilisateur connecté peut :
-    • Consulter toutes les annonces en ligne et la page de détails de chacune d’entre elles
-    • Filter les annonces en choisissant des critères de sélection:
-    • Réserver une activité
-    • Valider la réalisation d’une activité 1
-    • Commenter une activité qu’il avait réservée et qui a été réalisée
-    • Consulter les activités qu’il a réservées
-  • En tant que créateur d’une annonce, l’utilisateur connecté peut :
-    • Créer une annonce pour proposer une activité en tant que fournisseur (« je propose mon aide ») ou bénéficiaire (« j’ai besoin d’un coup de main »)
-    • Consulter, modifier, supprimer les annonces qu’il a rédigées
-    • Accepter une réservation
-2. Utilisateur avec le rôle d’administrateur
-L’administrateur a un rôle de modérateur : il peut valider ou non la publication des annonces et commentaires créés par les utilisateurs pour éviter que tous propos ou images inappropriés soient présents sur la plateforme.
-L'administrateur peut créer, modifier ou supprimer des catégories.
+- Se connecter, consulter son profil et modifier ses informations personnelles
+- S’il souhaite réserver une activité/annonce, l’utilisateur connecté peut :
+    - Consulter toutes les annonces en ligne et la page de détails de chacune d’entre elles
+    - Filter les annonces en choisissant des critères de sélection:
+        - Réserver une activité
+        - Valider la réalisation d’une activité
+        - Commenter une activité qu’il avait réservée et qui a été réalisée
+        - Consulter les activités qu’il a réservées
+- En tant que créateur d’une annonce, l’utilisateur connecté peut :
+    - Créer une annonce pour proposer une activité en tant que fournisseur (« je propose mon aide ») ou bénéficiaire (« j’ai besoin d’un coup de main »)
+    - Consulter, modifier, supprimer les annonces qu’il a rédigées
+    - Accepter une réservation
+<br/>
 
+**Utilisateur avec le rôle d’administrateur:**
+
+- L’administrateur a un rôle de modérateur : il peut valider ou non la publication des annonces et commentaires créés par les utilisateurs pour éviter que tous propos ou images inappropriés soient présents sur la plateforme.
+- L'administrateur peut créer, modifier ou supprimer des catégories.
+
+<br/>
+<br/>
 
 ## Un apperçu de l'interface
 
@@ -153,12 +161,5 @@ L'administrateur peut créer, modifier ou supprimer des catégories.
 </div>
 <br/>
 
-
-
-## Notifications par email
-
-<br/>
-
-
 ## Dossier lié 🔗
-La partie backend de l'application est accessible [ici](https://github.com/marionrobert/finalProjet-api-back)
+La partie backend de l'application est accessible [ici](https://github.com/marionrobert/verdure-api-back)
