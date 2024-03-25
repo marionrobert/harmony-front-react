@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
-import ActivityCard from "../components/activity-card"
-import CommentCard from "../components/comment-card"
+import ActivityCard from "../components/ActivityCard"
+import CommentCard from "../components/CommentCard"
 import { useEffect, useState } from "react";
 
 //on importer des fonctions pour lire ou modifier les states globales présentes dans le store de redux
 import {useSelector} from "react-redux"
 import { selectActivities} from "../slices/activitySlice";
 
-import { getAllHighScoreComments } from "./../api/comment"
+import { getAllHighScoreComments } from "../api/comment"
 
 
 const Home = () => {

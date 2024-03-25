@@ -1,31 +1,31 @@
 import './App.scss'
 
-import Header from "./components/header"
-import Footer from "./components/footer"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
 
-import Home from './containers/home'
-import Basket from './containers/basket'
+import Home from './containers/Home'
+import Basket from './containers/Basket'
 
 // activities
-import Activities from './containers/activities'
-import Details from "./containers/activity/details"
-import AddActivity from './containers/activity/addActivity'
-import EditActivity from './containers/activity/editActivity'
+import Activities from './containers/Activity/AllActivities'
+import Details from "./containers/Activity/Details"
+import AddActivity from './containers/Activity/AddActivity'
+import EditActivity from './containers/Activity/EditActivity'
 
-import Booking from './containers/booking'
+import Booking from './containers/Booking'
 
 // user
-import Login from "./containers/user/login"
-import Forgot from "./containers/user/forgot"
-import Register from "./containers/user/register"
-import Logout from "./containers/user/logout"
-import Profile from "./containers/user/profile"
-import EditUser from './containers/user/edit'
+import Login from "./containers/User/Login"
+import Forgot from "./containers/User/Forgot"
+import Register from "./containers/User/Register"
+import Logout from "./containers/User/Logout"
+import Profile from "./containers/User/Profile"
+import EditUser from './containers/User/Edit'
 
 // admin
-import Admin from './containers/admin/dashboard'
-import ModerateActivity from './containers/admin/moderateActivity'
-import ModerateComment from './containers/admin/moderateComment'
+import Admin from './containers/Admin/dashboard'
+import ModerateActivity from './containers/Admin/moderateActivity'
+import ModerateComment from './containers/Admin/moderateComment'
 
 import {Routes, Route} from 'react-router-dom'
 import RequireDataAuth from './helpers/require-data-auth'

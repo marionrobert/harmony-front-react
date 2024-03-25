@@ -1,6 +1,8 @@
 # Bienvenue sur *Harmony* : Apprenez à connaître vos voisins en échangeant des coups de main ! 🌳🌞🤝
 Harmony est né d'un constat simple. Les personnes bénéficiant d'une protection internationale ont vocation à s'installer durablement en France du fait de leur situation mais elles éprouvent souvent des difficultés à s'intégrer. Nous sommes convaincus que leur intégration peut être facilitée à l'échelle de la ville. Malheureusement, on constate en général un manque d’interactions sociales entre les habitants de longue date et les personnes protégées nouvellement arrivées. Cela est la conséquence directe d’une méconnaissance de l’autre et d’idées préconçues. Le but de notre projet est de favoriser l’inclusion des personnes protégées en développant les échanges et la solidarité entre les habitants d'une même ville. Cette solidarité naîtra de l’échange de coups de main entre voisins. Sur notre site, vous pouvez proposer et/ou réserver une activité pour donner et/ou recevoir un coup de main de la part de vos voisins. En réalisant un coup de main pour quelqu'un, vous gagnez des points que vous pourrez ensuite utiliser pour obtenir de l'aide auprès d'autres utilisateurs.
 
+L'application est disponible en français uniquement.
+
 Bienvenue dans la partie frontend de ce projet !
 
 <br/>
@@ -53,7 +55,7 @@ dependencies": {
 
 ## Contenu des fichiers 📁🗃️
 
-Le projet est organisé en plusieurs dossiers et fihciers présents dans le dossier principal **src** (présent à la racine) : 
+Le projet est organisé en plusieurs dossiers et fihciers présents dans le dossier principal **src** (présent à la racine) :
 - dossier **api** : contient des fichiers qui gèrent les requêtes HTTP vers l'API de l'application. Par exemple, dans le fichier activity.jsx, plusieurs fonctions sont définies pour interagir avec les ressources liées aux activités. Ces fonctions utilisent Axios pour effectuer des requêtes HTTP vers l'API, en récupérant, en créant, en mettant à jour ou en supprimant des activités, ainsi que d'autres opérations telles que la gestion des filtres ou des images. Les fonctions prennent en charge l'ajout de jetons d'authentification pour les requêtes sécurisées et manipulent les réponses et les erreurs renvoyées par l'API.
 - dossier **components** : contient des fichiers qui définissent des composants réutilisables à travers l'application. Il y a 4 composants : ActivityCard.jsx, CommentCard.jsx, Footer.jsx, Header.jsx
 - dossier **containers** : contrairement aux composants réutilisables dans le dossier "components", les composants dans le dossier "containers" sont souvent spécifiques à des vues de l'application.
@@ -77,14 +79,81 @@ A la racine du projet, il existe également:
 
 <br/>
 
-## Fonctionnalités
-(description à venir)
+## Responsive design et méthode "mobile first"
+Le responsive design consiste à créer des sites Web et des applications qui s'adaptent automatiquement à différentes tailles d'écran et types d'appareils, offrant ainsi une expérience utilisateur optimale sur ordinateurs de bureau, tablettes et smartphones. La méthode mobile first est une approche de conception qui commence par concevoir pour les appareils mobiles, puis étend progressivement la mise en page et les fonctionnalités pour les écrans plus grands, ce qui permet de prioriser l'expérience utilisateur sur les appareils mobiles et de simplifier la conception.
+
+*** Exemple de responsive design sur la page de présentation d'une activité
+<img src="/public/screenshots/activityDetails.png" alt="présentation d'une activité en format mobile" width="200">
+<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="présentation d'une activité en format tablette et ordinateur" width="800">
 
 <br/>
 
-## Responsive design
+## Fonctionnalités et parcours utilisateur
+1. Utilisateur sans rôle spécifique
+Un utilisateur qui n’a pas de compte pourra uniquement :
+  • Accéder à la page d’accueil et découvrir des exemples d’activités proposées.
+  • Se créer un compte
+
+L’utilisateur qui a un compte peut :
+  • Se connecter, consulter son profil et modifier ses informations personnelles
+  • S’il souhaite réserver une activité/annonce, l’utilisateur connecté peut :
+    • Consulter toutes les annonces en ligne et la page de détails de chacune d’entre elles
+    • Filter les annonces en choisissant des critères de sélection:
+    • Réserver une activité
+    • Valider la réalisation d’une activité 1
+    • Commenter une activité qu’il avait réservée et qui a été réalisée
+    • Consulter les activités qu’il a réservées
+  • En tant que créateur d’une annonce, l’utilisateur connecté peut :
+    • Créer une annonce pour proposer une activité en tant que fournisseur (« je propose mon aide ») ou bénéficiaire (« j’ai besoin d’un coup de main »)
+    • Consulter, modifier, supprimer les annonces qu’il a rédigées
+    • Accepter une réservation
+2. Utilisateur avec le rôle d’administrateur
+L’administrateur a un rôle de modérateur : il peut valider ou non la publication des annonces et commentaires créés par les utilisateurs pour éviter que tous propos ou images inappropriés soient présents sur la plateforme.
+L'administrateur peut créer, modifier ou supprimer des catégories.
+
+
+## Un apperçu de l'interface
+
+### Dashboard de l'utilisateur
+<img src="/public/screenshots/dashboard.png" alt="dashboard de l'utilisateur" width="800">
 
 <br/>
+
+### Visionnage et filtre des activités
+<img src="/public/screenshots/filter-activities.png" alt="visionnage et filtre des activités" width="800">
+
+<br/>
+
+### Visionnage des détails d'une activité
+<img src="/public/screenshots/filter-activities.png" alt="visionnage et filtre des activités" width="800">
+
+<br/>
+
+### Accepter, Confirmer et Commenter une réservation
+<img src="/public/screenshots/acceptBooking.png" alt="accepter une réservation" width="200">
+<img src="/public/screenshots/confirmCompletion.png" alt="confirmer la réalisation de l'activité" width="200">
+<img src="/public/screenshots/commentBooking.png" alt="commenter une réservation terminée" width="400">
+<img src="/public/screenshots/bookingCompleted.png" alt="visualiser une réservation terminée" width="400">
+
+<br/>
+
+### Dashboard de l'administrateur
+<img src="/public/screenshots/dashboardAdmin.png" alt="dahsboard administrateur" width="800">
+
+<br/>
+
+### Modération des activités et commentaires par l'administrateur
+<img src="/public/screenshots/moderateActivity.png" alt="modération de l'activité par l'administateur" width="400">
+<img src="/public/screenshots/moderateComment.png" alt="modération du commentaire par l'administateur" width="400">
+
+<br/>
+
+
+
+## Notifications par email
+
+<br/>
+
 
 ## Dossier lié 🔗
 La partie backend de l'application est accessible [ici](https://github.com/marionrobert/finalProjet-api-back)

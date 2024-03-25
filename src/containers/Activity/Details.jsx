@@ -9,7 +9,7 @@ import { getOneActivity, updateOnlineOfflineStatus, getAllOnlineActivities } fro
 import { getOneUserById } from "../../api/user";
 import { getAllCommentsByActivityId } from "../../api/comment";
 
-import CommentCard from "../../components/comment-card";
+import CommentCard from "../../components/CommentCard";
 import { config } from "../../config";
 import {Link, Navigate} from "react-router-dom"
 
