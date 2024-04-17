@@ -162,4 +162,4 @@ L’utilisateur qui a un compte peut :
 <br/>
 
 ## Dossier lié 🔗
-La partie backend de l'application est accessible [ici](https://github.com/marionrobert/verdure-api-back)
+La partie backend de l'application est accessible [ici](https://github.com/marionrobert/finalProjet-api-back)
