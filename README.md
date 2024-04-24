@@ -1,3 +1,5 @@
+(english below)
+
 # Bienvenue sur *Harmony* : Apprenez à connaître vos voisins en échangeant des coups de main ! 🌳🌞🤝
 <img src="/public/screenshots/bannerHarmony.png" alt="bannière de l'application web">
 
@@ -163,3 +165,166 @@ L’utilisateur qui a un compte peut :
 
 ## Dossier lié 🔗
 La partie backend de l'application est accessible [ici](https://github.com/marionrobert/finalProjet-api-back)
+
+---
+---
+
+# Welcome to *Harmony*: Get to Know Your Neighbors by Helping Each Other! 🌳🌞🤝
+<img src="/public/screenshots/bannerHarmony.png" alt="application web banner">
+
+Harmony was born from a simple observation. People benefiting from international protection are meant to settle permanently in France due to their situation, but they often face difficulties in integration. We are convinced that their integration can be facilitated at the city level. Unfortunately, there is generally a lack of social interaction between long-standing residents and newly arrived protected persons. This is a direct result of unfamiliarity and preconceived ideas. The goal of our project is to promote the inclusion of protected persons by developing exchanges and solidarity among residents of the same city. This solidarity will arise from helping each other. On our site, you can offer and/or book an activity to give and/or receive help from your neighbors. By helping someone, you earn points that you can later use to get help from other users.
+
+The application is available only in French. This repository is dedicated to the frontend part of the project.
+
+<br/>
+
+## Development Context 💻
+This is an educational project developed as the final project of the "FullStack Javascript Web Developer" training at 3w Academy.
+
+<br/>
+
+## Installation and Configuration ⚙️🛠️
+
+### System Requirements:
+The application currently runs on:
+- Node.js (version 16.15.1)
+- Npm (version 8.11.0)
+
+Here is the list of packages and their versions used in this project:
+```javascript
+dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
+    "cloudinary-react": "^1.8.1",
+    "leaflet": "^1.9.4",
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
+    "react-range-slider-input": "^3.0.7",
+    "react-redux": "^8.1.2",
+    "react-router-dom": "^6.15.0",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
+    "sass": "^1.66.1",
+    "yup": "^1.3.0"
+  }
+```
+<br/>
+
+### Installation Steps:
+
+1. Clone the Git repository: `git clone https://github.com/marionrobert/harmony-front-react.git`.
+2. Make sure you have the correct versions of the technological stack installed.
+3. Run the command `npm install` to install dependencies.
+4. Follow the installation and configuration steps for the backend, then start the backend API server with the command `npm run dev`. All instructions are available on the backend application repository [here](https://github.com/marionrobert/finalProjet-api-back).
+5. Next, start the user interface server with the command `npm run dev`.
+
+<br/>
+
+## File Contents 📁🗃️
+
+The project is organized into several folders and files located in the main **src** folder (present at the root):
+- **api** folder: contains files that manage HTTP requests to the application's API. For example, in the activity.jsx file, several functions are defined to interact with activity-related resources. These functions use Axios to perform HTTP requests to the API, fetching, creating, updating, or deleting activities, as well as other operations such as handling filters or images. The functions support adding authentication tokens for secure requests and handle responses and errors returned by the API.
+- **components** folder: contains files that define reusable components throughout the application. There are 4 components: ActivityCard.jsx, CommentCard.jsx, Footer.jsx, Header.jsx
+- **containers** folder: unlike reusable components in the "components" folder, components in the "containers" folder are often specific to views of the application.
+- **fonts** folder: contains font files in TrueType Font (.ttf) format, used to define text styles in the web application.
+- **helpers** folder: contains the require-data-auth.jsx file that defines a React component acting as a Higher-Order Component (HOC) to control route data and security. It manages route parameter retrieval, state extraction from the Redux store, redirection handling based on user authentication, and makes API calls to verify the user token authenticity. Based on authentication status and user roles, it redirects to appropriate pages or displays the child component with transmitted parameters.
+- **slices** folder: contains several files associated with managing the global state of the application using Redux, a state manager for JavaScript applications.
+  - **store.jsx**: contains the configuration of the application's Redux store, which combines all defined "slices" in the application to create a single store managing the global application state.
+  - **activitySlice.jsx**: defines a "slice" to manage activity-related state in the application. It includes actions, reducers, and selectors to manipulate and fetch activity-related data.
+  - **basketSlice.jsx**: defines a "slice" to manage the basket state in the application, storing products or items selected by the user. It includes actions to update and clear the basket, as well as functions to calculate the total basket amount.
+  - **userSlice.jsx**: defines a "slice" to manage user state in the application, storing user login information such as the user ID and authentication token. It includes actions to set and log out the user, as well as selectors to fetch user information.
+- **App.jsx** file: defines the root component of the application. It organizes routes and components of the application using React Router for navigation. It also includes application headers and footers, as well as routes for different features such as activity management, reservations, user authentication, and administrative features.
+- **App.scss** file: contains CSS applicable to the entire application. It follows the "mobile-first" method, meaning CSS for mobile formats is defined first, followed by adaptations for tablet and desktop formats. CSS is structured by containers and components.
+- **config.js** file: contains a config object that stores necessary information for the application, such as API URLs and image URLs. Currently, it is configured to use local URLs (http://localhost:9000), but there is also a configuration commented out for use with an IDE development environment (http://marionrobert.ide.3wa.io:9000).
+- **main.jsx** file: this is the entry point of the React application. It imports necessary modules like React, ReactDOM, App, BrowserRouter, Provider, and store components. Then, it renders the application by encapsulating the App component in a Redux context provided by Provider and a router provided by BrowserRouter, all wrapped in React's strict mode.
+
+At the root of the project, there are also:
+- a **public** folder containing the favicon image for this application and screenshots used in this README.
+- an **index.html** file defining the basic structure of the React web application page, including metadata such as title, description, links to external resources like stylesheets and scripts, and the main container where the application will be rendered.
+- a **vite.config.js** file configuring Vite to support React using the @vitejs/plugin-react plugin. It exports a default configuration specifying the use of the React plugin and contains comments explaining how to adjust server settings for an IDE development environment.
+
+<br/>
+
+## Responsive Design and "Mobile First" Method
+Responsive design involves creating websites and applications that automatically adapt to different screen sizes and device types, providing an optimal user experience on desktop computers, tablets, and smartphones. The mobile-first method is a design approach that starts with designing for mobile devices and gradually extends the layout and features for larger screens, prioritizing user experience on mobile devices and simplifying design.
+
+### Example of responsive design on the activity presentation page
+<br/>
+<div style="display: flex; justify-content: center;">
+<img src="/public/screenshots/activityDetails.png" alt="activity presentation in mobile format" width="300">
+<img src="/public/screenshots/activityDetailsTabletAndComputer.png" alt="activity presentation in tablet and computer format" width="600">
+</div>
+<br/>
+
+## Features and User Journey
+
+**User without a specific role:**
+
+A user without an account can only:
+- Access the homepage and discover examples of offered activities.
+- Create an account.
+
+A logged-in user can:
+- Log in, view their profile, and edit their personal information.
+- If they want to book an activity/listing, the logged-in user can:
+    - View all online listings and the details page of each listing.
+    - Filter listings by selecting filter criteria:
+        - Book an activity
+        - Confirm completing an activity
+        - Comment on a completed activity that they had booked
+        - View activities they have booked.
+- As a creator of a listing, the logged-in user can:
+    - Create a listing to offer an activity as a provider ("I offer my help") or recipient ("I need a hand").
+    - View, edit, delete listings they have created.
+    - Accept a booking.
+
+<br/>
+
+**User with an administrator role:**
+
+- The administrator has a moderator role: they can approve or disapprove the publication of listings and comments created by users to avoid inappropriate content on the platform.
+- The administrator can create, edit, or delete categories.
+
+<br/>
+<br/>
+
+## Interface Overview
+
+### User Dashboard
+<img src="/public/screenshots/dashboard.png" alt="user dashboard" width="800">
+
+<br/>
+
+### Viewing and Filtering Activities
+<img src="/public/screenshots/filter-activities.png" alt="viewing and filtering activities" width="800">
+
+<br/>
+
+<br/>
+
+### Accepting, Confirming, and Commenting on a Booking
+<div style="display: flex; justify-content: center;">
+    <img src="/public/screenshots/bookingCompleted.png" alt="viewing a completed booking" width="500">
+    <img src="/public/screenshots/acceptBooking.png" alt="accepting a booking" width="300">
+    <img src="/public/screenshots/confirmCompletion.png" alt="confirming activity completion" width="300">
+    <img src="/public/screenshots/commentBooking.png" alt="commenting on a completed booking" width="500">
+
+</div>
+<br/>
+
+### Administrator Dashboard
+<img src="/public/screenshots/dashboardAdmin.png" alt="administrator dashboard" width="800">
+
+<br/>
+
+### Moderation of Activities and Comments by the Administrator
+<div style="display: flex; justify-content: center;">
+    <img src="/public/screenshots/moderateActivity.png" alt="moderating activity by admin" width="600">
+    <img src="/public/screenshots/moderateComment.png" alt="moderating comment by admin
