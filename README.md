@@ -327,4 +327,9 @@ A logged-in user can:
 ### Moderation of Activities and Comments by the Administrator
 <div style="display: flex; justify-content: center;">
     <img src="/public/screenshots/moderateActivity.png" alt="moderating activity by admin" width="600">
-    <img src="/public/screenshots/moderateComment.png" alt="moderating comment by admin
+    <img src="/public/screenshots/moderateComment.png" alt="moderating comment by admin">
+</div>
+<br/>
+
+## Linked file 🔗
+The backend part of the application is accessible [here](https://github.com/marionrobert/finalProjet-api-back)
