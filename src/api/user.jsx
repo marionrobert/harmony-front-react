@@ -72,7 +72,8 @@ export const getOneUser = (key_id) => {
 }
 
 export const getOneUserById = (id) => {
-  return axios.get(`${config.api_url}/api/v1/user/one/id/${id}`)
+  const token = window.localStorage.getItem("harmony-token")
+  return axios.get(`${config.api_url}/api/v1/user/one/id/${id}`, {headers: {"x-access-token": token}})
   .then((res)=>{
     // console.log("res de requête axios  -->", res)
     return res.data
