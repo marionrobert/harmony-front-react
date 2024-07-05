@@ -36,7 +36,7 @@ const Basket = () => {
     dispatch(cleanBasket())
   }
 
-  const validateOne = (activity) => {
+  const validateOne = async(activity) => {
     // console.log("valide one -->", activity)
     let data = {
       "booker_id": user.data.id,
@@ -47,7 +47,7 @@ const Basket = () => {
       "beneficiary_id": activity.authorIsProvider ? user.data.id : activity.author_id
     }
     // console.log("data -->", data)
-    saveOneBooking(data)
+    await saveOneBooking(data)
     .then((res) => {
       if (res.status === 200){
         setNewBookingId(res.booking.insertId)
